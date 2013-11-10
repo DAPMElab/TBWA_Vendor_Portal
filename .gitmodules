@@ -1,0 +1,3 @@
+[submodule "src/data/assets"]
+	path = src/data/assets
+	url = git@github.com:DAPMElab/assets.git
