@@ -10,6 +10,10 @@ After configuring Vagrant, simply run `vagrant up` and a new virtual machine wil
 All the software dependencies will be installed.
 If dependencies are added, run `vagrant provision` to update.
 
+###Running Tests
+
+Simply run `nosetests` from anywhere within the repo.
+
 ###RethinkDB
 
 Run with the `--bind all` flag to view the admin console.
