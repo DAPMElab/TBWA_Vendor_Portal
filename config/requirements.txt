@@ -1,0 +1,19 @@
+GnuPGInterface==0.3.2
+apt-xapian-index==0.44
+argparse==1.2.1
+chardet==2.0.1
+command-not-found==0.2.44
+## FIXME: could not find svn URL in dependency_links for this package:
+distribute==0.6.24dev-r0
+language-selector==0.1
+logilab-astng==0.23.0
+logilab-common==0.57.1
+protobuf==2.5.0
+pycurl==7.19.0
+pylint==0.25.0
+python-apt==0.8.3ubuntu7
+python-debian==0.1.21ubuntu1
+rethinkdb==1.10.0-0
+ufw==0.31.1-1
+unattended-upgrades==0.1
+wsgiref==0.1.2
