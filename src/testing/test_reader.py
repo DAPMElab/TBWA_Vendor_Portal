@@ -1,23 +1,13 @@
 
-from copy import deepcopy
 import rethinkdb
+import template
 
 from sys import path
 path.append('../')
 from data import reader
 
-import os
-this_dir = os.path.dirname(__file__)
-test_csv = os.path.join(this_dir, 'data_test.csv')
 
-expected_dataset = [
-        {'col1':'this','col2':'should'},
-        {'col1':'work','col2':'hopefully'}]
-
-
-from template import TestingTemplate
-
-class TestCSVReader(TestingTemplate):
+class TestCSVReader(template.TestingTemplate):
     """ Tests that the reader module functions correctly """
 
     @classmethod
@@ -34,14 +24,14 @@ class TestCSVReader(TestingTemplate):
 
     def test_get_data(self):
         """ Tests that a reader object is returned """
-        data = reader.get_data('test', path_to_data=test_csv)
-        self.assertEqual(data, expected_dataset)
+        data = reader.get_data('test', path_to_data=template.test_csv)
+        self.assertEqual(data, template.expected_dataset)
 
 
     def test_setup_db(self):
         """ Test creation of a db and tables """
-        dataset = {'test': test_csv}
-        reader.setup_db('localhost', 28015, 'TEST', datasets=dataset)
+        reader.setup_db('localhost', 28015, 'TEST',
+            datasets=template.test_dataset)
 
         with rethinkdb.connect(host='localhost', port=28015) as conn:
 
@@ -59,7 +49,7 @@ class TestCSVReader(TestingTemplate):
             data = [row for row in rethinkdb.table('test').run(conn)]
             self.assertSetEqual(
                 set(data[0].keys())-set([u'id']),
-                set(expected_dataset[0].keys()))
+                set(template.expected_dataset[0].keys()))
 
 if __name__ == '__main__':
     unittest.main()

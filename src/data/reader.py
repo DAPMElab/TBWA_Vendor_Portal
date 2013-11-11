@@ -44,10 +44,6 @@ def setup_db(rdb_host, rdb_port, rdb_name, datasets=data_paths):
                 rethinkdb.table(name).insert(
                     get_data(name, path)).run(conn)
 
-            print 'Database created!'
-
-            # TODO: insert all the data
-
         except RqlRuntimeError, e:
             print e
             print 'Database already instantiated, run without --setup'

@@ -1,23 +1,39 @@
 
 import unittest
-from data import reader
 import rethinkdb
+import template
+import json
 
 from sys import path
 path.append('../')
-from data import reader
+from data import setup_db
+from app import app
+from config.errors import errors
+
+
+import os
+this_dir = os.path.dirname(__file__)
+test_csv = os.path.join(this_dir, 'data_test.csv')
+test_dataset = {'test': test_csv}
+
+expected_dataset = [
+        {'col1':'this','col2':'should'},
+        {'col1':'work','col2':'hopefully'}]
 
 class TestingTemplate(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
         """ Sets up a test database before each set of tests """
-        reader.setup_db('localhost', 28015, 'TEST')
+        setup_db('localhost', 28015, 'TEST',
+            datasets = test_dataset)
         self.rdb = rethinkdb.connect(
                 host = 'localhost',
                 port = 28015,
                 db = 'TEST')
-
+        self.rdb.use('TEST')
+        template.app.config['RDB_DB'] = 'TEST'
+        self.app = template.app.test_client()
 
 
     @classmethod
@@ -29,5 +45,14 @@ class TestingTemplate(unittest.TestCase):
             self.rdb.close()
         except AttributeError:
             pass
-            
+           
+
+    def check_error(self, resp, error_name):
+        """ Tests that the resp is equal to the specified error """
+        expected_error = errors['english'][error_name]
+
+        self.assertEqual(resp.status_code, expected_error['code'])
+        self.assertEqual(
+                json.loads(resp.data),
+                {u'message': expected_error['message']})
 
