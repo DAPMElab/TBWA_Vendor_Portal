@@ -21,14 +21,13 @@ class TestCSVReader(unittest.TestCase):
 
     def test_read(self):
         """ Tests that a reader object is returned """
-        col, data = reader.get_data('test', path_to_data=test_csv)
+        data = reader.get_data('test', path_to_data=test_csv)
 
-        expected_data = [['this','should'],['work','hopefully']]
-        expected_columns = ['col1','col2']
+        expected_data = [
+                {'col1':'this','col2':'should'},
+                {'col1':'work','col2':'hopefully'}]
 
-        self.assertEqual(col, expected_columns)
-        for row in data:
-            self.assertEqual(row, expected_data.pop(0))
+        self.assertEqual(data, expected_data)
 
 
 if __name__ == '__main__':
