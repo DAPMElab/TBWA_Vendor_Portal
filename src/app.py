@@ -14,7 +14,7 @@ app.config.from_object('config.flask_config')
 def before_request():
     """ Add a rethinkdb connection to g before each request """
     try:
-        g.rdb_conn = r.connect(
+        g.rdb_conn = rethinkdb.connect(
             host    = app.config['RDB_HOST'],
             port    = app.config['RDB_PORT'],
             db      = app.config['RDB_DB']
@@ -22,8 +22,9 @@ def before_request():
     except RqlDriverError:
         return ERR('NO_DB_CONN')
 
+
 @app.teardown_request
-def teardown_request():
+def teardown_request(exception):
     """ Close the new rethinkdb connection after each request """
     try:
         g.rdb_conn.close()
@@ -39,7 +40,7 @@ app.register_blueprint(data_bp)
 @app.route('/', methods=['GET'])
 def home():
     """ Return the html seed file with linked JS """
-    return make_reponse('hello world!')
+    return make_response('hello world!')
 
 
 def parse_cli_args():

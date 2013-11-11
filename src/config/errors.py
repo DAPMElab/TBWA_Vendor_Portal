@@ -1,16 +1,20 @@
 
-import simplejson
-from flask import make_reponse
+import json
+from flask import make_response
 
 errors = {
     'english': {
+        'DEFAULT': {
+            'message': 'unspecified error on server',
+            'code': 500
+        },
         'NO_DB_CONN': {
             'message': 'a database connection could not be established',
             'code': 503
         },
-        'DEFAULT': {
-            'message': 'unspecified error on server',
-            'code': 500
+        'DATASET_NOT_FOUND': {
+            'message': 'that dataset could not be found',
+            'code': 404
         }
     }
 }
@@ -26,8 +30,8 @@ def make_error(err_name, language='english'):
     except KeyError:
         error_obj = errors[language]['DEFAULT']
 
-    return flask.make_reponse(
-        simplejson.dumps({'message': error_obj['message']}), 
+    return make_response(
+        json.dumps({'message': error_obj['message']}), 
         error_obj['code']
     )
 

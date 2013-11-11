@@ -6,5 +6,5 @@ export RDB_PORT="28015"
 export RDB_DB="TBWA"
 
 # flask settings
-export FLASK_DEBUG="True"
+export FLASK_DEBUG="TRUE"
 
