@@ -2,6 +2,7 @@
 import rethinkdb
 from rethinkdb.errors import RqlRuntimeError, RqlDriverError
 import csv
+from sys import exit
 import os
 this_dir = os.path.dirname(__file__)
 
@@ -34,18 +35,37 @@ def get_data(dataset, path_to_data):
 
 
 def setup_db(rdb_host, rdb_port, rdb_name, datasets=data_paths):
-    """ Sets up the database from scratch """
+    """
+    Sets up the database from scratch
+    Will allow the user to execute whether or not the database has already
+    been instantiated.
+    """
     with rethinkdb.connect(host=rdb_host, port=rdb_port) as conn:
         try:
             rethinkdb.db_create(rdb_name).run(conn) # create the db
-            conn.use(rdb_name)
-            for name, path in datasets.items(): # create a table for each dataset
+            print 'Database added'
+
+        except RqlRuntimeError, e:
+            message =  e.message.split(' ')
+            del message[1]
+            if message != [u'Database', u'already', u'exists.']:
+                print e
+                exit(1)
+
+        conn.use(rdb_name)
+        for name, path in datasets.items(): # create a table for each dataset
+            try:
                 rethinkdb.table_create(name).run(conn)
                 rethinkdb.table(name).insert(
                     get_data(name, path)).run(conn)
+                print '{} table created.'.format(name)
 
-        except RqlRuntimeError, e:
-            print e
-            print 'Database already instantiated, run without --setup'
+            except RqlRuntimeError, e:
+                message =  e.message.split(' ')
+                table = message.pop(1)
+                if (message != [u'Table', u'already', u'exists.'] or
+                        table.encode('utf-8').replace('`', '') not in datasets):
+                    print e
+                    exit(1)
 
 
