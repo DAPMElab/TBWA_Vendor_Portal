@@ -40,32 +40,23 @@ def setup_db(rdb_host, rdb_port, rdb_name, datasets=data_paths):
     Will allow the user to execute whether or not the database has already
     been instantiated.
     """
-    with rethinkdb.connect(host=rdb_host, port=rdb_port) as conn:
-        try:
-            rethinkdb.db_create(rdb_name).run(conn) # create the db
-            print 'Database added'
+    try:
+        with rethinkdb.connect(host=rdb_host, port=rdb_port) as conn:
+            db_list = rethinkdb.db_list().run(conn)
+            if rdb_name not in db_list:
+                rethinkdb.db_create(rdb_name).run(conn) # create the db
+                print 'Database added'
 
-        except RqlRuntimeError, e:
-            message =  e.message.split(' ')
-            del message[1]
-            if message != [u'Database', u'already', u'exists.']:
-                print e
-                exit(1)
-
-        conn.use(rdb_name)
-        for name, path in datasets.items(): # create a table for each dataset
-            try:
+            conn.use(rdb_name)  # make default db connection
+            # find tables that still need to be added then add & populate them
+            tbl_list = rethinkdb.db(rdb_name).table_list().run(conn)
+            tbl_to_add = ((k, v) for k, v in datasets.items() if k not in tbl_list)
+            for (name, path) in tbl_to_add:
                 rethinkdb.table_create(name).run(conn)
-                rethinkdb.table(name).insert(
-                    get_data(name, path)).run(conn)
-                print '{} table created.'.format(name)
+                rethinkdb.table(name).insert(get_data(name, path)).run(conn)
+                print "'{}' table created and populated.".format(name)
 
-            except RqlRuntimeError, e:
-                message =  e.message.split(' ')
-                table = message.pop(1)
-                if (message != [u'Table', u'already', u'exists.'] or
-                        table.encode('utf-8').replace('`', '') not in datasets):
-                    print e
-                    exit(1)
-
+    except RqlRuntimeError, e:
+        print e
+        exit(1)
 

@@ -65,5 +65,6 @@ if __name__ == '__main__':
             rdb_name    = app.config['RDB_DB']
         )
 
-    app.run(host='0.0.0.0')   # run app if not setting up
+    # remove the host override if running locally, not in Vagrant
+    app.run(host='0.0.0.0')
 
