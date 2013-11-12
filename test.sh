@@ -7,3 +7,5 @@ nosetests
 
 sudo service rethinkdb stop
 
+exit 0
+

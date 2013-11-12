@@ -8,3 +8,5 @@ python app.py
 
 sudo service rethinkdb stop
 
+exit 0 
+

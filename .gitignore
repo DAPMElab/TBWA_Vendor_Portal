@@ -1,9 +1,18 @@
+
+# vagrant
 .vagrant
-node_modules/
+
+# rethinkdb
 rethinkdb_data/
-lib/
-man/
-include/
-*.pyc
+
+# node
+node_modules/
+
+# python
 .Python
+include/
+man/
+lib/
 bin/
+*.pyc
+
