@@ -52,8 +52,12 @@ class TestingTemplate(unittest.TestCase):
         """ Tests that the resp is equal to the specified error """
         expected_error = errors['english'][error_name]
 
-        self.assertEqual(resp.status_code, expected_error['code'])
+        self.assertEqual(resp.status_code, expected_error['status_code'])
         self.assertEqual(
-                json.loads(resp.data),
-                {u'message': expected_error['message']})
+            json.loads(resp.data),
+            {
+                u'message':     expected_error['message'],
+                u'status_code': expected_error['status_code']
+            }
+        )
 

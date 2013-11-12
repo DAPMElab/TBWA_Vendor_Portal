@@ -6,32 +6,47 @@ errors = {
     'english': {
         'DEFAULT': {
             'message': 'unspecified error on server',
-            'code': 500
+            'status_code': 500
         },
         'NO_DB_CONN': {
             'message': 'a database connection could not be established',
-            'code': 503
+            'status_code': 503
         },
         'DATASET_NOT_FOUND': {
             'message': 'that dataset could not be found',
-            'code': 404
+            'status_code': 404
+        },
+        'DATABASE_ERROR': {
+            'message': 'there was an error accessing our databse',
+            'status_code': 503
         }
     }
 }
 
 
-def make_error(err_name, language='english'):
+def make_error(err='DEFAULT', language='english'):
     """
     Forms a response object based off of the passed in error name.
     Returns 500 when the specified error is not found.
     """
-    try:
-        error_obj = errors[language][err_name]
-    except KeyError:
-        error_obj = errors[language]['DEFAULT']
+    json_data, code = construct_err(err_name=err, err_language=language)
+    return make_response(json_data, code)
 
-    return make_response(
-        json.dumps({'message': error_obj['message']}), 
-        error_obj['code']
-    )
+
+def construct_err(err_name='DEFAULT', err_language='english'):
+    """
+    Forms a json object based off of the passed in error name.
+    Returns the json & status_code
+    """
+    if err_language not in errors.keys():
+        err_language = 'english'
+    if err_name not in errors[err_language].keys():
+        err_name = 'DEFAULT'
+
+    error_obj = errors[err_language][err_name]
+
+    return json.dumps({
+        'message': error_obj['message'],
+        'status_code': error_obj['status_code']
+    }), error_obj['status_code']
 

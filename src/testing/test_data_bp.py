@@ -28,3 +28,15 @@ class TestDataBlueprint(template.TestingTemplate):
             for col in ['id', 'col1', 'col2']:
                 self.assertTrue(col in line)
 
+
+    def test_return_all_dataset_names(self):
+        """ tests that the endpoint returns all loaded datasets """
+        resp = self.app.get('/datasets')
+         
+        self.assertEqual(resp.status_code, 201)
+        resp_data = json.loads(resp.data)['data']
+        self.assertEqual(len(template.test_dataset.keys()), len(resp_data))
+        self.assertSetEqual(set(template.test_dataset.keys()), set(resp_data))
+
+
+
