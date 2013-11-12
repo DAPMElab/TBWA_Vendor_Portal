@@ -1,6 +1,13 @@
 
 #TBWA
 
+###Server API
+
+- `/<dataset name>`
+  - @return: all info for the specified dataset
+- `/datasets`
+  - @return: a list of all datasets present in the database
+
 ###Starting the server
 
 1. Start up Vagrant and with `vagrant up`
