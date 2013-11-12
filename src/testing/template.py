@@ -38,9 +38,10 @@ class TestingTemplate(unittest.TestCase):
 
     @classmethod
     def tearDownClass(self):
-        """ Drops the test database after  """
+        """ Drops the test database after the classes' tests are finished """
         with rethinkdb.connect(host='localhost', port=28015) as conn:
-            rethinkdb.db_drop('TEST').run(conn)
+            if 'TEST' in rethinkdb.db_list().run(conn):
+                rethinkdb.db_drop('TEST').run(conn)
         try:
             self.rdb.close()
         except AttributeError:
