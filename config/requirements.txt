@@ -1,10 +1,15 @@
+Flask==0.10.1
 GnuPGInterface==0.3.2
+Jinja2==2.7.1
+MarkupSafe==0.18
+Werkzeug==0.9.4
 apt-xapian-index==0.44
 argparse==1.2.1
 chardet==2.0.1
 command-not-found==0.2.44
 ## FIXME: could not find svn URL in dependency_links for this package:
 distribute==0.6.24dev-r0
+itsdangerous==0.23
 language-selector==0.1
 logilab-astng==0.23.0
 logilab-common==0.57.1

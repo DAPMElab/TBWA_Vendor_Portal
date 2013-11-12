@@ -4,3 +4,6 @@ rethinkdb_data/
 lib/
 man/
 include/
+*.pyc
+.Python
+bin/

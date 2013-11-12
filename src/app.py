@@ -65,5 +65,5 @@ if __name__ == '__main__':
             rdb_name    = app.config['RDB_DB']
         )
 
-    app.run()   # run app if not setting up
+    app.run(host='0.0.0.0')   # run app if not setting up
 
