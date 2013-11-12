@@ -1,10 +1,10 @@
 #!/bin/bash
 
-service rethinkdb start
+sudo service rethinkdb start
 
 source config/settings.dev
 cd src
 python app.py
 
-service rethinkdb stop
+sudo service rethinkdb stop
 
