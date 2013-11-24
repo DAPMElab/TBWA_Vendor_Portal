@@ -36,6 +36,10 @@ def teardown_request(exception):
 from blueprints import data_bp
 app.register_blueprint(data_bp)
 
+""" user routes """
+from blueprints import user_bp
+app.register_blueprint(user_bp)
+
 """ login/logout routes """
 from blueprints import client_bp
 app.register_blueprint(client_bp)
