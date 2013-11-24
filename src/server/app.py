@@ -1,5 +1,5 @@
 
-from flask              import Flask, make_response, g
+from flask              import Flask, make_response, g, send_from_directory
 from rethinkdb.errors   import RqlDriverError
 from data               import setup_db
 import rethinkdb
@@ -45,10 +45,23 @@ from blueprints import client_bp
 app.register_blueprint(client_bp)
 
 
+@app.route('/js/<path:filename>', methods=['GET'])
+def send_js(filename):
+    return send_from_directory('../client/', filename)
+
+@app.route('/partials/<path:filename>', methods=['GET'])
+def send_partial(filename):
+    return send_from_directory('../client/partials/', filename)
+
+@app.route('/css/<path:filename>', methods=['GET'])
+def send_css(filename):
+    return send_from_directory('../client/styles/', filename)
+
 @app.route('/', methods=['GET'])
 def home():
     """ Return the html seed file with linked JS """
-    return make_response('hello world!')
+    with open('../client/index.html') as base:
+        return make_response(base.read())
 
 
 def parse_cli_args():
