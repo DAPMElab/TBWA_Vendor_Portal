@@ -10,6 +10,8 @@ Has all the JS & CSS imports.
 
 Aligns all routes with their relevant controllers and partials.
 
+[Example](https://github.com/DAPMElab/wayfinder/blob/master/app/js/app.js)
+
 ####controllers
 
 Angular logic for individual pages.

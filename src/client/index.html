@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>TBWA</title>
+    <link rel="stylesheet" href="css/tbwa.css"/>
+  </head>
+  <body>
+    <div class="container">
+      <nav ng-include="'partials/header.html'" ng-controller='HeaderCtrl'>
+      </nav>
+
+      <div class="content" ng-view>
+      </div>
+    </div>
+
+    <!-- In production use:
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    -->
+    <script src="lib/angular.js"></script>
+
+    <script src="app.js"></script>
+    <script src="services/filters.js"></script>
+
+    <script src="controllers/admin.js"></script>
+    <script src="controllers/company.js"></script>
+    <script src="controllers/home_search.js"></script>
+    <script src="controllers/login.js"></script>
+    <script src="controllers/review.js"></script>
+    <script src="controllers/search.js"></script>
+    <script src="controllers/company/create.js"></script>
+    <script src="controllers/company/edit.js"></script>
+    <script src="controllers/company/list.js"></script>
+
+  </body>
+</html>
