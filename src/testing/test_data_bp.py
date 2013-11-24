@@ -1,7 +1,6 @@
 
 import template
 import json
-import unittest
 
 from sys import path
 path.append('../')

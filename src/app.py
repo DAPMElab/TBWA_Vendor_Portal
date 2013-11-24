@@ -36,6 +36,10 @@ def teardown_request(exception):
 from blueprints import data_bp
 app.register_blueprint(data_bp)
 
+""" login/logout routes """
+from blueprints import client_bp
+app.register_blueprint(client_bp)
+
 
 @app.route('/', methods=['GET'])
 def home():
@@ -47,10 +51,8 @@ def parse_cli_args():
     """ Parse CLI arguments """
     parser = argparse.ArgumentParser(
         description='take in CLI arguments for the company API')
-
     parser.add_argument('--setup', dest='run_setup', action='store_const',
         const=True, default=False)
-
     return parser.parse_args()
 
 
@@ -58,13 +60,12 @@ if __name__ == '__main__':
     cli_args = parse_cli_args()
 
     if cli_args.run_setup:
-        # create tables and insert data
-        setup_db(
+        setup_db(   # create tables and insert data
             rdb_host    = app.config['RDB_HOST'],
             rdb_port    = app.config['RDB_PORT'],
             rdb_name    = app.config['RDB_DB']
         )
 
-    # remove the host override if running locally, not in Vagrant
+    # remove the host setting if running locally, not in Vagrant
     app.run(host='0.0.0.0')
 
