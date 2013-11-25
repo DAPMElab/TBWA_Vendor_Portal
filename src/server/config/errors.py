@@ -19,6 +19,10 @@ errors = {
         'DATABASE_ERROR': {
             'message': 'there was an error accessing our databse',
             'status_code': 503
+        },
+        'NOT_LOGGED_IN': {
+            'message': "sorry, you're not logged in yet",
+            'status_code': 401
         }
     }
 }

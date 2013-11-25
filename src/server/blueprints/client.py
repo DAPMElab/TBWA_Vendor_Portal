@@ -32,3 +32,15 @@ def logout():
     }), 200)
 
 
+@client_bp.route('/session')
+def get_session():
+    """
+    Returns json w/ unique identifier
+    """
+    if 'username' in session:
+        return JSON.dumps({
+            'username'  : session['username'],
+            'admin'     : session['admin']
+        }), 200
+    return make_error(err='NOT_LOGGED_IN')
+

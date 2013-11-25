@@ -22,5 +22,9 @@ class TestClient(template.TestingTemplate):
         pass
 
 
+    def test_session(self):
+        """ Test that /session correctly returns relevant session info """
+        pass
+
 
 
