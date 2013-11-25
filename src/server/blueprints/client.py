@@ -13,12 +13,22 @@ def login():
     """ Verifies login info with the db and then creates a cookie for the
         user """
     #TODO: figure out details on how TBWA wants to do this
-    pass
+    # for now, mocks a response
+    data = json.loads(request.data)
+    print data
+    session['username'] = 'tester'
+    session['admin'] = False
+    return make_response(json.dumps({
+        'message': 'Logged in!'
+    }), 200)
 
 
 @client_bp.route('/logout', methods=['POST'])
 def logout():
     """ Clears the client's cookie """
     session.clear()
+    return make_response(json.dumps({
+        'message': 'Logged out!'
+    }), 200)
 
 
