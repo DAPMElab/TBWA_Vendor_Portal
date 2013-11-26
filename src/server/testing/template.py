@@ -14,7 +14,8 @@ from config.errors import errors
 import os
 this_dir = os.path.dirname(__file__)
 test_csv = os.path.join(this_dir, 'data_test.csv')
-test_dataset = {'test': test_csv}
+test_dataset = {'test_dataset': test_csv}
+test_tables = ['test_table']
 
 expected_dataset = [
         {'col1':'this','col2':'should'},
@@ -26,7 +27,8 @@ class TestingTemplate(unittest.TestCase):
     def setUpClass(self):
         """ Sets up a test database before each set of tests """
         setup_db('localhost', 28015, 'TEST',
-            datasets = test_dataset)
+            datasets = test_dataset,
+            app_tables = test_tables)
         self.rdb = rethinkdb.connect(
                 host = 'localhost',
                 port = 28015,

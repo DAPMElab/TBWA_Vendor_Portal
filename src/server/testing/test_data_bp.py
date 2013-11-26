@@ -18,7 +18,7 @@ class TestDataBlueprint(template.TestingTemplate):
 
     def test_return_all_query_success(self):
         """ test for success with the /<dataset> API call """
-        resp = self.app.get('/test')
+        resp = self.app.get('/test_dataset')
 
         self.assertEqual(resp.status_code, 201)
         resp_data = json.loads(resp.data)['data']
@@ -34,8 +34,10 @@ class TestDataBlueprint(template.TestingTemplate):
          
         self.assertEqual(resp.status_code, 201)
         resp_data = json.loads(resp.data)['data']
-        self.assertEqual(len(template.test_dataset.keys()), len(resp_data))
-        self.assertSetEqual(set(template.test_dataset.keys()), set(resp_data))
+        self.assertEqual(len(resp_data),
+            len(template.test_dataset.keys()+template.test_tables))
+        self.assertSetEqual(set(resp_data),
+            set(template.test_dataset.keys()+template.test_tables))
 
 
 

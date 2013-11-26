@@ -9,6 +9,7 @@ this_dir = os.path.dirname(__file__)
 data_paths = {
     'diverse': os.path.join(this_dir, 'assets/tbwa/diverse_vendors_list.csv')
 }
+application_tables = ['admin', 'reviews']
 
 
 def get_data(dataset, path_to_data):
@@ -34,7 +35,9 @@ def get_data(dataset, path_to_data):
     return data
 
 
-def setup_db(rdb_host, rdb_port, rdb_name, datasets=data_paths):
+def setup_db(rdb_host, rdb_port, rdb_name,
+        datasets=data_paths,            # datasets to be loaded
+        app_tables=application_tables): # tables to be created
     """
     Sets up the database from scratch
     Will allow the user to execute whether or not the database has already
@@ -48,14 +51,22 @@ def setup_db(rdb_host, rdb_port, rdb_name, datasets=data_paths):
             if rdb_name not in db_list:
                 rethinkdb.db_create(rdb_name).run(conn) # create the db
                 print 'Database added'
-
             conn.use(rdb_name)  # make default db connection
+
             # find tables that still need to be added then add & populate them
             tbl_list = rethinkdb.db(rdb_name).table_list().run(conn)
+            print tbl_list
+
             tbl_to_add = ((k, v) for k, v in datasets.items() if k not in tbl_list)
             for (name, path) in tbl_to_add:
                 rethinkdb.table_create(name).run(conn)
                 rethinkdb.table(name).insert(get_data(name, path)).run(conn)
+                print "'{}' table created and populated.".format(name)
+                creations.add(name)
+
+            tbl_to_add = (n for n in app_tables if n not in tbl_list)
+            for name in tbl_to_add:
+                rethinkdb.table_create(name).run(conn)
                 print "'{}' table created and populated.".format(name)
                 creations.add(name)
 

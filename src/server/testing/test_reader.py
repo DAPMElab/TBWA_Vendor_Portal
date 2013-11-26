@@ -24,7 +24,7 @@ class TestCSVReader(template.TestingTemplate):
 
     def test_get_data(self):
         """ Tests that a reader object is returned """
-        data = reader.get_data('test', path_to_data=template.test_csv)
+        data = reader.get_data('test_dataset', path_to_data=template.test_csv)
         self.assertEqual(data, template.expected_dataset)
 
 
@@ -38,7 +38,8 @@ class TestCSVReader(template.TestingTemplate):
         creations = self.run_setup_db()
 
         # confirm the correct tables were created
-        self.assertSetEqual(creations, set(template.test_dataset.keys()))
+        self.assertSetEqual(creations,
+            set(template.test_dataset.keys()+template.test_tables))
 
         with rethinkdb.connect(host='localhost', port=28015) as conn:
             # test that the 'TEST' database was created
@@ -48,11 +49,11 @@ class TestCSVReader(template.TestingTemplate):
 
             # test that the 'test' table was created
             table_list = rethinkdb.table_list().run(conn)
-            self.assertEqual(1, len(table_list))
-            self.assertEqual('test', table_list[0])
+            self.assertEqual(2, len(table_list))
+            self.assertTrue('test_dataset' in table_list)
 
             # test that the data is correct by checking columns
-            data = [row for row in rethinkdb.table('test').run(conn)]
+            data = [row for row in rethinkdb.table('test_dataset').run(conn)]
             self.assertSetEqual(
                 set(data[0].keys())-set([u'id']),
                 set(template.expected_dataset[0].keys()))
@@ -62,10 +63,10 @@ class TestCSVReader(template.TestingTemplate):
 
     def test_setup_db_insert_choices(self):
         creations = self.run_setup_db()
-        print creations
 
         # confirm the correct tables were created
-        self.assertSetEqual(creations, set(template.test_dataset.keys()))
+        self.assertSetEqual(creations,
+            set(template.test_dataset.keys() + template.test_tables))
 
 
     def run_setup_db(self):
@@ -73,7 +74,8 @@ class TestCSVReader(template.TestingTemplate):
             'localhost',    # host
             28015,          # port
             'TEST',         # db name
-            datasets=template.test_dataset) # datasets
+            datasets    = template.test_dataset,    # datasets
+            app_tables  = template.test_tables)     # tables
 
 
     def run_clear_test_db(self):
