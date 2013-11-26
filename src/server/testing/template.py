@@ -15,7 +15,7 @@ import os
 this_dir = os.path.dirname(__file__)
 test_csv = os.path.join(this_dir, 'data_test.csv')
 test_dataset = {'test_dataset': test_csv}
-test_tables = ['test_table']
+test_tables = ['test_table', 'reviews']
 
 expected_dataset = [
         {'col1':'this','col2':'should'},

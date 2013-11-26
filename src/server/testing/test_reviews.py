@@ -7,7 +7,12 @@ class testReview(template.TestingTemplate):
     """ Tests the API endpoints associated with handling reviews. """
 
     def test_create_success(self):
-        pass
+        review = {'company': 'test', 'rating':10}
+        resp = self.app.post('/review/create/123', data=json.dumps(review))
+        self.assertEqual(resp.status_code, 200)
+
+        resp_data = json.loads(resp.data)
+        self.assertEqual(resp_data['message'], 'review created')
 
 
     def test_create_fail(self):

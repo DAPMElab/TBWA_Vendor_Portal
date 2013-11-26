@@ -44,6 +44,10 @@ app.register_blueprint(user_bp)
 from blueprints import client_bp
 app.register_blueprint(client_bp)
 
+""" review routes """
+from blueprints import review_bp
+app.register_blueprint(review_bp, url_prefix='/review')
+
 
 @app.route('/js/<path:filename>', methods=['GET'])
 def send_js(filename):
