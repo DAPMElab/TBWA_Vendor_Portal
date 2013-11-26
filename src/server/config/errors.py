@@ -23,6 +23,19 @@ errors = {
         'NOT_LOGGED_IN': {
             'message': "sorry, you're not logged in yet",
             'status_code': 401
+        },
+        # REVIEWS
+        'REVIEW_NOT_CREATED': {
+            'message': 'error creating review',
+            'status_code': 400
+        },
+        'REVIEW_APPROVAL_FAILURE' : {
+            'message': 'error updating review',
+            'status_code': 400
+        },
+        'REVIEW_NOT_FOUND': {
+            'message': 'review was not found',
+            'status_code': 404
         }
     }
 }
