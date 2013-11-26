@@ -49,7 +49,8 @@ class TestCSVReader(template.TestingTemplate):
 
             # test that the 'test' table was created
             table_list = rethinkdb.table_list().run(conn)
-            self.assertEqual(2, len(table_list))
+            self.assertEqual(len(table_list),
+                len(template.test_dataset.keys()+template.test_tables))
             self.assertTrue('test_dataset' in table_list)
 
             # test that the data is correct by checking columns
@@ -63,6 +64,7 @@ class TestCSVReader(template.TestingTemplate):
 
     def test_setup_db_insert_choices(self):
         creations = self.run_setup_db()
+        print creations
 
         # confirm the correct tables were created
         self.assertSetEqual(creations,
