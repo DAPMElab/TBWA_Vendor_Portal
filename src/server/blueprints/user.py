@@ -5,7 +5,7 @@ from config import make_error
 import json
 import rethinkdb
 
-user_bp = Blueprint('user routes', __name__)
+user_bp = Blueprint('user_blueprint', __name__)
 
 #NOTE: none of this may be necessary depending on how we do auth
 
