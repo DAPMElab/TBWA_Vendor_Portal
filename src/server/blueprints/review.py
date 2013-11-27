@@ -94,13 +94,22 @@ def edit(uid):
 def delete(uid):
     """ Removes a review from the queue """
     # use 204
-    pass
+    try:
+        outcome = r.table(TABLE).get(uid).delete().run(g.rdb_conn)
+        if outcome['skipped']:
+            return make_error(err='REVIEW_NOT_FOUND')
+
+        return make_response(json.dumps({
+            'message'   : 'review deleted'
+        }), 204)
+    except RqlRuntimeError:
+        return make_error(err='DATABASE_ERROR')
 
 
 # requires admin
 @review_bp.route('/list', methods=['GET'])
 def list():
     """ Returns all reviews that have not yet been approved """
-    pass
+    
 
 

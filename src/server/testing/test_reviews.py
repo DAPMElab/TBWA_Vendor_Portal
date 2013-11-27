@@ -1,6 +1,9 @@
 
 import template
 import json
+import rethinkdb as r
+
+TABLE = 'reviews'
 
 #TODO: make /create calls log their ID as the company id
 
@@ -81,7 +84,7 @@ class testReview(template.TestingTemplate):
 
     def test_edit_success(self):
         """ Test that a review properly updates """
-        # creating a reivew
+        # creating a review
         review = {'company': 'test', 'rating':10, 'submitter': 'tester'}
         resp = self.app.post('/review/create/123', data=json.dumps(review))
         rid = json.loads(resp.data)['uid']
@@ -110,12 +113,36 @@ class testReview(template.TestingTemplate):
 
 
     def test_delete_success(self):
-        pass
+        """ Test that a review properly updates """
+        # creating a review
+        review = {'company': 'test', 'rating':10, 'submitter': 'tester'}
+        resp = self.app.post('/review/create/123', data=json.dumps(review))
+        rid = json.loads(resp.data)['uid']
+
+        # deleting review
+        delete_resp = self.app.delete('/review/delete/{}'.format(rid))
+        self.assertEqual(delete_resp.status_code, 204)
+        delete_data = json.loads(delete_resp.data)
+        print delete_data
+        self.assertEqual(delete_data['message'],
+            'review deleted')
+
+        # trying to get the review
+        resp = self.app.get('/review/get/{}'.format(rid))
+        self.check_error(resp, 'REVIEW_NOT_FOUND')
+
 
 
     def test_delete_fail(self):
-        pass
+        """ Test that /delete properly fails when there's no id match """
+        num_before = r.table(TABLE).count().run(self.rdb)
 
+        # deleting review
+        resp = self.app.delete('/review/delete/{}'.format('test'))
+        self.check_error(resp, 'REVIEW_NOT_FOUND')
+
+        num_after = r.table(TABLE).count().run(self.rdb)
+        self.assertEqual(num_before, num_after)
 
     def test_list_success(self):
         pass
