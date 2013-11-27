@@ -55,7 +55,6 @@ def setup_db(rdb_host, rdb_port, rdb_name,
 
             # find tables that still need to be added then add & populate them
             tbl_list = rethinkdb.db(rdb_name).table_list().run(conn)
-            print tbl_list
 
             tbl_to_add = ((k, v) for k, v in datasets.items() if k not in tbl_list)
             for (name, path) in tbl_to_add:

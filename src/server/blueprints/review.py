@@ -1,6 +1,8 @@
 
 from flask import Blueprint, request, g, session, make_response
 from rethinkdb.errors import RqlRuntimeError
+from datetime import datetime
+from copy import deepcopy
 from config import make_error
 import json
 import rethinkdb as r
@@ -51,16 +53,16 @@ def approve(uid):
 @review_bp.route('/get/<uid>', methods=['GET'])
 def get(uid):
     """ Returns all info for one exact review """
-    review = r.table(TABLE).get(uid).pluck(
-        'company', 'submitter', 'rating', 'comments', 'approved'
-    ).run(g.rdb_conn)
+    try:
+        review = r.table(TABLE).get(uid).pluck(
+            'company', 'submitter', 'rating', 'comments', 'approved'
+        ).run(g.rdb_conn)
 
-    if review:
         return make_response(json.dumps({
-            'message'   : 'reivew found',
+            'message'   : 'review found',
             'data'      : review
         }), 200)
-    else:
+    except RqlRuntimeError:
         return make_error(err='REVIEW_NOT_FOUND')
 
 
@@ -68,7 +70,23 @@ def get(uid):
 @review_bp.route('/edit/<uid>', methods=['PATCH'])
 def edit(uid):
     """ Edits the info for an exact review """
-    pass
+    try:
+        updated_review = json.loads(request.data)
+        print updated_review
+    except ValueError:
+        return make_error(err='DATA_NEEDED_FOR_REQUEST')
+
+    #TODO: think about logging edits in the obj
+    try:
+        outcome = r.table(TABLE).get(uid).update(updated_review).run(g.rdb_conn)
+        if outcome['skipped']:
+            return make_error(err='REVIEW_NOT_FOUND')
+
+        return make_response(json.dumps({
+            'message'   : 'review updated'
+        }), 200)
+    except RqlRuntimeError:
+        return make_error(err='DATABASE_ERROR')
 
 
 # requires admin

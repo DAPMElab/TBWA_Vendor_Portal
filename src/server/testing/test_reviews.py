@@ -2,6 +2,7 @@
 import template
 import json
 
+#TODO: make /create calls log their ID as the company id
 
 class testReview(template.TestingTemplate):
     """ Tests the API endpoints associated with handling reviews. """
@@ -20,6 +21,7 @@ class testReview(template.TestingTemplate):
 
     def test_create_fail(self):
         # don't know how to get this to fail yet
+        # once we set a standard set of fields we'll test for existance
         pass
 
     
@@ -71,15 +73,40 @@ class testReview(template.TestingTemplate):
 
 
     def test_get_fail(self):
-        pass
+        """ Tests returning a review that doesn't exist """
+        # getting a non-existent review
+        resp = self.app.get('/review/get/{}'.format('nonexistent_reivew'))
+        self.check_error(resp, 'REVIEW_NOT_FOUND')
 
 
     def test_edit_success(self):
-        pass
+        """ Test that a review properly updates """
+        # creating a reivew
+        review = {'company': 'test', 'rating':10, 'submitter': 'tester'}
+        resp = self.app.post('/review/create/123', data=json.dumps(review))
+        rid = json.loads(resp.data)['uid']
+
+        # updating review
+        review['rating'] = 5
+        resp = self.app.patch('/review/edit/{}'.format(rid),
+            data=json.dumps(review))
+        self.assertEqual(resp.status_code, 200)
+
+        # getting review
+        resp_get = self.app.get('/review/get/{}'.format(rid))
+        self.assertEqual(resp_get.status_code, 200)
+        data_get = json.loads(resp_get.data)
+        self.assertEqual(data_get['data']['rating'], 5)
 
 
     def test_edit_fail(self):
-        pass
+        """ Test that /edit fails with a bad id """
+        resp = self.app.patch('/review/edit/{}'.format('nonexistent_review'))
+        self.check_error(resp, 'DATA_NEEDED_FOR_REQUEST')
+
+        resp = self.app.patch('/review/edit/{}'.format('nonexistent_review'),
+            data=json.dumps({'mock':'data'}))
+        self.check_error(resp, 'REVIEW_NOT_FOUND')
 
 
     def test_delete_success(self):

@@ -24,6 +24,10 @@ errors = {
             'message': "sorry, you're not logged in yet",
             'status_code': 401
         },
+        'DATA_NEEDED_FOR_REQUEST': {
+            'message': 'this endpoint requires data to operate',
+            'status_code': 400
+        },
         # REVIEWS
         'REVIEW_NOT_CREATED': {
             'message': 'error creating review',
