@@ -24,7 +24,7 @@ class testReview(template.TestingTemplate):
 
     def test_create_fail(self):
         # don't know how to get this to fail yet
-        # once we set a standard set of fields we'll test for existance
+        # once we set a standard set of fields we'll test for existance of them
         pass
 
     
@@ -113,7 +113,7 @@ class testReview(template.TestingTemplate):
 
 
     def test_delete_success(self):
-        """ Test that a review properly updates """
+        """ Test that a review is properly deleted """
         # creating a review
         review = {'company': 'test', 'rating':10, 'submitter': 'tester'}
         resp = self.app.post('/review/create/123', data=json.dumps(review))
@@ -121,16 +121,15 @@ class testReview(template.TestingTemplate):
 
         # deleting review
         delete_resp = self.app.delete('/review/delete/{}'.format(rid))
-        self.assertEqual(delete_resp.status_code, 204)
+
+        self.assertEqual(delete_resp.status_code, 202)
         delete_data = json.loads(delete_resp.data)
-        print delete_data
         self.assertEqual(delete_data['message'],
             'review deleted')
 
         # trying to get the review
         resp = self.app.get('/review/get/{}'.format(rid))
         self.check_error(resp, 'REVIEW_NOT_FOUND')
-
 
 
     def test_delete_fail(self):
@@ -141,13 +140,36 @@ class testReview(template.TestingTemplate):
         resp = self.app.delete('/review/delete/{}'.format('test'))
         self.check_error(resp, 'REVIEW_NOT_FOUND')
 
+        # confirming no reviews were deleted
         num_after = r.table(TABLE).count().run(self.rdb)
         self.assertEqual(num_before, num_after)
 
+
     def test_list_success(self):
-        pass
+        """ Test that reviews that are unapproved are returned """
+        # creating reviews
+        reviews_list = [
+            {'company': 'test1', 'rating':5, 'submitter': 'tester1'},
+            {'company': 'test2', 'rating':2, 'submitter': 'tester2'},
+            {'company': 'test3', 'rating':8, 'submitter': 'tester3'},
+        ]
+        for review in reviews_list:
+            resp = self.app.post('/review/create/123', data=json.dumps(review))
+            self.assertEqual(resp.status_code, 201)
 
+        resp = self.app.get('review/list')
+        self.assertEqual(resp.status_code, 200)
+        resp_data = json.loads(resp.data)
 
-    def test_list_fail(self):
-        pass
+        # make sure the list at the very least has as many as we created
+        self.assertGreaterEqual(resp_data['count'], len(reviews_list))
+
+        # checking that all created reviews were returned
+        returned_list = resp_data['data']
+        for review in returned_list:
+            self.assertFalse(review['approved'])
+            del review['id']
+            del review['approved']
+        for review in reviews_list:
+            self.assertIn(review, returned_list)
 

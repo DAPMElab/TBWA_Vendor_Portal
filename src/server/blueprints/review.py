@@ -72,7 +72,6 @@ def edit(uid):
     """ Edits the info for an exact review """
     try:
         updated_review = json.loads(request.data)
-        print updated_review
     except ValueError:
         return make_error(err='DATA_NEEDED_FOR_REQUEST')
 
@@ -93,7 +92,6 @@ def edit(uid):
 @review_bp.route('/delete/<uid>', methods=['DELETE'])
 def delete(uid):
     """ Removes a review from the queue """
-    # use 204
     try:
         outcome = r.table(TABLE).get(uid).delete().run(g.rdb_conn)
         if outcome['skipped']:
@@ -101,7 +99,7 @@ def delete(uid):
 
         return make_response(json.dumps({
             'message'   : 'review deleted'
-        }), 204)
+        }), 202)
     except RqlRuntimeError:
         return make_error(err='DATABASE_ERROR')
 
@@ -110,6 +108,15 @@ def delete(uid):
 @review_bp.route('/list', methods=['GET'])
 def list():
     """ Returns all reviews that have not yet been approved """
-    
+    try:
+        outcome = r.table(TABLE).filter({'approved':False}).run(g.rdb_conn)
+        reviews = [x for x in outcome]
 
+        return make_response(json.dumps({
+            'data': reviews,
+            'count': len(reviews)
+        }), 200)
+
+    except RqlRuntimeError:
+        return make_error(err='DATABASE_ERROR')
 
