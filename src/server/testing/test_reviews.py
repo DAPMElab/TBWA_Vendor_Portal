@@ -5,13 +5,22 @@ import rethinkdb as r
 
 TABLE = 'reviews'
 
-#TODO: make /create calls log their ID as the company id
 
-class testReview(template.TestingTemplate):
+def admin_session(fn):
+    def run_test(self):
+        with self.app.session_transaction() as sess:
+            sess['role'] = 'admin'
+        fn(self)
+    return run_test
+
+
+class TestReview(template.TestingTemplate):
     """ Tests the API endpoints associated with handling reviews. """
 
+    #@admin_session
     def test_create_success(self):
         """ Tests a successful review creation """
+        #TODO: make /create calls log their ID as the company id
         # creating review
         review = {'company': 'test', 'rating':10}
         resp = self.app.post('/review/create/123', data=json.dumps(review))

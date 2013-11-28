@@ -1,7 +1,7 @@
 
 import unittest
 import rethinkdb
-import template
+#import template
 import json
 
 from sys import path
@@ -21,6 +21,7 @@ expected_dataset = [
         {'col1':'this','col2':'should'},
         {'col1':'work','col2':'hopefully'}]
 
+
 class TestingTemplate(unittest.TestCase):
 
     @classmethod
@@ -34,8 +35,8 @@ class TestingTemplate(unittest.TestCase):
                 port = 28015,
                 db = 'TEST')
         self.rdb.use('TEST')
-        template.app.config['RDB_DB'] = 'TEST'
-        self.app = template.app.test_client()
+        app.config['RDB_DB'] = 'TEST'
+        self.app = app.test_client()
 
 
     @classmethod

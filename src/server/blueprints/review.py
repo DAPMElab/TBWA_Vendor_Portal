@@ -1,21 +1,24 @@
 
-from flask import Blueprint, request, g, session, make_response
-from rethinkdb.errors import RqlRuntimeError
-from datetime import datetime
-from copy import deepcopy
-from config import make_error
-import json
+from flask              import Blueprint, request, g, session, make_response
+from rethinkdb.errors   import RqlRuntimeError
+from datetime           import datetime
+from copy               import deepcopy
+from config             import make_error
+from decorators         import admin
 import rethinkdb as r
+import json
 
-review_bp = Blueprint('review_blueprint', __name__)
-TABLE = 'reviews'
+review_bp   = Blueprint('review_blueprint', __name__)
+TABLE       = 'reviews'
 
 """
 Handles HTTP requests concerning reveiws made by employees that need to be
 approved by an admin.
 """
 
+
 @review_bp.route('/create/<uid>', methods=['POST'])
+#@admin
 def create(uid):
     """ Creates a company review that will set in the approval queue
 

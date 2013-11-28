@@ -17,7 +17,7 @@ errors = {
             'status_code': 404
         },
         'DATABASE_ERROR': {
-            'message': 'there was an error accessing our databse',
+            'message': 'there was an error accessing our database',
             'status_code': 503
         },
         'NOT_LOGGED_IN': {
@@ -27,6 +27,10 @@ errors = {
         'DATA_NEEDED_FOR_REQUEST': {
             'message': 'this endpoint requires data to operate',
             'status_code': 400
+        },
+        'ADMIN_REQUIRED': {
+            'message': 'this endpoint requires admin credentials',
+            'status_code': 401
         },
         # REVIEWS
         'REVIEW_NOT_CREATED': {
