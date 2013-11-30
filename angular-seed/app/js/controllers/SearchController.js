@@ -34,6 +34,7 @@ angular.module('myApp.controllers', []).
 
         //Category settings
         $scope.categoriesSelected = [];
+        $scope.search = {text:''};
 
         /**
          * Inits the map to a default state
@@ -69,6 +70,8 @@ angular.module('myApp.controllers', []).
                     svgElement.style['fill-opacity']  = $scope.mapColors.highlighted.fillOpacity;
                     svgElement.style.fill             = $scope.mapColors.highlighted.fill;
 
+                    $scope.activeRegion = regionToHighlight;
+
                     //Otherwise set to default state
                 }else{
                     svgElement.style.opacity          = $scope.mapColors.defaultState.opacity;
@@ -93,5 +96,17 @@ angular.module('myApp.controllers', []).
             }else{
                 $scope.categoriesSelected.push(categoryToAdd);
             }
+        }
+
+        /**
+         * Main method for searching
+         */
+        $scope.search = function(){
+
+            var region =$scope.activeRegion;
+            var categories = $scope.categoriesSelected;
+            var keyword = $scope.search.text;
+
+            console.log("why is this opening the printer?")
         }
     });
