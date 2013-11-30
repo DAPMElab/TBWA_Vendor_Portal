@@ -28,3 +28,8 @@
   content: "";
   padding: 0;
 }
+
+.map{
+    background-color: #000000;
+    height: 400px;
+}
