@@ -2,40 +2,13 @@
     
     <h5>Region</h5>
     <h5>Category</h5>
-        <div class="checkbox">
+        <div class="checkbox" ng-repeat="category in availableCategories">
           <label>
-            <input type="checkbox" checked value="print.less">
-            Directing
+            <input type="checkbox"  ng-click="addCategory(category)">
+            {{category}}
           </label>
         </div>
 
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" checked value="print.less">
-            Acting
-          </label>
-        </div>
-
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" checked value="print.less">
-            Film
-          </label>
-        </div>
-
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" checked value="print.less">
-            Makeup
-          </label>
-        </div>
-
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" checked value="print.less">
-            Set
-          </label>
-        </div>
 
     <h5>Keyword<h5> 
         <div class="input-group">

@@ -30,6 +30,11 @@ angular.module('myApp.controllers', []).
             }
         };
 
+        $scope.availableCategories = ["Directing", "Acting", "Film", "Makeup", "Set"];
+
+        //Category settings
+        $scope.categoriesSelected = [];
+
         /**
          * Inits the map to a default state
          * @param mapWidth
@@ -73,5 +78,20 @@ angular.module('myApp.controllers', []).
             }
         };
 
+        /**
+         * Adds a category
+         * @param categoryToAdd
+         */
+        $scope.addCategory = function(categoryToAdd){
 
+            //ask for index of item (-1) if not there
+            var itemIndex = $scope.categoriesSelected.indexOf(categoryToAdd);
+
+            //If we have, remove, otherwise add
+            if(itemIndex!=-1){
+                $scope.categoriesSelected.splice(itemIndex);
+            }else{
+                $scope.categoriesSelected.push(categoryToAdd);
+            }
+        }
     });
