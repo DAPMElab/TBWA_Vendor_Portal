@@ -2,12 +2,15 @@
 <html lang="en" ng-app="myApp">
 <head>
   <meta charset="utf-8">
-  <title>My AngularJS App</title>
+  <title>TBWA</title>
   <link rel="stylesheet" href="css/app.css"/>
   <link rel="stylesheet" href="css/bootstrap.css"/>
 </head>
 <body>
 
+  <ul class="menu">
+    <div ng-include="'partials/header.html'"></div>  
+  </ul>
   <div ng-view></div>
 
   <!-- In production use:
