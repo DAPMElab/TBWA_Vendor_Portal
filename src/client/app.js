@@ -2,7 +2,7 @@
 angular.module('app', [
 	// list dependencies
 ]).config(['$routeProvidor', function($routeProvidor) {
-        
+
 	// declare each route
         $routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: 'LoginController'});
         $routeProvider.when('/admin', {templateUrl: 'partials/admin_console.html', controller: 'AdminController'});
@@ -12,4 +12,3 @@ angular.module('app', [
 
         $routeProvider.otherwise({redirectTo: '/search'});
 }]);
-
