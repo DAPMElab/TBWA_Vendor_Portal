@@ -14,6 +14,6 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/mainsearch', {templateUrl: 'partials/mainsearch.html', controller: 'MyCtrl1'});
   $routeProvider.when('/search', {templateUrl: 'partials/search.html', controller: 'SearchController'});
 
-  $routeProvider.when('/sidebar', {templateUrl: 'partials/sidebar.html', controller: 'MyCtrl1'});
+  $routeProvider.when('/sidebar', {templateUrl: 'partials/sidebar.html', controller: 'SidebarController'});
   $routeProvider.otherwise({redirectTo: '/sidebar'});
 }]);
