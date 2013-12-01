@@ -35,19 +35,14 @@ def create():
 
     # verifying data
     for key, type in admin_model.items():
-        if key in admin_data:
-            if isinstance(admin_data[key], unicode):
-                admin_data[key] = admin_data[key].encode('utf-8')
-            print type(admin_data[key])
-            print type(admin_data[key]) == type
-            if not isinstance(admin_data[key], type):
-                return make_error(err='ADMIN_DATA_NEEDED')
+        if key not in admin_data:
+            return make_error(err='ADMIN_DATA_NEEDED')
         else:
             return make_error(err='ADMIN_DATA_NEEDED')
 
-    if parseaddr(admin_data['email']) == ('', ''):
+    # TODO: add email validator
+    if False:
         return make_error(err='IMPROPER_EMAIL')
-
 
     # confirming matching passwords
     if admin_data['password'] != admin_data['repeat_password']:

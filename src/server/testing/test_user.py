@@ -5,6 +5,8 @@ import json
 
 class TestUser(template.TestingTemplate):
 
+    # Waiting on more information of how users handled before implementation
+
     def test_create_success(self):
         pass
 
