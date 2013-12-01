@@ -2,7 +2,9 @@
  Manages the map, categories and search box
  */
 angular.module('myApp.controllers', []).
-    controller('SearchController',function($scope){
+    controller('SearchController',function($scope, $http){
+
+        $scope.companies = [];
 
         //map settings
         $scope.mapUrl = "img/USMap.svg";
@@ -35,6 +37,13 @@ angular.module('myApp.controllers', []).
         //Category settings
         $scope.categoriesSelected = [];
         $scope.search = {text:''};
+
+
+        $scope.loadCompanies = function(){
+            $http.get('resources/companies.json').success(function(response){
+                $scope.companies = response;
+            })
+        }
 
         /**
          * Inits the map to a default state

@@ -1,16 +1,47 @@
 
 <div class="btn-group" style="float: right;">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    Sort by <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li><a href="#">Rating</a></li>
-    <li><a href="#">Name</a></li>
-    <li><a href="#">Something else here</a></li>
-  </ul>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Sort by <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="#">Rating</a></li>
+        <li><a href="#">Name</a></li>
+        <li><a href="#">Something else here</a></li>
+    </ul>
 </div>
 
 <!-- <button class="btn btn-default toggle" type="button" style="float: right;">Sort by</button>
 -->
 
 <h3 id="less">Current Results</h3>
+
+<div class="row col-md-12" style="overflow: scroll; height: 600px">
+
+    <!--result cell -->
+    <div class="row col-md-12" ng-repeat = "result in companies | filter:search.text ">
+        <div class="row col-md-12" >
+
+            <!--Company info-->
+            <div class="col-md-9">
+                <h4>{{result.Company}}</h4>
+                <a href="{{result.URL}}">{{result.URL}}</a>
+                <p>{{result.Category}}</p>
+            </div>
+
+            <!--Rating block-->
+            <div class="col-md-3">
+                <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
+                <h6>{{result.Ratings + rtgs}}</h6>
+            </div>
+        </div>
+
+        <!--black line-->
+        <div class="row col-md-12" style="background-color: #000000; height: 2px">
+        </div>
+
+    </div>
+</div>
+
+
+
+

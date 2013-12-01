@@ -1,6 +1,7 @@
-<div class="container bs-docs-container">
+<!--Load the companies on start-->
+<div class="container bs-docs-container" data-ng-init = loadCompanies()>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div ng-include="'partials/map.html'" class="map"></div>
             <div ng-include="'partials/category.html'"></div>
             <div ng-include="'partials/currentResults.html'"> </div>
@@ -8,7 +9,7 @@
         </div>
 
         <!--Detail portion-->
-        <div class="row col-md-9">
+        <div class="row col-md-8">
             <div class="row col-md-12">
                 <div class="col-md-9">
                     <div ng-include="'partials/companyDescription.html'" style="background-color: red; height: 800px"></div>
