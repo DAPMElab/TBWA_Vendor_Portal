@@ -1,4 +1,6 @@
-
+<!-- for extra whitespace -->
+<br />
+<br />
 <div class="btn-group" style="float: right;">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
         Sort by <span class="caret"></span>
@@ -10,26 +12,26 @@
     </ul>
 </div>
 
-<!-- <button class="btn btn-default toggle" type="button" style="float: right;">Sort by</button>
--->
+<h4 id="less">Current Results</h4>
 
-<h3 id="less">Current Results</h3>
+<!-- for extra whitespace -->
+<br />
+<br />
 
-<div class="row col-md-12" style="overflow: scroll; height: 600px">
+<div class="row" style="overflow: scroll; height: 400px; overflow-x: hidden">
 
     <!--result cell -->
-    <div class="row col-md-12" ng-repeat = "result in companies | filter:search.text ">
+    <div class="row" ng-repeat = "result in companies | filter:search.text ">
         <div class="row col-md-12" >
 
             <!--Company info-->
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <h4>{{result.Company}}</h4>
                 <a href="{{result.URL}}">{{result.URL}}</a>
                 <p>{{result.Category}}</p>
-            </div>
+            
 
             <!--Rating block-->
-            <div class="col-md-3">
                 <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
                 <h6>{{result.Ratings + rtgs}}</h6>
             </div>
