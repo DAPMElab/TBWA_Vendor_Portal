@@ -12,6 +12,7 @@ try:
     DEBUG = False
     if env['FLASK_DEBUG'] == 'TRUE':
         DEBUG = True
+    SECRET_KEY = 's2k3j42lk3j4lk23j'    # TODO: generate real key
 
 except KeyError:
     """ Throw an error and exit if any settings are missing """

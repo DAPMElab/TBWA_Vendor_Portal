@@ -1,14 +1,13 @@
 
 import unittest
 import rethinkdb
-#import template
 import json
 
 from sys import path
 path.append('../')
-from data import setup_db
-from app import app
-from config.errors import errors
+from data           import setup_db
+from app            import app
+from config.errors  import errors
 
 
 import os
@@ -36,7 +35,6 @@ class TestingTemplate(unittest.TestCase):
                 db = 'TEST')
         self.rdb.use('TEST')
         app.config['RDB_DB'] = 'TEST'
-        self.app = app.test_client()
 
 
     @classmethod
@@ -49,7 +47,18 @@ class TestingTemplate(unittest.TestCase):
             self.rdb.close()
         except AttributeError:
             pass
-           
+
+
+    def request_with_role(self, path, method='GET', role='admin', *args, **kwargs):
+        """ Make an http request with the given role in the session """
+        #with self.app_ref.test_client() as c:
+        with app.test_client() as c:
+            with c.session_transaction() as sess:
+                sess['role'] = role
+                kwargs['method'] = method
+                kwargs['path'] = path
+            return c.open(*args, **kwargs)
+
 
     def check_error(self, resp, error_name):
         """ Tests that the resp is equal to the specified error """

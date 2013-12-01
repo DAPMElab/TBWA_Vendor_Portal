@@ -12,20 +12,23 @@ review_bp   = Blueprint('review_blueprint', __name__)
 TABLE       = 'reviews'
 
 """
-Handles HTTP requests concerning reveiws made by employees that need to be
+Handles HTTP requests concerning reviews made by employees that need to be
 approved by an admin.
 """
 
 
 @review_bp.route('/create/<uid>', methods=['POST'])
-#@admin
 def create(uid):
     """ Creates a company review that will set in the approval queue
 
         @param uid: uid of the company being reviewed
         @json_format: {'data': <review obj>}
     """
+    #try:
     review = json.loads(request.data)
+    #except
+    #    return make_error(err='REVIEW_NOT_CREATED')
+
     review['approved'] = False
     outcome = r.table(TABLE).insert(review).run(g.rdb_conn)
 
@@ -38,8 +41,8 @@ def create(uid):
         return make_error(err='REVIEW_NOT_CREATED')
 
 
-# requires admin
 @review_bp.route('/approve/<uid>', methods=['POST'])
+@admin
 def approve(uid):
     """ Removes a review from the queue and links it to the company. """
     outcome = r.table(TABLE).get(uid).update({'approved': True}).run(g.rdb_conn)
@@ -52,8 +55,8 @@ def approve(uid):
         return make_error(err='REVIEW_APPROVAL_FAILURE')
 
 
-# requires admin
 @review_bp.route('/get/<uid>', methods=['GET'])
+@admin
 def get(uid):
     """ Returns all info for one exact review """
     try:
@@ -69,8 +72,8 @@ def get(uid):
         return make_error(err='REVIEW_NOT_FOUND')
 
 
-# requires admin
 @review_bp.route('/edit/<uid>', methods=['PATCH'])
+@admin
 def edit(uid):
     """ Edits the info for an exact review """
     try:
@@ -91,8 +94,8 @@ def edit(uid):
         return make_error(err='DATABASE_ERROR')
 
 
-# requires admin
 @review_bp.route('/delete/<uid>', methods=['DELETE'])
+@admin
 def delete(uid):
     """ Removes a review from the queue """
     try:
@@ -107,8 +110,8 @@ def delete(uid):
         return make_error(err='DATABASE_ERROR')
 
 
-# requires admin
 @review_bp.route('/list', methods=['GET'])
+@admin
 def list():
     """ Returns all reviews that have not yet been approved """
     try:
