@@ -68,7 +68,7 @@ def send_css(filename):
 @app.route('/', methods=['GET'])
 def home():
     """ Return the html seed file with linked JS """
-    with open('../client/index.html') as base:
+    with open(app.config['HOME_PATH']+'/src/client/index.html') as base:
         return make_response(base.read())
 
 
