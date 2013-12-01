@@ -1,0 +1,33 @@
+<!--Load the companies on start-->
+<div class="container bs-docs-container" data-ng-init = loadCompanies()>
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Refine Search:</h4>
+            <h5>Region</h5>
+            <div ng-include="'partials/map.html'" class="map"></div>
+            <div ng-include="'partials/category.html'"></div>
+            <div ng-include="'partials/currentResults.html'"></div>
+
+        </div>
+
+        <!--Detail portion-->
+        <div class="row col-md-8">
+            <div class="row col-md-12">
+                <div class="col-md-9">
+                    <div ng-include="'partials/companyDescription.html'" style="background-color: red; height: 400px"></div>
+                </div>
+                <div class="col-md-3">
+                    <div ng-include="'partials/companySnapshot.html'" style="background-color: green; height: 400px"></div>
+                </div>
+            </div>
+
+            <div class="row col-md-12">
+                <div class="col-md-12">
+                    <div ng-include="'partials/companyReviews.html'" style="background-color: #808080; height: 800px"></div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
