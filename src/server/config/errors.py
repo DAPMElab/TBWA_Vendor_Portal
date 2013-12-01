@@ -30,7 +30,15 @@ errors = {
         },
         'ADMIN_REQUIRED': {
             'message': 'this endpoint requires admin credentials',
-            'status_code': 401
+            'status_code': 403
+        },
+        'PASSWORDS_UNMATCHED': {
+            'message': 'passwords passed do not match',
+            'status_code': 400
+        },
+        'IMPROPER_EMAIL': {
+            'message': 'email is invalid',
+            'status_code': 400
         },
         # REVIEWS
         'REVIEW_NOT_CREATED': {
@@ -44,6 +52,15 @@ errors = {
         'REVIEW_NOT_FOUND': {
             'message': 'review was not found',
             'status_code': 404
+        },
+        # ADMIN
+        'ADMIN_DATA_NEEDED': {
+            'message': 'data is missing to create an admin',
+            'status_code': 400
+        },
+        'ADMIN_NOT_CREATED': {
+            'message': 'error creating admin',
+            'status_code': 400
         }
     }
 }
