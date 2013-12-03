@@ -2,6 +2,7 @@
 from flask              import Flask, make_response, g, send_from_directory
 from rethinkdb.errors   import RqlDriverError
 from data               import setup_db
+from config.errors      import make_error
 import rethinkdb
 import argparse
 
@@ -20,7 +21,7 @@ def before_request():
             db      = app.config['RDB_DB']
         )
     except RqlDriverError:
-        return ERR('NO_DB_CONN')
+        return make_error('NO_DB_CONN')
 
 
 @app.teardown_request
@@ -93,4 +94,3 @@ if __name__ == '__main__':
 
     # remove the host setting if running locally, not in Vagrant
     app.run(host='0.0.0.0')
-
