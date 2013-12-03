@@ -14,6 +14,7 @@ language-selector==0.1
 logilab-astng==0.23.0
 logilab-common==0.57.1
 nose==1.3.0
+passlib==1.6.1
 protobuf==2.5.0
 pycurl==7.19.0
 pylint==0.25.0
