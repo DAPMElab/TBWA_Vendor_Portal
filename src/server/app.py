@@ -66,6 +66,14 @@ def send_partial(filename):
 def send_css(filename):
     return send_from_directory('../client/styles/', filename)
 
+@app.route('/lib/<path:filename>', methods=['GET'])
+def send_js_lib(filename):
+    return send_from_directory('../client/lib/', filename)
+
+@app.route('/img/<path:filename>', methods=['GET'])
+def send_img(filename):
+    return send_from_directory('../client/img/', filename)
+
 @app.route('/', methods=['GET'])
 def home():
     """ Return the html seed file with linked JS """

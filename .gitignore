@@ -5,6 +5,9 @@
 # rethinkdb
 rethinkdb_data/
 
+# angular
+!src/client/lib
+
 # node
 node_modules/
 
