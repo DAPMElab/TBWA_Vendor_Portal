@@ -1,3 +1,6 @@
 [submodule "src/server/data/assets"]
 	path = src/server/data/assets
 	url = https://github.com/DAPMElab/assets.git
+[submodule "src/data/assets"]
+	path = src/data/assets
+	url = https://github.com/DAPMElab/assets.git
