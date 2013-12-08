@@ -33,7 +33,7 @@ angular.module('myApp.controllers', []).
             }
         };
 
-        $scope.availableCategories = ["Directing", "Acting", "Film", "Makeup", "Set"];
+        $scope.availableCategories = ["Casting","Distribution", "Production", "Translation", "Editorial", "Animation", "Post Effects", "Illustration", "Music", "Storyboarding", "Sound Design", "Directorial"];
 
         //Category settings
         $scope.categoriesSelected = [];
@@ -92,7 +92,7 @@ angular.module('myApp.controllers', []).
         };
 
         /**
-         * Adds a category
+         * Adds a category to user selected categories for company filtering
          * @param categoryToAdd
          */
         $scope.addCategory = function(categoryToAdd){
@@ -103,20 +103,30 @@ angular.module('myApp.controllers', []).
             //If we have, remove, otherwise add
             if(itemIndex!=-1){
                 $scope.categoriesSelected.splice(itemIndex);
-            }else{
+            } else{
                 $scope.categoriesSelected.push(categoryToAdd);
             }
+        }
+
+        $scope.categoryFilter = function (company) {
+            return categoriesContainsCategory(company.Category) ;
+        }
+
+        categoriesContainsCategory = function(category) {
+            for (var i = 0; i < $scope.categoriesSelected.length; i++) {
+                if ($scope.categoriesSelected[i] === obj) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /**
          * Main method for searching
          */
-        $scope.search = function(){
-
-            var region =$scope.activeRegion;
+        $scope.search = function() {
+            var region = $scope.activeRegion;
             var categories = $scope.categoriesSelected;
             var keyword = $scope.search.text;
-
-            console.log("why is this opening the printer?")
         }
     });
