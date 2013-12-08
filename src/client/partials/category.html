@@ -1,10 +1,7 @@
 
 <h5>Category</h5>
-<div class="checkbox" ng-repeat="category in availableCategories">
-  <label>
-    <input type="checkbox"  ng-click="addCategory(category)">
-    {{category}}
-  </label>
+<div ng-repeat="category in availableCategories">
+    <input type="checkbox" ng-model="category.text" ng-click="addCategory(category.text)"> {{category.text}} </input>
 </div>
 
 <h5>Keyword</h5> 

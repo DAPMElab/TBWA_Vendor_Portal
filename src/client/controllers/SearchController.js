@@ -6,6 +6,7 @@ angular.module('myApp.controllers', []).
     controller('SearchController',function($scope, $http){
 
         $scope.companies = [];
+        $scope.selectedCompany = null;
 
         //map settings
         $scope.mapUrl = "img/USMap.svg";
@@ -43,6 +44,8 @@ angular.module('myApp.controllers', []).
         $scope.loadCompanies = function(){
             $http.get('/diverse').success(function(response){
                 $scope.companies = response['data'];
+                //By default, we pick the first company to be displayed initially
+                $scope.selectedCompany = $scope.companies[0];
             })
         }
 
@@ -51,7 +54,6 @@ angular.module('myApp.controllers', []).
          * @param mapWidth
          */
         $scope.initMap = function(mapWidth){
-
             $scope.mapWidth = mapWidth;
         }
 
@@ -96,7 +98,6 @@ angular.module('myApp.controllers', []).
          * @param categoryToAdd
          */
         $scope.addCategory = function(categoryToAdd){
-
             //ask for index of item (-1) if not there
             var itemIndex = $scope.categoriesSelected.indexOf(categoryToAdd);
 
@@ -108,10 +109,7 @@ angular.module('myApp.controllers', []).
             }
         }
 
-        $scope.categoryFilter = function (company) {
-            return categoriesContainsCategory(company.Category) ;
-        }
-
+/*
         categoriesContainsCategory = function(category) {
             for (var i = 0; i < $scope.categoriesSelected.length; i++) {
                 if ($scope.categoriesSelected[i] === obj) {
@@ -120,6 +118,7 @@ angular.module('myApp.controllers', []).
             }
             return false;
         }
+*/
 
         /**
          * Main method for searching

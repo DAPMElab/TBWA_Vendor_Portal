@@ -1,6 +1,6 @@
 
 <!--Load the companies on start-->
-<div class="container bs-docs-container" data-ng-init = loadCompanies()>
+<div class="container bs-docs-container" data-ng-init = "loadCompanies()">
     <div class="row">
         <div class="col-md-4">
             <h4>Refine Search:</h4>
@@ -14,12 +14,23 @@
         <div class="row col-md-8">
             <div class="row col-md-12">
                 <div class="col-md-9">
-                    <div ng-include="'partials/companyDescription.html'" style="background-color: red; height: 400px"></div>
+                    <div>
+                        <h4>{{selectedCompany.Company}}</h4>
+                        <!--Rating block-->
+                        <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
+                        <h6>{{result.Ratings + rtgs}}</h6>
+                        <p>Categories: {{selectedCompany.Category}}</p>
+                        <a href="{{selectedCompany.URL}}">{{selectedCompany.URL}}</a>
+                    </div>
                 </div>
+
+                <!--black line-->
                 <div class="col-md-3">
                     <div ng-include="'partials/companySnapshot.html'" style="background-color: green; height: 400px"></div>
                 </div>
+
             </div>
+
 
             <div class="row col-md-12">
                 <div class="col-md-12">

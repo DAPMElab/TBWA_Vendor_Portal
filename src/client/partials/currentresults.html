@@ -2,7 +2,7 @@
 <br />
 <br />
 
-<!-- sort by button group-->
+<!-- "Sort by" button group-->
 <div class="btn-group" style="float: right;">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
         Sort by <span class="caret"></span>
@@ -24,14 +24,13 @@
 
     <!--result cell -->
     <div class="row" ng-repeat = "result in companies | filter:search.text">
-        <div class="row col-md-12" >
+        <div class="row col-md-12">
 
             <!--Company info-->
-            <div class="col-md-12">
+            <div class="col-md-12" >
                 <h4>{{result.Company}}</h4>
                 <a href="{{result.URL}}">{{result.URL}}</a>
                 <p>{{result.Category}}</p>
-            
 
             <!--Rating block-->
                 <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
