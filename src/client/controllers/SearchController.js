@@ -49,6 +49,12 @@ angular.module('myApp.controllers', []).
             })
         }
 
+        $scope.updateSelectedCompany = function(selectedCompnay) {
+            // jQuery to find the element in JSON array with that name
+            //$scope.selectedCompany = $.grep(companies, function(company){ return company.Company == selectedCompany;});
+            $scope.selectedCompany = companies[1];
+        }
+
         /**
          * Inits the map to a default state
          * @param mapWidth
