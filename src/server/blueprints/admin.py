@@ -30,8 +30,6 @@ admin_model = {
 def create():
     """ Creates a new admin with the data passed in """
     admin_data = json.loads(request.data)['data']
-    print admin_data
-    print
 
     # verifying data
     # TODO: think about more redudant data checking
@@ -51,6 +49,13 @@ def create():
     admin_data['password'] = hashed_pass
     del admin_data['repeat_password']
     
+    # fail if email in use
+    matches = [x for x in (r.table('admin')
+            .filter({'email': admin_data['email']})
+            .run(g.rdb_conn))]
+    if len(matches) > 0:
+        return make_error(err='EMAIL_IN_USE')
+
     # creating admin in db
     outcome = r.table(TABLE).insert(admin_data).run(g.rdb_conn)
 
@@ -65,6 +70,37 @@ def create():
 
 @admin_bp.route('/login', methods=['POST'])
 def login():
-    pass
+    """ Checks for an existing admin and responds accordingliy """
+    # TODO: make more elegant
+    try:
+        login_data = json.loads(request.data)['data']
+    except:
+        return make_error('MISSING_LOGIN_DATA')
+
+    for key in ['email', 'password']:
+        if key not in login_data:
+            return make_error('MISSING_LOGIN_DATA')
+
+    # look for the specified admin
+    db_admin = [x for x in (r.table('admin')
+            .filter({'email': login_data['email']})
+            .run(g.rdb_conn))]
+
+    if not db_admin:    # return ERR if the admin does not exist
+        return make_error(err='ADMIN_DNE')  
+    else:
+        db_admin = db_admin[0]
+
+    # check password w/ hash
+    if not sha256_crypt.verify(login_data['password'], db_admin['password']):
+        return make_error(err='INCORRECT_PASSWORD')
+    
+    # "log" them in
+    session['role'] = 'admin'
+    session['email'] = db_admin['email']
+
+    return make_response(json.dumps({
+        'message': 'logged in'
+    }), 201)
 
 

@@ -30,17 +30,31 @@ class TestAdmin(template.TestingTemplate):
             data=json.dumps(admin))
         self.check_error(resp, 'PASSWORDS_UNMATCHED')
 
-    
-    def test_create_success(self):
-        """ Test sucess of /create with proper data """
 
+    def test_duplicate_email_failure(self):
+        """ Test that /create fails with an existing email """
         admin = {
-            'email'             :'user@email.com',
+            'email'             :'duplicate_user@email.com',
             'password'          :'abc',
             'repeat_password'   :'abc'}
         resp = self.request_with_role('/admin/create', method='POST',
                 data=json.dumps({'data': admin}))
+        print resp.data
+        self.assertEqual(201, resp.status_code)
 
+        resp = self.request_with_role('/admin/create', method='POST',
+                data=json.dumps({'data': admin}))
+        self.check_error(resp, 'EMAIL_IN_USE')
+
+
+    def test_create_success(self):
+        """ Test sucess of /create with proper data """
+        admin = {
+            'email'             :'user_success@email.com',
+            'password'          :'abc',
+            'repeat_password'   :'abc'}
+        resp = self.request_with_role('/admin/create', method='POST',
+                data=json.dumps({'data': admin}))
         self.assertEqual(201, resp.status_code)
         uid = json.loads(resp.data)['uid']
 
@@ -48,9 +62,6 @@ class TestAdmin(template.TestingTemplate):
         self.assertEqual(admin['email'], db_admin['email'])
         self.assertTrue(sha256_crypt.verify(
                 admin['password'], db_admin['password']))
-        self.assertFalse(sha256_crypt.verify(
-                'break', db_admin['password']))
-
 
 
     def _test_create_bad_email(self):
@@ -61,6 +72,67 @@ class TestAdmin(template.TestingTemplate):
             method='POST',
             data=json.dumps(admin))
         self.check_error(resp, 'IMPROPER_EMAIL')
+
+
+    def test_login_fail(self):
+        """ Test that login fails w/ nonexistent users """
+
+        # fails missing all data
+        resp = self.request_with_role('/admin/login', method='POST')
+        self.check_error(resp, 'MISSING_LOGIN_DATA')
+
+        # fails missing a password
+        resp = self.request_with_role('/admin/login', method='POST',
+                data=json.dumps({'data':{'email': 'missing pw'}}))
+        self.check_error(resp, 'MISSING_LOGIN_DATA')
+        
+        # non_existent admin
+        resp = self.request_with_role('/admin/login', method='POST',
+                data=json.dumps({'data':{'email': 'non_existent@admin.com',
+                                'password': 'insecure'}}))
+        self.check_error(resp, 'ADMIN_DNE')
+
+        # incorrect password, make user then check
+        admin = {
+            'email'             :'login_user@email.com',
+            'password'          :'abc',
+            'repeat_password'   :'abc'}
+        resp = self.request_with_role('/admin/create', method='POST',
+                data=json.dumps({'data': admin}))
+        self.assertEqual(201, resp.status_code)
+        
+        admin['password'] = 'wrong'
+        del admin['repeat_password']
+        resp = self.request_with_role('/admin/login', method='POST',
+                data=json.dumps({'data':admin}))
+        self.check_error(resp, 'INCORRECT_PASSWORD')
+
+
+    def test_login_success(self):
+        """ Test that the login works with valid info """
+        admin = {
+            'email'             :'login_success_user@email.com',
+            'password'          :'abc',
+            'repeat_password'   :'abc'}
+
+        # making user
+        resp = self.request_with_role('/admin/create', method='POST',
+                data=json.dumps({'data': admin}))
+        self.assertEqual(201, resp.status_code)
+        del admin['repeat_password']
+
+        # login attempt
+        with template.app.test_client() as c:
+            resp = c.open(  # make request
+                    path='/admin/login',
+                    method='POST',
+                    data=json.dumps({'data':admin}))
+            self.assertEqual(201, resp.status_code)
+
+            with c.session_transaction() as sess:
+                # confirm the session was changed
+                self.assertEqual(sess['role'], 'admin')
+                self.assertEqual(sess['email'], admin['email'])
 
 
 if __name__ == '__main__':
