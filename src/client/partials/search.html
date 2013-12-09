@@ -15,7 +15,7 @@
             <div class="row col-md-12">
                 <div class="col-md-9">
                     <div>
-                        <h4>{{selectedCompany.Company}}</h4>
+                        <h2>{{selectedCompany.Company}}</h2>
                         <!--Rating block-->
                         <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
                         <h6>{{result.Ratings + rtgs}}</h6>
@@ -34,7 +34,13 @@
 
             <div class="row col-md-12">
                 <div class="col-md-12">
-                    <div ng-include="'partials/companyReviews.html'" style="background-color: #808080; height: 800px"></div>
+                    <h3>Reviews:</h3>
+                    <div ng-repeat = "review in companies.Reviews">
+                        {{review.category}} ( {{review.cost}} )
+                        <br />
+                        {{review.rating}} / 5 stars
+                        {{review.content}}
+                    </div>
                 </div>
             </div>
         </div>
