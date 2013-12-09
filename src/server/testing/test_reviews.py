@@ -11,6 +11,7 @@ class TestReview(template.TestingTemplate):
     """ Tests the API endpoints associated with handling reviews. """
 
     def __create_review(self, review={'company': 'test', 'rating':10}):
+        """ method for use in the tests """
         resp = self.request_with_role('/review/create/123',
             method='POST',
             data=json.dumps(review))
@@ -34,6 +35,7 @@ class TestReview(template.TestingTemplate):
 
 
     def test_create_fail(self):
+        # TODO
         # don't know how to get this to fail yet
         # once we set a standard set of fields we'll test for existance of them
         pass

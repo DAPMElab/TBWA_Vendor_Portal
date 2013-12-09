@@ -34,14 +34,12 @@ def create():
     print
 
     # verifying data
+    # TODO: think about more redudant data checking
     for key, type in admin_model.items():
         if key not in admin_data:
             return make_error(err='ADMIN_DATA_NEEDED')
-        else:
-            return make_error(err='ADMIN_DATA_NEEDED')
 
-    # TODO: add email validator
-    if False:
+    if False: # TODO: add email validator
         return make_error(err='IMPROPER_EMAIL')
 
     # confirming matching passwords
@@ -53,7 +51,7 @@ def create():
     admin_data['password'] = hashed_pass
     del admin_data['repeat_password']
     
-    # creating admin
+    # creating admin in db
     outcome = r.table(TABLE).insert(admin_data).run(g.rdb_conn)
 
     if outcome['inserted'] == 1:
