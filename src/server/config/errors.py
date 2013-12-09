@@ -28,18 +28,27 @@ errors = {
             'message': 'this endpoint requires data to operate',
             'status_code': 400
         },
-        'ADMIN_REQUIRED': {
-            'message': 'this endpoint requires admin credentials',
-            'status_code': 403
-        },
         'PASSWORDS_UNMATCHED': {
             'message': 'passwords passed do not match',
             'status_code': 400
+        },
+        'INCORRECT_PASSWORD': {
+            'message': 'password incorrect',
+            'status_code': 401
         },
         'IMPROPER_EMAIL': {
             'message': 'email is invalid',
             'status_code': 400
         },
+        'EMAIL_IN_USE': {
+            'message': 'email already in use',
+            'status_code': 400
+        },
+        'MISSING_LOGIN_DATA': {
+            'message': 'an email and passowrd are needed for login',
+            'status_code': 400
+        },
+
         # REVIEWS
         'REVIEW_NOT_CREATED': {
             'message': 'error creating review',
@@ -53,7 +62,12 @@ errors = {
             'message': 'review was not found',
             'status_code': 404
         },
+
         # ADMIN
+        'ADMIN_REQUIRED': {
+            'message': 'this endpoint requires admin credentials',
+            'status_code': 403
+        },
         'ADMIN_DATA_NEEDED': {
             'message': 'data is missing to create an admin',
             'status_code': 400
@@ -61,6 +75,10 @@ errors = {
         'ADMIN_NOT_CREATED': {
             'message': 'error creating admin',
             'status_code': 400
+        },
+        'ADMIN_DNE': {
+            'message': 'the specified admin does not exist',
+            'status_code': 404
         }
     }
 }
