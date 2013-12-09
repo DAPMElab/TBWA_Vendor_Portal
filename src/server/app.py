@@ -98,3 +98,4 @@ if __name__ == '__main__':
 
     # remove the host setting if running locally, not in Vagrant
     app.run(host='0.0.0.0')
+
