@@ -444,7 +444,7 @@ h6 .small,
 h1,
 h2,
 h3 {
-  margin-top: 20px;
+  margin-top: 0px;
   margin-bottom: 10px;
 }
 
@@ -460,7 +460,7 @@ h3 .small {
 h4,
 h5,
 h6 {
-  margin-top: 10px;
+  margin-top: 0px;
   margin-bottom: 10px;
 }
 
@@ -486,11 +486,13 @@ h2,
 h3,
 .h3 {
   font-size: 24px;
+  display:inline-block;
+  padding-right:10px;
 }
 
 h4,
 .h4 {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 h5,
@@ -4277,6 +4279,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
   left: auto;
 }
 
+
+
 @media (min-width: 768px) {
   .nav-justified > li {
     display: table-cell;
@@ -4500,6 +4504,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   padding: 15px 15px;
   font-size: 18px;
   line-height: 20px;
+  margin-left:50px;
 }
 
 .navbar-brand:hover,
@@ -4589,7 +4594,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
     padding-bottom: 15px;
   }
   .navbar-nav.navbar-right:last-child {
-    margin-right: -15px;
+    padding-right:15px;
   }
 }
 
@@ -5231,7 +5236,6 @@ a.list-group-item.active > .badge,
 
 .jumbotron {
   padding: 30px;
-  margin-bottom: 30px;
   font-size: 21px;
   font-weight: 200;
   line-height: 2.1428571435;
@@ -5271,6 +5275,59 @@ a.list-group-item.active > .badge,
     font-size: 63px;
   }
 }
+
+/* COMMENT-review div */
+
+.review {
+  padding: 30px;
+  margin-bottom: 30px;
+  font-size: 14px;
+  font-weight: 200;
+  line-height: 2.1428571435;
+  color: inherit;
+  background-color: #eeeeee;
+}
+
+.review h1,
+.review .h1 {
+  line-height: 1;
+  color: inherit;
+}
+
+.review p {
+  line-height: 1.4;
+}
+
+.container .review {
+  border-radius: 6px;
+  border:1px solid #e7e7e7;
+}
+
+.review #left {
+  max-width: 80%;
+  float:left;
+}
+
+.review #right {
+  max-width:20%;
+  float:right;
+}
+
+@media screen and (min-width: 768px) {
+  .review {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .container .review {
+    padding-right: 60px;
+    padding-left: 60px;
+  }
+  .review h1,
+  .review .h1 {
+    font-size: 63px;
+  }
+}
+/* COMMENT - end */
 
 .thumbnail {
   display: block;
