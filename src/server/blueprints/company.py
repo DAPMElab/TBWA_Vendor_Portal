@@ -17,8 +17,14 @@ required_company_attributes = [
     'name',
     'website'
 ]
+return_company_attribute = [
+    #TODO: update
+    'name',
+    'website'
+]
 
 @company_bp.route('/create', methods=['POST'])
+@admin
 @has_data
 def create():
     """ Creates a new company that will be displayed.
@@ -38,7 +44,28 @@ def create():
         return make_error(err='COMPANY_NOT_CREATED')
     
 
+@company_bp.route('/get/<uid>', methods=['GET'])
+def get(uid):
+    """ Returns all information for a specific company """
+    try:
+        review = (r.table(TABLE)
+                .get(uid)
+                .pluck(*return_company_attribute)
+                .run(g.rdb_conn))
 
+        return make_response(json.dumps({
+            'message'   : 'company found',
+            'data'      : review
+        }), 200)
+    except RqlRuntimeError:
+        return make_error(err='COMPANY_NOT_FOUND')
+
+
+@company_bp.route('/edit/<uid>', methods=['PATCH'])
+@has_data
+def edit(uid):
+    """ Updates all fields passed in on the company object """
+    pass
 
 
 

@@ -82,8 +82,7 @@ class TestReview(template.TestingTemplate):
         rid = self.__create_review()
 
         # getting review
-        resp = self.request_with_role('/review/get/{}'.format(rid),
-            method='GET')
+        resp = self.request_with_role('/review/get/{}'.format(rid))
 
         # testing response
         self.assertEqual(resp.status_code, 200)
