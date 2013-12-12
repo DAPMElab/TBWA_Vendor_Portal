@@ -1,10 +1,8 @@
 
-from flask              import Blueprint, request, g, session, make_response
+from flask              import Blueprint, request, g, make_response
 from rethinkdb.errors   import RqlRuntimeError
-from datetime           import datetime
-from copy               import deepcopy
 from config             import make_error
-from decorators         import admin
+from decorators         import admin, has_data
 import rethinkdb as r
 import json
 
@@ -18,6 +16,7 @@ approved by an admin.
 
 
 @review_bp.route('/create/<uid>', methods=['POST'])
+@has_data
 def create(uid):
     """ Creates a company review that will set in the approval queue
 
@@ -74,12 +73,9 @@ def get(uid):
 
 @review_bp.route('/edit/<uid>', methods=['PATCH'])
 @admin
+@has_data
 def edit(uid):
-    """ Edits the info for an exact review """
-    try:
-        updated_review = json.loads(request.data)
-    except ValueError:
-        return make_error(err='DATA_NEEDED_FOR_REQUEST')
+    updated_review = request.get_json(cache=True)
 
     #TODO: think about logging edits in the obj
     try:

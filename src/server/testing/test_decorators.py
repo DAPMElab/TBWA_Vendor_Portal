@@ -1,6 +1,10 @@
 
+# TODO: Figure out a better way of testing this. Possible a test app that uses
+#       the decorators?
+
 import unittest
 import template
+import json
 
 from sys import path
 path.append('../')
@@ -31,6 +35,24 @@ class TestDecorators(template.TestingTemplate):
         self.check_error(resp, 'ADMIN_REQUIRED')
 
 
+    def test_has_data_fail(self):
+        """ test that the call passes w/ data """
+        # makes the call w/o data
+        resp = self.request_with_role('/review/create/123',
+            method='POST')
+        self.check_error(resp, 'DATA_NEEDED_FOR_REQUEST')
+
+
+    def test_has_data_success(self):
+        """ test that the call passes w/ data """
+        # makes the call w/ data
+        review = {'company': 'test', 'rating':10}
+        resp = self.request_with_role('/review/create/123',
+            method='POST', data=json.dumps(review))
+        self.assertEqual(201, resp.status_code)
+
+
 if __name__ == '__main__':
     unittest.main()
+
 

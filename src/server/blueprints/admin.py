@@ -4,7 +4,7 @@ from rethinkdb.errors   import RqlRuntimeError
 from datetime           import datetime
 from copy               import deepcopy
 from config             import make_error
-from decorators         import admin
+from decorators         import admin, has_data
 from passlib.hash       import sha256_crypt
 from email.utils        import parseaddr
 import rethinkdb as r
@@ -27,9 +27,10 @@ admin_model = {
 
 
 @admin_bp.route('/create', methods=['POST'])
+@has_data
 def create():
     """ Creates a new admin with the data passed in """
-    admin_data = json.loads(request.data)['data']
+    admin_data = request.get_json(cache=True)['data']
 
     # verifying data
     # TODO: think about more redudant data checking
@@ -69,13 +70,10 @@ def create():
 
 
 @admin_bp.route('/login', methods=['POST'])
+@has_data
 def login():
     """ Checks for an existing admin and responds accordingliy """
-    # TODO: make more elegant, probably a decorator
-    try:
-        login_data = json.loads(request.data)['data']
-    except:
-        return make_error('MISSING_LOGIN_DATA')
+    login_data = request.get_json(cache=True)['data']
 
     for key in ['email', 'password']:
         if key not in login_data:

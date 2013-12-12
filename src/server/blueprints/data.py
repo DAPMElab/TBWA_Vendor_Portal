@@ -12,7 +12,7 @@ data_bp = Blueprint('data routes', __name__)
 def get_all_data():
     """ Returns all the data from the specified dataset """
     try:
-        data_cursor = rethinkdb.table('diverse').run(g.rdb_conn)
+        data_cursor = rethinkdb.table('companies').run(g.rdb_conn)
         data = [row for row in data_cursor]
     except RqlRuntimeError, e:
         return make_error(err='DATASET_NOT_FOUND')

@@ -35,10 +35,10 @@ class TestReview(template.TestingTemplate):
 
 
     def test_create_fail(self):
-        # TODO
-        # don't know how to get this to fail yet
-        # once we set a standard set of fields we'll test for existance of them
-        pass
+        """ Make a request w/o data """
+        resp = self.request_with_role('/review/create/123',
+            method='POST')
+        self.check_error(resp, 'DATA_NEEDED_FOR_REQUEST')
 
     
     def test_approve_success(self):

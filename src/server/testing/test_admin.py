@@ -79,7 +79,7 @@ class TestAdmin(template.TestingTemplate):
 
         # fails missing all data
         resp = self.request_with_role('/admin/login', method='POST')
-        self.check_error(resp, 'MISSING_LOGIN_DATA')
+        self.check_error(resp, 'DATA_NEEDED_FOR_REQUEST')
 
         # fails missing a password
         resp = self.request_with_role('/admin/login', method='POST',
@@ -88,8 +88,10 @@ class TestAdmin(template.TestingTemplate):
         
         # non_existent admin
         resp = self.request_with_role('/admin/login', method='POST',
-                data=json.dumps({'data':{'email': 'non_existent@admin.com',
-                                'password': 'insecure'}}))
+                data=json.dumps({'data':{
+                        'email': 'non_existent@admin.com',
+                        'password': 'insecure'}}))
+        print resp.data
         self.check_error(resp, 'ADMIN_DNE')
 
         # incorrect password, make user then check
