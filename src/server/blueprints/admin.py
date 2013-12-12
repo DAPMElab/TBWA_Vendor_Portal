@@ -71,7 +71,7 @@ def create():
 @admin_bp.route('/login', methods=['POST'])
 def login():
     """ Checks for an existing admin and responds accordingliy """
-    # TODO: make more elegant
+    # TODO: make more elegant, probably a decorator
     try:
         login_data = json.loads(request.data)['data']
     except:

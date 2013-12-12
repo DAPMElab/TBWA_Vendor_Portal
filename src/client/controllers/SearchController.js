@@ -42,7 +42,7 @@ angular.module('myApp.controllers', []).
 
 
         $scope.loadCompanies = function(){
-            $http.get('/diverse').success(function(response){
+            $http.get('/data').success(function(response){
                 $scope.companies = response['data'];
                 //By default, we pick the first company to be displayed initially
                 $scope.selectedCompany = $scope.companies[0];

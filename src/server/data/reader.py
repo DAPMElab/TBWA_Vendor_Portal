@@ -7,7 +7,7 @@ import os
 this_dir = os.path.dirname(__file__)
 
 data_paths = {
-    'diverse': os.path.join(this_dir, 'assets/tbwa/diverse_vendors_list.csv')
+    'companies': os.path.join(this_dir, 'assets/tbwa/diverse_vendors_list.csv')
 }
 application_tables = ['admin', 'reviews']
 

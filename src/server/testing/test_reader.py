@@ -51,10 +51,11 @@ class TestCSVReader(template.TestingTemplate):
             table_list = rethinkdb.table_list().run(conn)
             self.assertEqual(len(table_list),
                 len(template.test_dataset.keys()+template.test_tables))
-            self.assertTrue('test_dataset' in table_list)
+            self.assertTrue(template.test_dataset.keys()[0] in table_list)
 
             # test that the data is correct by checking columns
-            data = [row for row in rethinkdb.table('test_dataset').run(conn)]
+            data = [row for row in rethinkdb.table(
+                template.test_dataset.keys()[0]).run(conn)]
             self.assertSetEqual(
                 set(data[0].keys())-set([u'id']),
                 set(template.expected_dataset[0].keys()))
