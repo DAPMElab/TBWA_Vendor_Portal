@@ -48,6 +48,15 @@ errors = {
             'message': 'an email and passowrd are needed for login',
             'status_code': 400
         },
+        # COMPANIES
+        'COMPANY_NOT_CREATED': {
+            'message': 'error creating compay',
+            'status_code': 400
+        },
+        'COMPANY_NOT_FOUND': {
+            'message': 'company was not found',
+            'status_code': 404
+        },
 
         # REVIEWS
         'REVIEW_NOT_CREATED': {

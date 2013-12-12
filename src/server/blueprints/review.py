@@ -23,11 +23,7 @@ def create(uid):
         @param uid: uid of the company being reviewed
         @json_format: {'data': <review obj>}
     """
-    #try:
     review = json.loads(request.data)
-    #except
-    #    return make_error(err='REVIEW_NOT_CREATED')
-
     review['approved'] = False
     outcome = r.table(TABLE).insert(review).run(g.rdb_conn)
 

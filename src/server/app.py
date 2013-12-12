@@ -49,6 +49,10 @@ app.register_blueprint(client_bp)
 from blueprints import review_bp
 app.register_blueprint(review_bp, url_prefix='/review')
 
+""" company routes """
+from blueprints import company_bp
+app.register_blueprint(company_bp, url_prefix='/company')
+
 """ admin routes """
 from blueprints import admin_bp
 app.register_blueprint(admin_bp, url_prefix='/admin')
