@@ -3,10 +3,14 @@
 <div class="container bs-docs-container" data-ng-init = "loadCompanies()">
     <div class="row">
         <div class="col-md-4">
-            <h4>Refine Search:</h4>
-            <h5>Region</h5>
-            <div ng-include="'partials/map.html'" class="map"></div>
-            <div ng-include="'partials/category.html'"></div>
+            <div>
+                <h5>Refine search:</h5>
+                <h3>REGION</h3>
+                <div ng-include="'partials/map.html'" class="map"></div>
+                <h3>CATEGORY</h3>
+                <div ng-include="'partials/category.html'"></div>
+            </div>
+            
             <div ng-include="'partials/currentResults.html'"></div>
         </div>
 
@@ -15,7 +19,7 @@
             <div class="row col-md-12">
                 <div class="col-md-9">
                     <div>
-                        <h2>{{selectedCompany.Company}}</h2>
+                        <h2>{{selectedCompany.Name}}</h2>
                         <!--Rating block-->
                         <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
                         <h6>{{result.Ratings + rtgs}}</h6>
