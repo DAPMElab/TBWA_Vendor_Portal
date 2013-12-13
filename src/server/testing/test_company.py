@@ -63,6 +63,8 @@ class TestCompany(template.TestingTemplate):
         resp = self.request_with_role('/company/get/{}'.format('fake_company'))
 
         # testing response
+        print resp.status_code
+        print resp.data
         self.check_error(resp, 'COMPANY_NOT_FOUND')
 
 

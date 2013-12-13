@@ -59,6 +59,21 @@ def get(uid):
     return make_error(err='COMPANY_NOT_FOUND')
 
 
+@company_bp.route('/get/list', methods=['GET'])
+def list():
+    try:
+        companies = (r.table(TABLE)
+                .pluck(*return_company_attribute)
+                .run(g.rdb_conn))
+
+    if company:
+        return make_response(json.dumps({
+            'message'   : 'company found',
+            'data'      : company
+        }), 200)
+    return make_error(err='COMPANY_NOT_FOUND')
+
+
 @company_bp.route('/list/<path:amount>',            methods=['GET'])
 @company_bp.route('/list', defaults={'amount':None},  methods=['GET'])
 def list(amount):
