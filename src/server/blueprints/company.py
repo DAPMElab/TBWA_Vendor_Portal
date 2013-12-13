@@ -59,12 +59,17 @@ def get(uid):
     return make_error(err='COMPANY_NOT_FOUND')
 
 
-@company_bp.route('/list', methods=['GET'])
-def list():
+@company_bp.route('/list/<path:amount>',            methods=['GET'])
+@company_bp.route('/list', defaults={'amount':None},  methods=['GET'])
+def list(amount):
     try:
-        cursor = (r.table(TABLE)
-                .pluck(*return_company_attribute)
-                .run(g.rdb_conn))
+        if amount:
+            cursor = (r.table(TABLE)
+                    .run(g.rdb_conn))
+        else:
+            cursor = (r.table(TABLE)
+                    .pluck(*return_company_attribute)
+                    .run(g.rdb_conn))
         companies = [x for x in cursor]
 
         return make_response(json.dumps({
@@ -111,9 +116,5 @@ def delete(uid):
         }), 202)
     except RqlRuntimeError:
         return make_error(err='DATABASE_ERROR')
-
-
-
-
 
 

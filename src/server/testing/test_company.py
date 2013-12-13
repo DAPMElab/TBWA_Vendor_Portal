@@ -120,7 +120,7 @@ class TestCompany(template.TestingTemplate):
 
 
     def test_list_success(self):
-        """ Test that reviews that are unapproved are returned """
+        """ Test that companies """
         # creating reviews
         company_list = [
             {'Name': 'test',    'URL': 'list_1'},
@@ -131,6 +131,60 @@ class TestCompany(template.TestingTemplate):
             self.__create_company(company=c)
 
         resp = self.request_with_role('company/list', method='GET')
+        self.assertEqual(resp.status_code, 200)
+        resp_data = json.loads(resp.data)
+
+        # make sure the list at the very least has as many as we created
+        self.assertGreaterEqual(resp_data['count'], len(company_list))
+
+        # checking that all created reviews were returned
+        returned_list = resp_data['data']
+        for company in returned_list:
+            del company['id']
+        for company in company_list:
+            self.assertIn(company, returned_list)
+
+    
+    def test_list_fail(self):
+        """ Test that /list return doesn't return all fields """
+        # creating reviews
+        company_list = [
+            {'Name': 'test_fail',    'URL': 'list_1', 'unnecessary': 'test'},
+            {'Name': 'test_fail',    'URL': 'list_2', 'unnecessary': 'test'},
+            {'Name': 'test_fail',    'URL': 'list_3', 'unnecessary': 'test'},
+            {'Name': 'test_fail',    'URL': 'list_4', 'unnecessary': 'test'},
+        ]
+        for c in company_list:
+            self.__create_company(company=c)
+
+        resp = self.request_with_role('company/list', method='GET')
+        self.assertEqual(resp.status_code, 200)
+        resp_data = json.loads(resp.data)
+
+        # make sure the list at the very least has as many as we created
+        self.assertGreaterEqual(resp_data['count'], len(company_list))
+
+        # checking that none of the "whole" objects are in the return values
+        returned_list = resp_data['data']
+        for company in returned_list:
+            del company['id']
+        for company in company_list:
+            self.assertNotIn(company, returned_list)
+
+
+    def test_list_all_success(self):
+        """ Test that reviews that are unapproved are returned """
+        # creating reviews
+        company_list = [
+            {'Name': 'test',    'URL': 'list_1', 'unnecessary': 'test'},
+            {'Name': 'test',    'URL': 'list_2', 'unnecessary': 'test'},
+            {'Name': 'test',    'URL': 'list_3', 'unnecessary': 'test'},
+            {'Name': 'test',    'URL': 'list_4', 'unnecessary': 'test'},
+        ]
+        for c in company_list:
+            self.__create_company(company=c)
+
+        resp = self.request_with_role('company/list/all', method='GET')
         self.assertEqual(resp.status_code, 200)
         resp_data = json.loads(resp.data)
 
