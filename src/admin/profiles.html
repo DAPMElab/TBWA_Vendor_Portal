@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TBWA Supplier Diversity Admin</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">	
+		<img src="images/logo.jpg" id="logo">
+      <div class="navbar-header">
+        <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>-->
+        <a class="navbar-brand">TBWA Supplier Diversity Admin Panel</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Reviews</a></li>
+          <li class="active"><a href="profiles.html">Edit Company Profiles</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="">Logout</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+
+    <div class="container">
+
+      <!-- Review -->
+      <div class="jumbotron">
+        <h2>Company Profiles</h2>
+        <p>A</p>
+      </div>
+      <div class="content-area">
+        <!--Form content-->
+        <form role="form">
+          <h3>Company Information</h3>
+          <div class="form-group">            
+            <label for="name">Company Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <label for="website">Website</label>
+            <input type="url" class="form-control" id="website" placeholder="URL">
+          </div>
+          <div class="form-group">
+            <label for="clients">Past Clients (seperated by commas) </label>
+            <input type="text" class="form-control" id="clients" placeholder="Clients">
+          </div>
+          <!--Addresses-->
+          <div class="form-group">
+            <label for="physical-address">Physical Address</label>
+            <input type="text" class="form-control" id="physical-address" 
+              placeholder="PhysicalAddress-Address">
+            <input type="text" class="form-control" id="physical-address" 
+              placeholder="PhysicalAddress-City">
+            <select class="form-control bfh-states" data-country="US" data-state="CA"></select>
+            <input type="text" class="form-control" id="physical-address" 
+              placeholder="PhysicalAddress-ZipCode">
+          </div>
+          <div class="form-group">
+            <label for="remit-address">Remit Address</label>
+            <input type="text" class="form-control" id="remit-address" 
+              placeholder="RemitAddress-Address">
+            <input type="text" class="form-control" id="remit-address" 
+              placeholder="RemitAddress-City">
+            <select class="form-control bfh-states" data-country="US" data-state="CA"></select>
+            <input type="text" class="form-control" id="remit-address" 
+              placeholder="RemitAddress-ZipCode">
+          </div>
+
+          <!-- Categories -->
+          <div class="form-group">            
+            <label>Category(s)</label>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Category 1
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Category 2
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Category 3
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Category 4
+              </label>
+            </div>
+          </div>
+
+
+          <h3>Contact Information</h3>
+          <div class="form-group">            
+            <label for="contact-name">Contact Name</label>
+            <input type="text" class="form-control" id="contact-name" placeholder="Contact-Name">
+          </div>
+          <div class="form-group">            
+            <label for="contact-email">Email Address</label>
+            <input type="email" class="form-control" id="contact-email" placeholder="Contact-Email">
+          </div>
+          <div class="form-group">            
+            <label for="contact-phone">Phone Number</label>
+            <input type="tel" class="form-control" id="contact-phone" placeholder="Contact-Phone">
+          </div>
+          
+          <button type="submit" class="btn btn-default">Submit</button>
+</form>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap-formhelpers-states.js"></script>
+    <script src="js/bootstrap-formhelpers-states.en_US.js"></script>
+  </body>
+</html>
