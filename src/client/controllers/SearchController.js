@@ -57,6 +57,9 @@ angular.module('myApp.controllers', []).
         $scope.search = {text:''};
 
 
+        /**
+         * Executed on load of the main page to get information about each company
+        */
         $scope.loadCompanies = function(){
             $http.get('/data').success(function(response){
                 $scope.companies = response['data'];
@@ -130,17 +133,6 @@ angular.module('myApp.controllers', []).
                 $scope.categoriesSelected.push(categoryToAdd);
             }
         }
-
-/*
-        categoriesContainsCategory = function(category) {
-            for (var i = 0; i < $scope.categoriesSelected.length; i++) {
-                if ($scope.categoriesSelected[i] === obj) {
-                    return true;
-                }
-            }
-            return false;
-        }
-*/
 
         /**
          * Main method for searching
