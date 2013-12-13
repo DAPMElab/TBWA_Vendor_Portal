@@ -95,6 +95,21 @@ def edit(uid):
         return make_error(err='DATABASE_ERROR')
 
 
+@company_bp.route('/delete/<uid>', methods=['DELETE'])
+@admin
+def delete(uid):
+    """ Deletes a company object based on id """
+
+    try:
+        outcome = r.table(TABLE).get(uid).delete().run(g.rdb_conn)
+        if outcome['skipped']:
+            return make_error(err='COMPANY_NOT_FOUND')
+
+        return make_response(json.dumps({
+            'message'   : 'company deleted'
+        }), 202)
+    except RqlRuntimeError:
+        return make_error(err='DATABASE_ERROR')
 
 
 

@@ -70,9 +70,7 @@ class TestCompany(template.TestingTemplate):
         """ Successfully edit a company """
         # creating a company
         updated_company = {'Name': 'test', 'URL': 'edit_success_url_1'}
-        resp = self.request_with_role('/company/create', method='POST',
-            data=json.dumps(updated_company))
-        cid = json.loads(resp.data)['uid']
+        cid = self.__create_company(company=updated_company)
 
         # updating company
         updated_company['URL'] = 'edit_success_url_2'
@@ -96,5 +94,31 @@ class TestCompany(template.TestingTemplate):
             method='PATCH',
             data=json.dumps(bad_company))
         self.check_error(resp, 'COMPANY_NOT_FOUND')
+
+
+    def test_delete_success(self):
+        """ Test successfully deleting a company """
+        # make a company
+        bad_company = {'Name': 'test', 'URL': 'to be deleted'}
+        cid = self.__create_company(company=bad_company)
+
+        # delete the company
+        resp = self.request_with_role('/company/delete/{}'.format(cid),
+                method='DELETE')
+        self.assertEqual(202, resp.status_code)
+
+        # make sure it's gone
+        resp = self.request_with_role('/company/get/{}'.format(cid))
+        self.check_error(resp, 'COMPANY_NOT_FOUND')
+        
+
+
+    def test_delete_fail(self):
+        """ Test delete failing on a non-existent company """
+        resp = self.request_with_role('/company/delete/{}'.format('made_up_id'),
+            method='DELETE')
+        self.check_error(resp, 'COMPANY_NOT_FOUND')
+
+
 
 
