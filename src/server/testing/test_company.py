@@ -11,7 +11,7 @@ class TestCompany(template.TestingTemplate):
     """ Tests the API endpoints associated with handling companies. """
 
     def __create_company(self, company=
-            {'name': 'test company', 'website': 'http://www.fake.com'}):
+            {'Name': 'test company', 'URL': 'http://www.fake.com'}):
         """ method for use in the tests """
         resp = self.request_with_role('/company/create',
             method='POST', role='admin',
@@ -22,7 +22,7 @@ class TestCompany(template.TestingTemplate):
 
     def test_create_company(self):
         """ Tests a successful company creation """
-        company = {'name': 'test company', 'website': 'http://www.fake.com'}
+        company = {'Name': 'test company', 'URL': 'http://www.fake.com'}
         resp = self.request_with_role('/company/create',
             method='POST', role='admin',
             data=json.dumps(company))
@@ -63,8 +63,8 @@ class TestCompany(template.TestingTemplate):
         resp = self.request_with_role('/company/get/{}'.format('fake_company'))
 
         # testing response
+        print resp.status_code
+        print resp.data
         self.check_error(resp, 'COMPANY_NOT_FOUND')
-
-
 
 

@@ -14,13 +14,14 @@ Handles HTTP requests made by the admin for changing company data
 """
 
 required_company_attributes = [
-    'name',
-    'website'
+    'Name',
+    'URL',
 ]
 return_company_attribute = [
-    #TODO: update
-    'name',
-    'website'
+    'Name',
+    'URL',
+    'DBA',
+    'id'
 ]
 
 @company_bp.route('/create', methods=['POST'])
@@ -42,23 +43,36 @@ def create():
         }), 201)
     else:
         return make_error(err='COMPANY_NOT_CREATED')
-    
 
 @company_bp.route('/get/<uid>', methods=['GET'])
 def get(uid):
     """ Returns all information for a specific company """
+    company = (r.table(TABLE)
+            .get(uid)
+            .run(g.rdb_conn))
+
+    if company:
+        return make_response(json.dumps({
+            'message'   : 'company found',
+            'data'      : company
+        }), 200)
+    return make_error(err='COMPANY_NOT_FOUND')
+
+
+@company_bp.route('/get/list', methods=['GET'])
+def list():
     try:
-        review = (r.table(TABLE)
-                .get(uid)
+        companies = (r.table(TABLE)
                 .pluck(*return_company_attribute)
                 .run(g.rdb_conn))
 
         return make_response(json.dumps({
-            'message'   : 'company found',
-            'data'      : review
+            'message'   : 'company list',
+            'count'     : len(companies),
+            'data'      : companies
         }), 200)
     except RqlRuntimeError:
-        return make_error(err='COMPANY_NOT_FOUND')
+        return make_error(err='DATABASE_ERROR')
 
 
 @company_bp.route('/edit/<uid>', methods=['PATCH'])
