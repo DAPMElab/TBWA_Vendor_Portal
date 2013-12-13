@@ -112,7 +112,6 @@ class TestCompany(template.TestingTemplate):
         self.check_error(resp, 'COMPANY_NOT_FOUND')
         
 
-
     def test_delete_fail(self):
         """ Test delete failing on a non-existent company """
         resp = self.request_with_role('/company/delete/{}'.format('made_up_id'),
@@ -120,5 +119,33 @@ class TestCompany(template.TestingTemplate):
         self.check_error(resp, 'COMPANY_NOT_FOUND')
 
 
+    def test_list_success(self):
+        """ Test that reviews that are unapproved are returned """
+        # creating reviews
+        company_list = [
+            {'Name': 'test',    'URL': 'list_1'},
+            {'Name': 'test',    'URL': 'list_2'},
+            {'Name': 'test',    'URL': 'list_3'}
+        ]
+        for c in company_list:
+            self.__create_company(company=c)
+
+        resp = self.request_with_role('company/list', method='GET')
+        self.assertEqual(resp.status_code, 200)
+        resp_data = json.loads(resp.data)
+
+        # make sure the list at the very least has as many as we created
+        self.assertGreaterEqual(resp_data['count'], len(company_list))
+
+        # checking that all created reviews were returned
+        returned_list = resp_data['data']
+        for company in returned_list:
+            del company['id']
+        for company in company_list:
+            self.assertIn(company, returned_list)
+
+
+if __name__ == '__main__':
+    unittest.main()
 
 

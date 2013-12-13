@@ -59,12 +59,13 @@ def get(uid):
     return make_error(err='COMPANY_NOT_FOUND')
 
 
-@company_bp.route('/get/list', methods=['GET'])
+@company_bp.route('/list', methods=['GET'])
 def list():
     try:
-        companies = (r.table(TABLE)
+        cursor = (r.table(TABLE)
                 .pluck(*return_company_attribute)
                 .run(g.rdb_conn))
+        companies = [x for x in cursor]
 
         return make_response(json.dumps({
             'message'   : 'company list',
