@@ -34,7 +34,23 @@ angular.module('myApp.controllers', []).
             }
         };
 
-        $scope.availableCategories = ["Casting","Distribution", "Production", "Translation", "Editorial", "Animation", "Post Effects", "Illustration", "Music", "Storyboarding", "Sound Design", "Directorial"];
+        
+        $scope.availableCategories = [
+            {"text": "Casting"},
+            {"text": "Distribution"},
+            {"text": "Production"},
+            {"text": "Translation"},
+            {"text": "Editorial"},
+            {"text": "Animation"},
+            {"text": "Post Effects"},
+            {"text": "Illustration"},
+            {"text": "Music"},
+            {"text": "Storyboarding"},
+            {"text": "Sound Design"},
+            {"text": "Directorial"}
+        ];
+
+        //$scope.availableCategories = ["Casting", "Distribution", "Production", "Translation", "Editorial", "Animation", "Post Effects", "Illustration", "Music", "Storyboarding", "Sound Design", "Directorial"];
 
         //Category settings
         $scope.categoriesSelected = [];
