@@ -76,10 +76,23 @@ def list():
 
 
 @company_bp.route('/edit/<uid>', methods=['PATCH'])
+@admin
 @has_data
 def edit(uid):
     """ Updates all fields passed in on the company object """
-    pass
+    updated_company = request.get_json(cache=True)
+
+    #TODO: think about logging edits in the obj
+    try:
+        outcome = r.table(TABLE).get(uid).update(updated_company).run(g.rdb_conn)
+        if outcome['skipped']:
+            return make_error(err='COMPANY_NOT_FOUND')
+
+        return make_response(json.dumps({
+            'message'   : 'company updated'
+        }), 200)
+    except RqlRuntimeError:
+        return make_error(err='DATABASE_ERROR')
 
 
 

@@ -63,8 +63,38 @@ class TestCompany(template.TestingTemplate):
         resp = self.request_with_role('/company/get/{}'.format('fake_company'))
 
         # testing response
-        print resp.status_code
-        print resp.data
+        self.check_error(resp, 'COMPANY_NOT_FOUND')
+
+
+    def test_edit_success(self):
+        """ Successfully edit a company """
+        # creating a company
+        updated_company = {'Name': 'test', 'URL': 'edit_success_url_1'}
+        resp = self.request_with_role('/company/create', method='POST',
+            data=json.dumps(updated_company))
+        cid = json.loads(resp.data)['uid']
+
+        # updating company
+        updated_company['URL'] = 'edit_success_url_2'
+        resp = self.request_with_role('/company/edit/{}'.format(cid),
+            method='PATCH',
+            data=json.dumps(updated_company))
+        self.assertEqual(resp.status_code, 200)
+
+        # getting company
+        resp_get = self.request_with_role('/company/get/{}'.format(cid),
+            method='GET')
+        self.assertEqual(resp_get.status_code, 200)
+        data_get = json.loads(resp_get.data)
+        self.assertEqual(data_get['data']['URL'], updated_company['URL'])
+
+
+    def test_edit_fail(self):
+        """ Fail to edit a company """
+        bad_company = {'Name': 'test', 'URL': 'edit_success_url_1'}
+        resp = self.request_with_role('/company/edit/{}'.format('made_up_id'),
+            method='PATCH',
+            data=json.dumps(bad_company))
         self.check_error(resp, 'COMPANY_NOT_FOUND')
 
 
