@@ -12,13 +12,14 @@ from config.errors  import errors
 
 import os
 this_dir = os.path.dirname(__file__)
-test_csv = os.path.join(this_dir, 'data_test.csv')
-test_dataset = {'companies': test_csv}
-test_tables = ['test_table', 'reviews', 'admin']
+test_json = os.path.join(this_dir, 'data_test.json')
 
+test_dataset = {'companies': test_json}
+test_tables = ['test_table', 'reviews', 'admin']
 expected_dataset = [
-        {'col1':'this','col2':'should'},
-        {'col1':'work','col2':'hopefully'}]
+    {'col1':'this','col2':'should'},
+    {'col1':'work','col2':'hopefully'}
+]
 
 
 class TestingTemplate(unittest.TestCase):

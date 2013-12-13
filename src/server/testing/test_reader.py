@@ -16,18 +16,6 @@ class TestCSVReader(template.TestingTemplate):
         pass
 
 
-    def test_get_data_bad_dataset_name(self):
-        """ Tests that the reader fails when given an invalid dataset name """
-        with self.assertRaises(Exception):
-            reader.get_data('non-existent dataset')
-
-
-    def test_get_data(self):
-        """ Tests that a reader object is returned """
-        data = reader.get_data('test_dataset', path_to_data=template.test_csv)
-        self.assertEqual(data, template.expected_dataset)
-
-
     def test_setup_db(self):
         """ Test creation of a db and tables """
         # test that the 'TEST' database doesn't exist
