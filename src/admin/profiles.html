@@ -44,7 +44,7 @@
           <li class="active"><a href="profiles.html">Edit Company Profiles</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="">Logout</a></li>
+          <li><a href="signin.html">Logout</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
@@ -54,7 +54,13 @@
       <!-- Review -->
       <div class="jumbotron">
         <h2>Company Profiles</h2>
-        <p>A</p>
+        <select class="input-company">
+          <option>Company1</option>
+          <option>Company2</option>
+          <option>Company3</option>
+          <option>Company4</option>
+          <option>Company5</option>
+        </select>
       </div>
       <div class="content-area">
         <!--Form content-->
@@ -68,9 +74,66 @@
             <label for="website">Website</label>
             <input type="url" class="form-control" id="website" placeholder="URL">
           </div>
+          <!-- Categories -->
+          <div class="form-group">
+            <div id="left">            
+              <label>Category(s)</label>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Category 1
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Category 2
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Category 3
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Category 4
+                </label>
+              </div>
+            </div>
+          <!-- Classification -->
+            <div id="right">
+              <label>Classification(s)</label>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Class1
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Class2
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Class3
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Class4
+                </label>
+              </div>
+            </div>
+            <br style="clear:both;"/>
+          </div>
+          <!-- Clients -->
           <div class="form-group">
             <label for="clients">Past Clients (seperated by commas) </label>
             <input type="text" class="form-control" id="clients" placeholder="Clients">
+          </div>
+          <!-- DBA -->
+          <div class="form-group">
+            <label for="dba">DBA</label>
+            <input type="text" class="form-control" id="dba" placeholder="DBA">
           </div>
           <!--Addresses-->
           <div class="form-group">
@@ -94,30 +157,7 @@
               placeholder="RemitAddress-ZipCode">
           </div>
 
-          <!-- Categories -->
-          <div class="form-group">            
-            <label>Category(s)</label>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"> Category 1
-              </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"> Category 2
-              </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"> Category 3
-              </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"> Category 4
-              </label>
-            </div>
-          </div>
+
 
 
           <h3>Contact Information</h3>
