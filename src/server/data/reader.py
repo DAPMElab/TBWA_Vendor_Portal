@@ -7,7 +7,8 @@ import os
 this_dir = os.path.dirname(__file__)
 
 data_paths = {
-    'companies': os.path.join(this_dir, 'assets/tbwa/diverse_vendors_list.csv')
+    #'companies': os.path.join(this_dir, 'assets/tbwa/diverse_vendors_list.csv'),
+    #'play': os.path.join(this_dir, 'assets/tbwa/diverse_vendors_list_MERGED.csv')
 }
 application_tables = ['admin', 'reviews']
 
@@ -18,7 +19,7 @@ def get_data(dataset, path_to_data):
     # so that the whole dataset isn't loaded into memory
 
     try:
-        with open(path_to_data, 'rb') as f:
+        with open(path_to_data, 'U') as f:
             data_reader = csv.reader(f)
             columns = data_reader.next()
 
@@ -29,7 +30,8 @@ def get_data(dataset, path_to_data):
                     obj[col] = row[index]
                 data.append(obj)
 
-    except IOError:
+    except IOError, e:
+        print e
         raise Exception('Invalid dataset')
 
     return data
@@ -58,6 +60,7 @@ def setup_db(rdb_host, rdb_port, rdb_name,
 
             tbl_to_add = ((k, v) for k, v in datasets.items() if k not in tbl_list)
             for (name, path) in tbl_to_add:
+                print name, path
                 rethinkdb.table_create(name).run(conn)
                 rethinkdb.table(name).insert(get_data(name, path)).run(conn)
                 print "'{}' table created and populated.".format(name)
