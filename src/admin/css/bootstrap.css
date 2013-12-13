@@ -1997,6 +1997,15 @@ textarea.form-control {
   margin-bottom: 15px;
 }
 
+.form-group #left {
+  max-width: 50%;
+  float:left;
+}
+
+.form-group #right {
+  left:50%;
+  position: absolute;
+}
 .radio,
 .checkbox {
   display: block;
@@ -2067,8 +2076,17 @@ fieldset[disabled] .checkbox-inline {
   border-radius: 3px;
 }
 
-select.input-sm {
-  height: 30px;
+/* EDITED */
+
+.input-company {
+  height: 34px;
+  padding: 6px 12px;
+  font-size:14px;
+  border-radius: 0px;
+}
+
+select.input-company {
+  height: 34px;
   line-height: 30px;
 }
 
