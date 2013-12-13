@@ -2,19 +2,83 @@
 #Routes
 
 
-##Data
+-------------------------------------------------------------------------------------------------------
+##Companies
 
-GET `/data`
+POST `/company/create`
+
+- @data: json w/ `Name`, & `URL` and hopefully more data
+- @return: 201 w/ `uid` for review
+
+GET `/company/get/< uid >`
+
+- @data: None
+- @return: 200 & json w/ all fields & reviews
+- @return: 200 & json w/ all data for a company
+
+Example:
+
+```javascript
+{
+  "Agency":  "BBDO" ,
+  "AltName":  " " ,
+  "Categories": [
+    "Directorial" ,
+    "Production"
+  ] ,
+  "Classifications": [
+    "MBE"
+  ] ,
+  "Clients": [ ],
+  "Contact": {
+    "Email":  "" ,
+    "Name":  "" ,
+    "Phone":  ""
+  } ,
+  "DBA":  "" ,
+  "Name":  "La Fabrica Films USA, LLC" ,
+  "Path":  "busdev/vpd/Lists/Best In Class Small  Minority Owned Vendors" ,
+  "PhysicalAddress": {
+    "Address":  "" ,
+    "City":  "Miami  " ,
+    "State":  "" ,
+    "ZipCode":  ""
+  } ,
+  "RemitAddress": {
+    "Address":  "" ,
+    "City":  "" ,
+    "State":  "" ,
+    "ZipCode":  ""
+  } ,
+  "URL": http://www.lafabrica.tv/, »
+  "id":  "0b7fd79f-7a44-455b-8f65-33b779f80878"
+}
+```
+
+GET  `/company/list`
 
 - @data: none
-- @return: json list w/ limited data on every company
+- @return: 200 & json w/ two fields, `count` & `data` (list of companies with limited data)
 
-GET `/data/< uid >`
+GET  `/company/list/all`
+
+- admin only
+- @data: none
+- @return: 200 & json w/ two fields, `count` & `data` (list of companies with all data)
+- @PLANNED: include relevant review id's
+
+PATCH `/company/edit/< uid >`
+
+- @data: json w/ data being changed
+- @return: 200
+
+
+DELETE `/company/delete/< uid >`
 
 - @data: none
-- @return: json with all data for that exact company
+- @return: 202
 
-
+-------------------------------------------------------------------------------------------------------
 ##Reviews
 
 POST `/review/create`
@@ -24,30 +88,36 @@ POST `/review/create`
 
 GET `/review/get/< uid >`
 
+- admin only
 - @data: None
 - @return: 200 & json w/ `company`, `submitter`, `rating`, `title`, `description` & `approved` (boolean status)
 
 GET  `/review/list`
 
+- admin only
 - @data: none
 - @return: 200 & json w/ two fields, `count` & `data` (list of reviews)
 
 PATCH `/review/edit/< uid >`
 
+- admin only
 - @data: json w/ data being changed
 - @return: 200
 
 POST `/review/approve/< uid >`
 
+- admin only
 - @data: none
 - @return: 200
 
 DELETE `/review/delete/< uid >`
 
+- admin only
 - @data: none
 - @return: 202
 
 
+-------------------------------------------------------------------------------------------------------
 ##Admin
 
 POST `/admin/create`
