@@ -65,10 +65,10 @@ angular.module('myApp.controllers', []).
             })
         }
 
-        $scope.updateSelectedCompany = function(selectedCompnay) {
+        $scope.updateSelectedCompany = function(newSelection) {
             // jQuery to find the element in JSON array with that name
             //$scope.selectedCompany = $.grep(companies, function(company){ return company.Company == selectedCompany;});
-            $scope.selectedCompany = companies[1];
+            $scope.selectedCompany = newSelection;
         }
 
         /**
