@@ -20,7 +20,7 @@ angular.module('myApp.controllers', []).
         };
 
         $scope.mapWidth = null;
-        $scope.activeRegion = null;
+        $scope.activeRegions = [];
 
         $scope.mapColors = {
             highlighted :{
@@ -91,9 +91,20 @@ angular.module('myApp.controllers', []).
          */
         $scope.highlightMap = function(regionNumber){
 
+            //track added regions
             var regionToHighlight = $scope.regions[regionNumber];
 
-            //Change the colors of the actual region by going into each path node
+            var index = $scope.activeRegions.indexOf(regionToHighlight);
+            if(index==-1){
+                $scope.activeRegions.push(regionToHighlight);
+
+            }else{
+                $scope.activeRegions.splice(index,1);
+
+            }
+
+
+            //Deselect all regions
             var svgChilren = document.getElementsByTagName("path");
             for (var childIndex in svgChilren){
                 var child = svgChilren[childIndex];
@@ -104,36 +115,28 @@ angular.module('myApp.controllers', []).
             }
 
             // deselect all rooms and highlight jsut the one we want
-            for (var regionIndex in $scope.regions) {
+            for (var regionIndex in $scope.activeRegions) {
 
-                var region = $scope.regions[regionIndex];
+                var region = $scope.activeRegions[regionIndex];
 
                 // get matching svg element
                 var svgElement = document.getElementById(region);
 
-                //If proper room highlight
-                if (region == regionToHighlight) {
-                    svgElement.style.opacity          = $scope.mapColors.highlighted.opacity;
-                    svgElement.style['fill-opacity']  = $scope.mapColors.highlighted.fillOpacity;
-                    svgElement.style.fill             = $scope.mapColors.highlighted.fill;
+                svgElement.style.opacity          = $scope.mapColors.highlighted.opacity;
+                svgElement.style['fill-opacity']  = $scope.mapColors.highlighted.fillOpacity;
+                svgElement.style.fill             = $scope.mapColors.highlighted.fill;
 
-                    $scope.activeRegion = regionToHighlight;
+                $scope.activeRegion = regionToHighlight;
 
-                    //Change the colors of the actual region by going into each path node
-                    var svgChilren = svgElement.getElementsByTagName("path");
-                    for (var childIndex in svgChilren){
-                        var child = svgChilren[childIndex];
+                //Change the colors of the actual region by going into each path node
+                var svgChilren = svgElement.getElementsByTagName("path");
+                for (var childIndex in svgChilren){
+                    var child = svgChilren[childIndex];
+
+                    if(child.style!=null){
                         child.style.fill = $scope.mapColors.highlighted.fill;
+
                     }
-
-
-                    //Otherwise set to default state
-                }else{
-                    svgElement.style.opacity          = $scope.mapColors.defaultState.opacity;
-                    svgElement.style['fill-opacity']  = $scope.mapColors.defaultState.fillOpacity;
-                    svgElement.style.fill             = $scope.mapColors.defaultState.fill;
-
-
                 }
             }
         };
