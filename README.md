@@ -3,18 +3,17 @@
 
 ###Server API
 
-- `/<dataset name>`
-  - @return: all info for the specified dataset
-- `/datasets`
-  - @return: a list of all datasets present in the database
+[Documented here](https://github.com/DAPMElab/TBWA/blob/master/src/server/README.md)
 
 ###Starting the server
 
-1. Start up Vagrant and with `vagrant up`
+1. Update the git submodule so you have the seed data
+    - (from the project root directory) `git submodule update --init`
+- Start up Vagrant and with `vagrant up`
     - if this is the first time, run `vagrant provision` afterwards to ensure that everything is installed
-2. SSH into your Vagrant VM with `vagrant ssh`
-3. Navigate to the project directory with `cd /vagrant`
-4. Execute `run.sh` to start the database and server
+- SSH into your Vagrant VM with `vagrant ssh`
+- Navigate to the project directory with `cd /vagrant`
+- Execute `run.sh` to start the database and server
 
 The server will then be running on `http://localhost:5000/`.
 You can view the database admin conosle at `http://localhost:8080`.
@@ -23,9 +22,9 @@ You can view the database admin conosle at `http://localhost:8080`.
 
 #####Simple
 
-Execute `test.sh`in the root of the project.
+Execute `test.sh`in the root of the project while inside Vagrant.
 
-#####Complicated
+#####Exact
 
 If you want to only run individual tests, you need to a rethinkdb instance running on port 28015.
 Do this with `sudo service rethinkdb start`.

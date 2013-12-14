@@ -30,8 +30,8 @@
 }
 
 .map{
-    background-color: #000000;
-    height: 400px;
+    height: 200px;
+    padding-bottom: 200px;
 }
 
 .modal {

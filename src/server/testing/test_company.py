@@ -11,7 +11,7 @@ class TestCompany(template.TestingTemplate):
     """ Tests the API endpoints associated with handling companies. """
 
     def __create_company(self, company=
-            {'name': 'test company', 'website': 'http://www.fake.com'}):
+            {'Name': 'test company', 'URL': 'http://www.fake.com'}):
         """ method for use in the tests """
         resp = self.request_with_role('/company/create',
             method='POST', role='admin',
@@ -22,7 +22,7 @@ class TestCompany(template.TestingTemplate):
 
     def test_create_company(self):
         """ Tests a successful company creation """
-        company = {'name': 'test company', 'website': 'http://www.fake.com'}
+        company = {'Name': 'test company', 'URL': 'http://www.fake.com'}
         resp = self.request_with_role('/company/create',
             method='POST', role='admin',
             data=json.dumps(company))
@@ -63,8 +63,147 @@ class TestCompany(template.TestingTemplate):
         resp = self.request_with_role('/company/get/{}'.format('fake_company'))
 
         # testing response
+        print resp.status_code
+        print resp.data
         self.check_error(resp, 'COMPANY_NOT_FOUND')
 
 
+    def test_edit_success(self):
+        """ Successfully edit a company """
+        # creating a company
+        updated_company = {'Name': 'test', 'URL': 'edit_success_url_1'}
+        cid = self.__create_company(company=updated_company)
+
+        # updating company
+        updated_company['URL'] = 'edit_success_url_2'
+        resp = self.request_with_role('/company/edit/{}'.format(cid),
+            method='PATCH',
+            data=json.dumps(updated_company))
+        self.assertEqual(resp.status_code, 200)
+
+        # getting company
+        resp_get = self.request_with_role('/company/get/{}'.format(cid),
+            method='GET')
+        self.assertEqual(resp_get.status_code, 200)
+        data_get = json.loads(resp_get.data)
+        self.assertEqual(data_get['data']['Company']['URL'], updated_company['URL'])
+
+
+    def test_edit_fail(self):
+        """ Fail to edit a company """
+        bad_company = {'Name': 'test', 'URL': 'edit_success_url_1'}
+        resp = self.request_with_role('/company/edit/{}'.format('made_up_id'),
+            method='PATCH',
+            data=json.dumps(bad_company))
+        self.check_error(resp, 'COMPANY_NOT_FOUND')
+
+
+    def test_delete_success(self):
+        """ Test successfully deleting a company """
+        # make a company
+        bad_company = {'Name': 'test', 'URL': 'to be deleted'}
+        cid = self.__create_company(company=bad_company)
+
+        # delete the company
+        resp = self.request_with_role('/company/delete/{}'.format(cid),
+                method='DELETE')
+        self.assertEqual(202, resp.status_code)
+
+        # make sure it's gone
+        resp = self.request_with_role('/company/get/{}'.format(cid))
+        self.check_error(resp, 'COMPANY_NOT_FOUND')
+        
+
+    def test_delete_fail(self):
+        """ Test delete failing on a non-existent company """
+        resp = self.request_with_role('/company/delete/{}'.format('made_up_id'),
+            method='DELETE')
+        self.check_error(resp, 'COMPANY_NOT_FOUND')
+
+
+    def test_list_success(self):
+        """ Test that companies are all returned with only necessary fields """
+        # creating reviews
+        company_list = [
+            {'Name': 'test',    'URL': 'list_1'},
+            {'Name': 'test',    'URL': 'list_2'},
+            {'Name': 'test',    'URL': 'list_3'}
+        ]
+        for c in company_list:
+            self.__create_company(company=c)
+
+        resp = self.request_with_role('company/list', method='GET')
+        self.assertEqual(resp.status_code, 200)
+        resp_data = json.loads(resp.data)
+
+        # make sure the list at the very least has as many as we created
+        self.assertGreaterEqual(resp_data['count'], len(company_list))
+
+        # checking that all created reviews were returned
+        returned_list = resp_data['data']
+        for company in returned_list:
+            del company['Company']['id']
+            del company['Company']['ReviewIds']
+        returned_list = [c['Company'] for c in returned_list]
+        for company in company_list:
+            self.assertIn(company, returned_list)
+
+    
+    def test_list_fail(self):
+        """ Test that /list return doesn't return all fields """
+        # creating reviews
+        company_list = [
+            {'Name': 'test_fail',    'URL': 'list_1', 'unnecessary': 'test'},
+            {'Name': 'test_fail',    'URL': 'list_2', 'unnecessary': 'test'},
+            {'Name': 'test_fail',    'URL': 'list_3', 'unnecessary': 'test'},
+            {'Name': 'test_fail',    'URL': 'list_4', 'unnecessary': 'test'},
+        ]
+        for c in company_list:
+            self.__create_company(company=c)
+
+        resp = self.request_with_role('company/list', method='GET')
+        self.assertEqual(resp.status_code, 200)
+        resp_data = json.loads(resp.data)
+
+        # make sure the list at the very least has as many as we created
+        self.assertGreaterEqual(resp_data['count'], len(company_list))
+
+        # checking that none of the unnecessary attributes are in the return values
+        returned_list = resp_data['data']
+        for company in [c['Company'] for c in returned_list]:
+            self.assertFalse('unneccesary' in company)
+
+
+    def test_list_all_success(self):
+        """ Test that reviews that are unapproved are returned """
+        # creating reviews
+        company_list = [
+            {'Name': 'test',    'URL': 'list_1', 'unnecessary': 'test'},
+            {'Name': 'test',    'URL': 'list_2', 'unnecessary': 'test'},
+            {'Name': 'test',    'URL': 'list_3', 'unnecessary': 'test'},
+            {'Name': 'test',    'URL': 'list_4', 'unnecessary': 'test'},
+        ]
+        for c in company_list:
+            self.__create_company(company=c)
+
+        resp = self.request_with_role('company/list/all', method='GET')
+        self.assertEqual(resp.status_code, 200)
+        resp_data = json.loads(resp.data)
+
+        # make sure the list at the very least has as many as we created
+        self.assertGreaterEqual(resp_data['count'], len(company_list))
+
+        # checking that all created reviews were returned
+        returned_list = resp_data['data']
+        for company in returned_list:
+            # if these attributes were left out they'd throw KeyError
+            del company['id']
+            del company['ReviewIds']
+        for company in company_list:
+            self.assertIn(company, returned_list)
+
+
+if __name__ == '__main__':
+    unittest.main()
 
 

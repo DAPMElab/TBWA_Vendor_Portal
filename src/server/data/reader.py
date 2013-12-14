@@ -6,11 +6,16 @@ from sys import exit
 import os
 this_dir = os.path.dirname(__file__)
 
-data_paths = {
-    'companies': os.path.join(this_dir, 'assets/tbwa/companies.json'),
-}
+data_paths = { 'companies': os.path.join(this_dir, 'assets/tbwa/companies.json')}
 application_tables = ['admin', 'reviews']
 
+""" for testing #TODO: delete
+data_paths = {
+    #'companies': os.path.join(this_dir, 'assets/tbwa/test_companies.json'),
+    #'reviews': os.path.join(this_dir, 'assets/tbwa/test_reviews.json'),
+}
+application_tables = ['admin']
+"""
 
 
 def setup_db(rdb_host, rdb_port, rdb_name,
@@ -32,13 +37,18 @@ def setup_db(rdb_host, rdb_port, rdb_name,
             conn.use(rdb_name)  # make default db connection
 
             # find tables that still need to be added then add & populate them
-            tbl_list = rethinkdb.db(rdb_name).table_list().run(conn)
+            tbl_list = [x for x in rethinkdb.db(rdb_name).table_list().run(conn)]
 
-            tbl_to_add = ((k, v) for k, v in datasets.items() if k not in tbl_list)
+            tbl_to_add = [(k, v) for k, v in datasets.items() if k not in tbl_list]
+            print "TBL_TO_ADD"
+            print tbl_to_add
             for (name, path) in tbl_to_add:
                 rethinkdb.table_create(name).run(conn)
-                with open(path, 'r') as f:
-                    rethinkdb.table(name).insert(json.loads(f.read())).run(conn)
+                try:
+                    with open(path, 'r') as f:
+                        rethinkdb.table(name).insert(json.loads(f.read())).run(conn)
+                except IOError:
+                    raise Exception('Invalid Dataset')
                 print "'{}' table created and populated.".format(name)
                 creations.add(name)
 
@@ -47,6 +57,7 @@ def setup_db(rdb_host, rdb_port, rdb_name,
                 rethinkdb.table_create(name).run(conn)
                 print "'{}' table created and populated.".format(name)
                 creations.add(name)
+
 
     except RqlRuntimeError, e:
         print e

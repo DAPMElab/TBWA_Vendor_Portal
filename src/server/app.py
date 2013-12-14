@@ -33,18 +33,6 @@ def teardown_request(exception):
         pass
 
 
-""" data routes """
-from blueprints import data_bp
-app.register_blueprint(data_bp)
-
-""" user routes """
-from blueprints import user_bp
-app.register_blueprint(user_bp)
-
-""" login/logout routes """
-from blueprints import client_bp
-app.register_blueprint(client_bp)
-
 """ review routes """
 from blueprints import review_bp
 app.register_blueprint(review_bp, url_prefix='/review')

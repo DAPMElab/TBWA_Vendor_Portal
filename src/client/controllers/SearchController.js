@@ -6,6 +6,7 @@ angular.module('myApp.controllers', [])
 .controller('SearchController',function($scope, $http, $modal){
 
     $scope.companies = [];
+    $scope.serverResponse = null;
     $scope.selectedCompany = null;
 
     //map settings
@@ -19,22 +20,21 @@ angular.module('myApp.controllers', [])
     };
 
     $scope.mapWidth = null;
-    $scope.activeRegion = null;
-
+    $scope.activeRegions = [];
+    
     $scope.mapColors = {
         highlighted :{
             opacity :"1.0",
             fillOpacity : "1.0",
-            fill : "#FFFFFF"
+            fill : "#66CCFF"
         },
         defaultState:{
-            opacity :"0.5",
-            fillOpacity : "0.5",
+            opacity :"1.0",
+            fillOpacity : "1.0",
             fill : "#FFFFFF"
         }
     };
 
-    
     $scope.availableCategories = [
         {"text": "Casting"},
         {"text": "Distribution"},
@@ -50,27 +50,25 @@ angular.module('myApp.controllers', [])
         {"text": "Directorial"}
     ];
 
-    //$scope.availableCategories = ["Casting", "Distribution", "Production", "Translation", "Editorial", "Animation", "Post Effects", "Illustration", "Music", "Storyboarding", "Sound Design", "Directorial"];
-
     //Category settings
     $scope.categoriesSelected = [];
     $scope.search = {"text":''};
-
 
     /**
      * Executed on load of the main page to get information about each company
     */
     $scope.loadCompanies = function(){
-        $http.get('/data').success(function(response){
+        $http.get('/company/list').success(function(response){
+
+            //extract company data
             $scope.companies = response['data'];
+
             //By default, we pick the first company to be displayed initially
             $scope.selectedCompany = $scope.companies[0];
         })
     }
 
     $scope.updateSelectedCompany = function(newSelection) {
-        // jQuery to find the element in JSON array with that name
-        //$scope.selectedCompany = $.grep(companies, function(company){ return company.Company == selectedCompany;});
         $scope.selectedCompany = newSelection;
     }
 
@@ -91,29 +89,52 @@ angular.module('myApp.controllers', [])
      */
     $scope.highlightMap = function(regionNumber){
 
+        //track added regions
         var regionToHighlight = $scope.regions[regionNumber];
 
-        // deselect all rooms and highlight jsut the one we want
-        for (var regionIndex in $scope.regions) {
+        var index = $scope.activeRegions.indexOf(regionToHighlight);
+        if(index==-1){
+            $scope.activeRegions.push(regionToHighlight);
 
-            var region = $scope.regions[regionIndex];
+        }else{
+            $scope.activeRegions.splice(index,1);
+
+        }
+
+
+        //Deselect all regions
+        var svgChilren = document.getElementsByTagName("path");
+        for (var childIndex in svgChilren){
+            var child = svgChilren[childIndex];
+            if(child.style!=null){
+                child.style.fill = $scope.mapColors.defaultState.fill;
+
+            }
+        }
+
+        // deselect all rooms and highlight jsut the one we want
+        for (var regionIndex in $scope.activeRegions) {
+
+            var region = $scope.activeRegions[regionIndex];
 
             // get matching svg element
             var svgElement = document.getElementById(region);
 
-            //If proper room highlight
-            if (region == regionToHighlight) {
-                svgElement.style.opacity          = $scope.mapColors.highlighted.opacity;
-                svgElement.style['fill-opacity']  = $scope.mapColors.highlighted.fillOpacity;
-                svgElement.style.fill             = $scope.mapColors.highlighted.fill;
+            svgElement.style.opacity          = $scope.mapColors.highlighted.opacity;
+            svgElement.style['fill-opacity']  = $scope.mapColors.highlighted.fillOpacity;
+            svgElement.style.fill             = $scope.mapColors.highlighted.fill;
 
-                $scope.activeRegion = regionToHighlight;
+            $scope.activeRegion = regionToHighlight;
 
-                //Otherwise set to default state
-            }else{
-                svgElement.style.opacity          = $scope.mapColors.defaultState.opacity;
-                svgElement.style['fill-opacity']  = $scope.mapColors.defaultState.fillOpacity;
-                svgElement.style.fill             = $scope.mapColors.defaultState.fill;
+            //Change the colors of the actual region by going into each path node
+            var svgChilren = svgElement.getElementsByTagName("path");
+            for (var childIndex in svgChilren){
+                var child = svgChilren[childIndex];
+
+                if(child.style!=null){
+                    child.style.fill = $scope.mapColors.highlighted.fill;
+
+                }
             }
         }
     };
@@ -159,4 +180,4 @@ angular.module('myApp.controllers', [])
         });
     };
 
-})
+});

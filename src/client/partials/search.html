@@ -1,74 +1,80 @@
-
 <!--Load the companies on start-->
 <div class="container bs-docs-container" data-ng-init = "loadCompanies()">
-
-    <div class="col-md-4">
-        <div>
-            <h5>Refine search:</h5>
-            <h3>REGION</h3>
-            <div ng-include="'partials/map.html'" class="map"></div>
-            <h3>CATEGORY</h3>
-            <div ng-include="'partials/category.html'"></div>
-        </div>
-
-        <div ng-include="'partials/currentResults.html'"></div>
-    </div>
-
-    <!--Detail portion-->
-    <div class="row col-md-8">
-        <div class="row col-md-12">
-            <div class="col-md-7">
-                <h2>{{selectedCompany.Name}}</h2>
-                <!--Rating block-->
-                <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
-                <h6>{{selectedCompany.Ratings + rtgs}}</h6>
-
-                <div ng-repeat="category in selectedCompany.Categories">
-                    <p>{{category}}</p>
-                </div>
-                
-                <p>
-                    <a href="{{selectedCompany.URL}}">{{selectedCompany.URL}}</a>
-                </p>
-
-                <!-- Displaying the contact information -->
-                <p>
-                    {{selectedCompany.Contact.Name}}
-                    </br>
-                    {{selectedCompany.Contact.Email}}
-                    </br>
-                    {{selectedCompany.Contact.Phone}}
-                </p>
-
-                <!-- Displaying the physical address -->
-                <p>
-                    <span>{{selectedCompany.PhysicalAddress.Address}}</span>
-                    </br>
-                    {{selectedCompany.PhysicalAddress.City}}, {{selectedCompany.PhysicalAddress.State}} {{selectedCompany.PhysicalAddress.ZipCode}}
-                </p>                    
-            </div>
-
-            <!--black line-->
-            <div class="col-md-5">
-                <!-- include something about snapshot -->
-            </div>
-
-        </div>
-
-
-        <div class="row col-md-12">
-            <div class="col-md-12">
-                <h3>REVIEWS</h3>
-                <a style="cursor: pointer" ng-click="open()">Write a review</a>
-
-                <div ng-repeat = "review in companies.Reviews">
-                    {{review.category}} ( {{review.cost}} )
-                    <br />
-                    {{review.rating}} / 5 stars
-                    {{review.content}}
+    <div class="row">
+        <div class="col-md-4">
+            <div style="background-color: #D3D3D3">
+                <div style="padding: 20px">
+                    <h5>Refine search:</h5>
+                    <h4>LOCATION</h4>
+                    <div ng-include="'partials/map.html'" class="map"></div>
+                    <h4>CATEGORY</h4>
+                    <div ng-include="'partials/category.html'" class="categoryColumn"></div>
                 </div>
             </div>
+
+            <div ng-include="'partials/currentResults.html'"></div>
         </div>
+
+        <!--Detail portion-->
+        <div class="row col-md-8">
+            <div class="row col-md-12">
+                <div class="col-md-7">
+                    <div>
+                        <h2>{{selectedCompany.Name}}</h2>
+                        <!--Rating block-->
+                        <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
+                        <h6>{{selectedCompany.Ratings + rtgs}}</h6>
+
+                        <div ng-repeat="category in selectedCompany.Categories">
+                            <p>{{category}}</p>
+                        </div>
+
+                        <p>
+                            <a href="{{selectedCompany.URL}}">{{selectedCompany.URL}}</a>
+                        </p>
+
+                        <!-- Displaying the contact information -->
+                        <p>
+                            {{selectedCompany.Contact.Name}}
+                            </br>
+                            {{selectedCompany.Contact.Email}}
+                            </br>
+                            {{selectedCompany.Contact.Phone}}
+                        </p>
+
+                        <!-- Displaying the physical address -->
+                        <p>
+                            {{selectedCompany.PhysicalAddress.Address}}
+                            </br>
+                            {{selectedCompany.PhysicalAddress.City}}, {{selectedCompany.PhysicalAddress.State}} {{selectedCompany.PhysicalAddress.ZipCode}}
+                        </p>
+                        
+                    </div>
+                </div>
+
+                <!--black line-->
+                <div class="col-md-5">
+                    <!-- include something about snapshot -->
+                </div>
+
+            </div>
+
+
+            <div class="row col-md-12">
+                <div class="col-md-12">
+                    <h3>REVIEWS</h3>
+                    <a style="cursor: pointer" ng-click="open()">Write a review</a>
+
+                    <div ng-repeat = "review in companies.Reviews">
+                        {{review.category}} ( {{review.cost}} )
+                        <br />
+                        {{review.rating}} / 5 stars
+                        {{review.content}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

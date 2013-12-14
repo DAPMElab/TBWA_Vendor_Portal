@@ -1,6 +1,7 @@
 
 import rethinkdb
 import template
+import json
 
 from sys import path
 path.append('../')
@@ -14,18 +15,6 @@ class TestCSVReader(template.TestingTemplate):
     def setUpClass(self):
         """ Overriding this so the database is not setup """
         pass
-
-
-    def test_get_data_bad_dataset_name(self):
-        """ Tests that the reader fails when given an invalid dataset name """
-        with self.assertRaises(Exception):
-            reader.get_data('non-existent dataset')
-
-
-    def test_get_data(self):
-        """ Tests that a reader object is returned """
-        data = reader.get_data('test_dataset', path_to_data=template.test_csv)
-        self.assertEqual(data, template.expected_dataset)
 
 
     def test_setup_db(self):
@@ -56,9 +45,10 @@ class TestCSVReader(template.TestingTemplate):
             # test that the data is correct by checking columns
             data = [row for row in rethinkdb.table(
                 template.test_dataset.keys()[0]).run(conn)]
-            self.assertSetEqual(
-                set(data[0].keys())-set([u'id']),
-                set(template.expected_dataset[0].keys()))
+            with open(template.test_json) as f:
+              self.assertSetEqual(
+                  set(data[0].keys())-set([u'id']),
+                  set(json.loads(f.read())[0].keys()))
 
         self.run_clear_test_db()
 

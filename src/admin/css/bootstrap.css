@@ -444,8 +444,8 @@ h6 .small,
 h1,
 h2,
 h3 {
-  margin-top: 0px;
-  margin-bottom: 10px;
+  margin: 0px;
+  padding-bottom: 20px;
 }
 
 h1 small,
@@ -460,7 +460,7 @@ h3 .small {
 h4,
 h5,
 h6 {
-  margin-top: 0x;
+  margin-top: 0px;
   margin-bottom: 10px;
 }
 
@@ -1998,13 +1998,14 @@ textarea.form-control {
 }
 
 .form-group #left {
-  max-width: 50%;
+  width:48%;
   float:left;
 }
 
 .form-group #right {
-  left:50%;
-  position: absolute;
+  width:48%;
+  float:right;
+  position: relative;
 }
 .radio,
 .checkbox {
@@ -2645,11 +2646,13 @@ fieldset[disabled] .btn-link:focus {
   text-decoration: none;
 }
 
+/* EDITED */
 .btn-lg {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
   border-radius: 6px;
+  margin-top:10px;
 }
 
 .btn-sm {
@@ -5327,7 +5330,6 @@ a.list-group-item.active > .badge,
 }
 
 .content-area #right {
-  max-width:20%;
   float:right;
 }
 
