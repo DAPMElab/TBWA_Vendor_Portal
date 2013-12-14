@@ -52,9 +52,28 @@ def create():
 @company_bp.route('/get/<uid>', methods=['GET'])
 def get(uid):
     """ Returns all information for a specific company """
-    company = (r.table(TABLE)
-            .get(uid)
-            .run(g.rdb_conn))
+    try:
+        company = (r.table(TABLE).get(uid).do(
+            lambda comp : r.expr({
+                'Company': comp,
+                'Reviews': {
+                    'Messages'  : comp['ReviewIds'].map(
+                        lambda rev : r.table(R_TABLE).get(rev)
+                    ),
+                    'Count'     : comp['ReviewIds'].map(
+                        lambda rev : r.table(R_TABLE).get(rev)
+                    ).count(),
+                    'Sum'       : comp['ReviewIds'].map(
+                        lambda rev : r.table(R_TABLE).get(rev).reduce(
+                            lambda a, b : a+b, 0
+                        )
+                    )
+                }
+            })
+        )).run(g.rdb_conn)
+    except RqlRuntimeError:
+        return make_error(err='COMPANY_NOT_FOUND')
+
 
     if company:
         return make_response(json.dumps({
@@ -81,9 +100,6 @@ def list(info):
                         *return_company_attribute
                     ),
                     'Reviews': {
-                        'Messages'  : comp['ReviewIds'].map(
-                            lambda rev : r.table(R_TABLE).get(rev)
-                        ),
                         'Count'     : comp['ReviewIds'].map(
                             lambda rev : r.table(R_TABLE).get(rev)
                         ).count(),

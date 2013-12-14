@@ -86,7 +86,7 @@ class TestCompany(template.TestingTemplate):
             method='GET')
         self.assertEqual(resp_get.status_code, 200)
         data_get = json.loads(resp_get.data)
-        self.assertEqual(data_get['data']['URL'], updated_company['URL'])
+        self.assertEqual(data_get['data']['Company']['URL'], updated_company['URL'])
 
 
     def test_edit_fail(self):
