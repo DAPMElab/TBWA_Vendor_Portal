@@ -50,8 +50,6 @@ angular.module('myApp.controllers', []).
             {"text": "Directorial"}
         ];
 
-        //$scope.availableCategories = ["Casting", "Distribution", "Production", "Translation", "Editorial", "Animation", "Post Effects", "Illustration", "Music", "Storyboarding", "Sound Design", "Directorial"];
-
         //Category settings
         $scope.categoriesSelected = [];
         $scope.search = {text:''};
@@ -61,7 +59,7 @@ angular.module('myApp.controllers', []).
          * Executed on load of the main page to get information about each company
         */
         $scope.loadCompanies = function(){
-            $http.get('/data').success(function(response){
+            $http.get('#/resources/companies.json').success(function(response){
                 $scope.companies = response['data'];
                 //By default, we pick the first company to be displayed initially
                 $scope.selectedCompany = $scope.companies[0];
