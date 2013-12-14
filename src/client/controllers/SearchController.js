@@ -1,4 +1,3 @@
-
 /*
  Manages the map, categories and search box
  */
@@ -20,7 +19,7 @@ angular.module('myApp.controllers', [])
     };
 
     $scope.mapWidth = null;
-    $scope.activeRegions = [];
+    $scope.activeRegion = [];
     
     $scope.mapColors = {
         highlighted :{
