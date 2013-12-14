@@ -14,6 +14,7 @@ approved by an admin.
 
 review_bp   = Blueprint('review_blueprint', __name__)
 TABLE       = 'reviews'
+C_TABLE     = 'companies'
 
 required_fields = [
     'CompanyID',
@@ -42,12 +43,22 @@ def create(uid):
         if field not in review:
             return make_error(err='DATA_NEEDED_FOR_REQUEST')
 
-    outcome = r.table(TABLE).insert(review).run(g.rdb_conn)
+    r_outcome = (r.table(TABLE)
+                .insert(review)
+                .run(g.rdb_conn))
+    
+    if r_outcome['inserted'] == 1:
+        key = r_outcome['generated_keys'][0]
 
-    if outcome['inserted'] == 1:
+        c_outcome = (r.table(C_TABLE)
+                .get(uid)['ReviewIds']
+                .append(key)
+                .run(g.rdb_conn))
+        print c_outcome
+
         return make_response(json.dumps({
             'message'   : 'review created',
-            'uid'       : outcome['generated_keys'][0]
+            'uid'       :  key,
         }), 201)
     else:
         return make_error(err='REVIEW_NOT_CREATED')

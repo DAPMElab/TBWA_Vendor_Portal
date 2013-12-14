@@ -40,6 +40,7 @@ def create():
     company['ReviewIds'] = []
 
     outcome = r.table(TABLE).insert(company).run(g.rdb_conn)
+    print outcome
     if outcome['inserted'] == 1:
         return make_response(json.dumps({
             'message'   : 'company created',
@@ -113,16 +114,16 @@ def list(info):
             )).run(g.rdb_conn)
 
             # resolve average
-            companies = [x for x in cursor]
-            for c in companies:
+            companies = []
+            for c in cursor:
                 if c['Reviews']['Count']:
-                    c['Reviews']['Average'] = c['Reviews']['Sum']
-                    c['Reviews']['Average'] /= c['Reviews']['Count']
+                    c['Company']['AverageReview'] = c['Reviews']['Sum']
+                    c['Company']['AverageReview'] /= c['Reviews']['Count']
                 else:
-                    c['Reviews']['Average'] = None
+                    c['Company']['AverageReview'] = None
                 # clean up
-                del c['Reviews']['Count']
-                del c['Reviews']['Sum']
+                del c['Reviews']
+                companies.append(c['Company'])
 
         else:   # /list/all
             cursor = (r.table(TABLE)

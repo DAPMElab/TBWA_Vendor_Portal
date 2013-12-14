@@ -14,12 +14,21 @@ class TestReview(template.TestingTemplate):
             'Submitter': 'review submitter',
             'Rating':10}):
         """ method for use in the tests """
-        resp = self.request_with_role('/review/create/123',
+
+        outcome = r.table('companies').insert({
+                'Name'  : 'Fake Company',
+                'URL'   : 'Broken URL',
+                'id'    : '123',
+                'ReviewIds' : []
+            }).run(self.rdb)
+
+        r_resp = self.request_with_role('/review/create/123',
             method='POST',
             data=json.dumps(review))
 
-        self.assertEqual(resp.status_code, 201)
-        return json.loads(resp.data)['uid']
+        self.assertEqual(r_resp.status_code, 201)
+        return json.loads(r_resp.data)['uid']
+
 
 
     def test_create_success(self):
