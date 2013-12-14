@@ -6,6 +6,7 @@ angular.module('myApp.controllers', []).
     controller('SearchController',function($scope, $http){
 
         $scope.companies = [];
+        $scope.serverResponse = null;
         $scope.selectedCompany = null;
 
         //map settings
@@ -59,16 +60,22 @@ angular.module('myApp.controllers', []).
          * Executed on load of the main page to get information about each company
         */
         $scope.loadCompanies = function(){
-            $http.get('#/resources/companies.json').success(function(response){
-                $scope.companies = response['data'];
+            $http.get('/company/list').success(function(response){
+
+                //extract company data
+                $scope.companies.serverResponse = response['data'];
+
+                for (var companyIndex in $scope.companies.serverResponse){
+                    var group = $scope.companies.serverResponse[companyIndex];
+                    $scope.companies.push(group['Company']);
+                }
+
                 //By default, we pick the first company to be displayed initially
                 $scope.selectedCompany = $scope.companies[0];
             })
         }
 
         $scope.updateSelectedCompany = function(newSelection) {
-            // jQuery to find the element in JSON array with that name
-            //$scope.selectedCompany = $.grep(companies, function(company){ return company.Company == selectedCompany;});
             $scope.selectedCompany = newSelection;
         }
 
