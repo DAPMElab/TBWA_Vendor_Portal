@@ -46,7 +46,7 @@ class TestDecorators(template.TestingTemplate):
     def test_has_data_success(self):
         """ test that the call passes w/ data """
         # makes the call w/ data
-        review = {'company': 'test', 'rating':10}
+        review = {'Submitter': 'test', 'Rating':10}
         resp = self.request_with_role('/review/create/123',
             method='POST', data=json.dumps(review))
         self.assertEqual(201, resp.status_code)

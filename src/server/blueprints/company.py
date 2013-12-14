@@ -8,6 +8,7 @@ import json
 
 company_bp   = Blueprint('company_blueprint', __name__)
 TABLE       = 'companies'
+R_TABLE     = 'reviews'
 
 """
 Handles HTTP requests made by the admin for changing company data
@@ -21,7 +22,8 @@ return_company_attribute = [
     'Name',
     'URL',
     'DBA',
-    'id'
+    'id',
+    'ReviewIds'
 ]
 
 @company_bp.route('/create', methods=['POST'])
@@ -34,6 +36,8 @@ def create():
     for field in required_company_attributes:
         if field not in company:
             return make_error(err='DATA_NEEDED_FOR_REQUEST')
+
+    company['ReviewIds'] = []
 
     outcome = r.table(TABLE).insert(company).run(g.rdb_conn)
     if outcome['inserted'] == 1:
@@ -60,25 +64,62 @@ def get(uid):
     return make_error(err='COMPANY_NOT_FOUND')
 
 
-@company_bp.route('/list/<path:amount>',                methods=['GET'])
-@company_bp.route('/list', defaults={'amount':None},    methods=['GET'])
-def list(amount):
+@company_bp.route('/list/<path:info>',                methods=['GET'])
+@company_bp.route('/list', defaults={'info':None},    methods=['GET'])
+def list(info):
+    """ 2 paths, /list & /list/all
+    /list:  For use on the main search page, returns limited attributes as well
+            as the review data like average
+    """
+
     try:
-        if not amount or amount != 'all':
+        if not info or info != 'all':       # /list
+            # TODO: refactor!
+            cursor = (r.table(TABLE).map(
+                lambda comp : r.expr({
+                    'Company': comp.pluck(
+                        *return_company_attribute
+                    ),
+                    'Reviews': {
+                        'Messages'  : comp['ReviewIds'].map(
+                            lambda rev : r.table(R_TABLE).get(rev)
+                        ),
+                        'Count'     : comp['ReviewIds'].map(
+                            lambda rev : r.table(R_TABLE).get(rev)
+                        ).count(),
+                        'Sum'       : comp['ReviewIds'].map(
+                            lambda rev : r.table(R_TABLE).get(rev).reduce(
+                                lambda a, b : a+b, 0
+                            )
+                        )
+                    }
+                })
+            )).run(g.rdb_conn)
+
+            # resolve average
+            companies = [x for x in cursor]
+            for c in companies:
+                if c['Reviews']['Count']:
+                    c['Reviews']['Average'] = c['Reviews']['Sum']
+                    c['Reviews']['Average'] /= c['Reviews']['Count']
+                else:
+                    c['Reviews']['Average'] = None
+                # clean up
+                del c['Reviews']['Count']
+                del c['Reviews']['Sum']
+
+        else:   # /list/all
             cursor = (r.table(TABLE)
-                    .pluck(*return_company_attribute)
                     .run(g.rdb_conn))
-        else:
-            cursor = (r.table(TABLE)
-                    .run(g.rdb_conn))
-        companies = [x for x in cursor]
+            companies = [x for x in cursor]
 
         return make_response(json.dumps({
             'message'   : 'company list',
             'count'     : len(companies),
             'data'      : companies
         }), 200)
-    except RqlRuntimeError:
+    except RqlRuntimeError, e:
+        print e
         return make_error(err='DATABASE_ERROR')
 
 

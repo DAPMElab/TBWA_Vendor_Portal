@@ -122,7 +122,7 @@ class TestCompany(template.TestingTemplate):
 
 
     def test_list_success(self):
-        """ Test that companies """
+        """ Test that companies are all returned with only necessary fields """
         # creating reviews
         company_list = [
             {'Name': 'test',    'URL': 'list_1'},
@@ -142,7 +142,9 @@ class TestCompany(template.TestingTemplate):
         # checking that all created reviews were returned
         returned_list = resp_data['data']
         for company in returned_list:
-            del company['id']
+            del company['Company']['id']
+            del company['Company']['ReviewIds']
+        returned_list = [c['Company'] for c in returned_list]
         for company in company_list:
             self.assertIn(company, returned_list)
 
@@ -166,12 +168,10 @@ class TestCompany(template.TestingTemplate):
         # make sure the list at the very least has as many as we created
         self.assertGreaterEqual(resp_data['count'], len(company_list))
 
-        # checking that none of the "whole" objects are in the return values
+        # checking that none of the unnecessary attributes are in the return values
         returned_list = resp_data['data']
-        for company in returned_list:
-            del company['id']
-        for company in company_list:
-            self.assertNotIn(company, returned_list)
+        for company in [c['Company'] for c in returned_list]:
+            self.assertFalse('unneccesary' in company)
 
 
     def test_list_all_success(self):
@@ -196,7 +196,9 @@ class TestCompany(template.TestingTemplate):
         # checking that all created reviews were returned
         returned_list = resp_data['data']
         for company in returned_list:
+            # if these attributes were left out they'd throw KeyError
             del company['id']
+            del company['ReviewIds']
         for company in company_list:
             self.assertIn(company, returned_list)
 

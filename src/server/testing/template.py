@@ -16,10 +16,6 @@ test_json = os.path.join(this_dir, 'data_test.json')
 
 test_dataset = {'companies': test_json}
 test_tables = ['test_table', 'reviews', 'admin']
-expected_dataset = [
-    {'col1':'this','col2':'should'},
-    {'col1':'work','col2':'hopefully'}
-]
 
 
 class TestingTemplate(unittest.TestCase):

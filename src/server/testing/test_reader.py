@@ -1,6 +1,7 @@
 
 import rethinkdb
 import template
+import json
 
 from sys import path
 path.append('../')
@@ -44,9 +45,10 @@ class TestCSVReader(template.TestingTemplate):
             # test that the data is correct by checking columns
             data = [row for row in rethinkdb.table(
                 template.test_dataset.keys()[0]).run(conn)]
-            self.assertSetEqual(
-                set(data[0].keys())-set([u'id']),
-                set(template.expected_dataset[0].keys()))
+            with open(template.test_json) as f:
+              self.assertSetEqual(
+                  set(data[0].keys())-set([u'id']),
+                  set(json.loads(f.read())[0].keys()))
 
         self.run_clear_test_db()
 
