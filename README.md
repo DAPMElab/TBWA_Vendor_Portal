@@ -8,6 +8,7 @@
 ###Starting the server
 
 1. Update the git submodule so you have the seed data
+    - (from the project root directory) `git submodule update --init`
 - Start up Vagrant and with `vagrant up`
     - if this is the first time, run `vagrant provision` afterwards to ensure that everything is installed
 - SSH into your Vagrant VM with `vagrant ssh`

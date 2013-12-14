@@ -19,7 +19,7 @@ GET `/company/get/< uid >`
 Example:
 
 ```javascript
-{
+'data': {
   "Agency":  "BBDO" ,
   "AltName":  " " ,
   "Categories": [
@@ -50,6 +50,7 @@ Example:
     "State":  "" ,
     "ZipCode":  ""
   } ,
+  "ReviewIds" : [ ],
   "URL": http://www.lafabrica.tv/, »
   "id":  "0b7fd79f-7a44-455b-8f65-33b779f80878"
 }
@@ -59,6 +60,31 @@ GET  `/company/list`
 
 - @data: none
 - @return: 200 & json w/ two fields, `count` & `data` (list of companies with limited data)
+
+```javascript
+{
+  count: 2,
+  data: [
+    {
+      Name: "The Studio ",
+      AverageReview: null,
+      URL: "http://www.studionyc.com/",
+      DBA: "",
+      ReviewIds: [ ],
+      id: "054d9cb7-a822-43d1-8886-cb49dd36e11b"
+    },
+    {
+      Name: "Crossroads Films",
+      AverageReview: null,
+      URL: "http://crossroadsfilms.com/",
+      DBA: "",
+      ReviewIds: [ ],
+      id: "09a39b24-d392-4962-8357-9fc687f0926f"
+    }
+  ]
+}
+```
+
 
 GET  `/company/list/all`
 
