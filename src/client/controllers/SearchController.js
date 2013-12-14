@@ -26,11 +26,11 @@ angular.module('myApp.controllers', []).
             highlighted :{
                 opacity :"1.0",
                 fillOpacity : "1.0",
-                fill : "#FFFFFF"
+                fill : "#66CCFF"
             },
             defaultState:{
-                opacity :"0.5",
-                fillOpacity : "0.5",
+                opacity :"1.0",
+                fillOpacity : "1.0",
                 fill : "#FFFFFF"
             }
         };
@@ -63,12 +63,7 @@ angular.module('myApp.controllers', []).
             $http.get('/company/list').success(function(response){
 
                 //extract company data
-                $scope.companies.serverResponse = response['data'];
-
-                for (var companyIndex in $scope.companies.serverResponse){
-                    var group = $scope.companies.serverResponse[companyIndex];
-                    $scope.companies.push(group['Company']);
-                }
+                $scope.companies = response['data'];
 
                 //By default, we pick the first company to be displayed initially
                 $scope.selectedCompany = $scope.companies[0];
@@ -98,6 +93,16 @@ angular.module('myApp.controllers', []).
 
             var regionToHighlight = $scope.regions[regionNumber];
 
+            //Change the colors of the actual region by going into each path node
+            var svgChilren = document.getElementsByTagName("path");
+            for (var childIndex in svgChilren){
+                var child = svgChilren[childIndex];
+                if(child.style!=null){
+                    child.style.fill = $scope.mapColors.defaultState.fill;
+
+                }
+            }
+
             // deselect all rooms and highlight jsut the one we want
             for (var regionIndex in $scope.regions) {
 
@@ -114,11 +119,21 @@ angular.module('myApp.controllers', []).
 
                     $scope.activeRegion = regionToHighlight;
 
+                    //Change the colors of the actual region by going into each path node
+                    var svgChilren = svgElement.getElementsByTagName("path");
+                    for (var childIndex in svgChilren){
+                        var child = svgChilren[childIndex];
+                        child.style.fill = $scope.mapColors.highlighted.fill;
+                    }
+
+
                     //Otherwise set to default state
                 }else{
                     svgElement.style.opacity          = $scope.mapColors.defaultState.opacity;
                     svgElement.style['fill-opacity']  = $scope.mapColors.defaultState.fillOpacity;
                     svgElement.style.fill             = $scope.mapColors.defaultState.fill;
+
+
                 }
             }
         };

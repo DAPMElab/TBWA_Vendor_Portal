@@ -3,12 +3,14 @@
 <div class="container bs-docs-container" data-ng-init = "loadCompanies()">
     <div class="row">
         <div class="col-md-4">
-            <div>
-                <h5>Refine search:</h5>
-                <h3>REGION</h3>
-                <div ng-include="'partials/map.html'" class="map"></div>
-                <h3>CATEGORY</h3>
-                <div ng-include="'partials/category.html'"></div>
+            <div style="background-color: #D3D3D3">
+                <div style="padding: 20px">
+                    <h5>Refine search:</h5>
+                    <h4>LOCATION</h4>
+                    <div ng-include="'partials/map.html'" class="map"></div>
+                    <h4>CATEGORY</h4>
+                    <div ng-include="'partials/category.html'" class="categoryColumn"></div>
+                </div>
             </div>
 
             <div ng-include="'partials/currentResults.html'"></div>
@@ -27,7 +29,7 @@
                         <div ng-repeat="category in selectedCompany.Categories">
                             <p>{{category}}</p>
                         </div>
-                        
+
                         <p>
                             <a href="{{selectedCompany.URL}}">{{selectedCompany.URL}}</a>
                         </p>
