@@ -54,14 +54,21 @@
       <!-- Review -->
       <div class="jumbotron">
         <h2>Company Profiles</h2>
-        <select class="input-company">
-          <option>Company1</option>
-          <option>Company2</option>
-          <option>Company3</option>
-          <option>Company4</option>
-          <option>Company5</option>
-        </select>
+        <p>Edit information of existing companies.
+          <select class="input-company">
+            <option>Select a company to edit</option>
+            <option>Company1</option>
+            <option>Company2</option>
+            <option>Company3</option>
+            <option>Company4</option>
+            <option>Company5</option>
+          </select>
+        </p>
+        <p>Add a new company.
+          <button type="submit" class="btn btn-default btn-primary">New Company</button>
+        </p>
       </div>
+
       <div class="content-area">
         <!--Form content-->
         <form role="form">
@@ -174,7 +181,10 @@
             <input type="tel" class="form-control" id="contact-phone" placeholder="Contact-Phone">
           </div>
           
-          <button type="submit" class="btn btn-default">Submit</button>
+          <button type="submit" class="btn btn-default btn-lg btn-success">Update Information</button>
+          <br style="clear:both;"/>
+          <!-- For adding new
+          <button type="submit" class="btn btn-default btn-success">Submit New Company</button>
 </form>
     </div> <!-- /container -->
 
