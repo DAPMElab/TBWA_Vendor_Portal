@@ -1998,13 +1998,14 @@ textarea.form-control {
 }
 
 .form-group #left {
-  max-width: 50%;
+  width:48%;
   float:left;
 }
 
 .form-group #right {
-  left:50%;
-  position: absolute;
+  width:48%;
+  float:right;
+  position: relative;
 }
 .radio,
 .checkbox {
@@ -5329,7 +5330,6 @@ a.list-group-item.active > .badge,
 }
 
 .content-area #right {
-  max-width:20%;
   float:right;
 }
 
