@@ -1,11 +1,15 @@
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">blah</div>
-        <div class="modal-body">blah</div>
-        <div class="modal-footer">blah</div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="$close()">OK</button>
-        <button class="btn btn-warning" ng-click="$dismiss()">Cancel</button>
-    </div>
+<div class="modal-header" style="text-align: center">
+    <h3>WRITE A REVIEW</h3>
+</div>
+<div class="modal-body">
+    <ul>
+        <li ng-repeat="item in items">
+            <a ng-click="selected.item = item">{{ item }}</a>
+        </li>
+    </ul>
+    Selected: <b>{{ selected.item }}</b>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 </div>

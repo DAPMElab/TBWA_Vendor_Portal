@@ -255,8 +255,13 @@ angular.module('myApp.controllers', [])
     };
 
 
+    /**
+     * Function for modal opening
+     */
     $scope.items = ['item1', 'item2', 'item3'];
-    $scope.selected = {};
+    $scope.selected = {
+        item: $scope.items[0]
+    };
     $scope.open = function () {
         var modalInstance = $modal.open({
             templateUrl: 'client/partials/writereview.html',
@@ -268,6 +273,15 @@ angular.module('myApp.controllers', [])
         }, function () {
             console.log('Modal dismissed at: ' + new Date());
         });
+    };
+
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.selected.item);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
     };
 
 });
