@@ -142,9 +142,9 @@ class TestCompany(template.TestingTemplate):
         # checking that all created reviews were returned
         returned_list = resp_data['data']
         for company in returned_list:
-            del company['Company']['id']
-            del company['Company']['ReviewIds']
-        returned_list = [c['Company'] for c in returned_list]
+            del company['id']
+            del company['ReviewIds']
+            del company['AverageReview']
         for company in company_list:
             self.assertIn(company, returned_list)
 
@@ -170,7 +170,7 @@ class TestCompany(template.TestingTemplate):
 
         # checking that none of the unnecessary attributes are in the return values
         returned_list = resp_data['data']
-        for company in [c['Company'] for c in returned_list]:
+        for company in returned_list:
             self.assertFalse('unneccesary' in company)
 
 
