@@ -26,8 +26,7 @@
   <body>
 
     <!-- Fixed navbar -->
-
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">	
+    <div class="navbar navbar-default navbar-fixed-top">	
 		<img src="admin_asset/img/logo.jpg" id="logo" alt='TBWA logo'>
       <div class="navbar-header">
         <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -36,12 +35,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>-->
-        <a class="navbar-brand">TBWA Supplier Diversity Admin Panel</a>
+        <a class="navbar-brand" href="/admin">TBWA Supplier Diversity Admin Panel</a>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="index.html">Reviews</a></li>
-          <li><a href="profiles.html">Edit Company Profiles</a></li>
+          <li class="active"><a href="/admin">Reviews</a></li>
+          <li><a href="/admin#/companies">Edit Company Profiles</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="signin.html">Logout</a></li>
@@ -49,6 +48,7 @@
       </div><!--/.nav-collapse -->
     </div>
 
+    <!-- Angular View -->
     <div class="container" ng-view>
     </div>
 
@@ -60,6 +60,7 @@
     <!-- Angular -->
     <script src="admin_asset/js/app.js"></script>
     <script src="admin_asset/js/controllers/reviews.js"></script>
+    <script src="admin_asset/js/controllers/companies.js"></script>
 
   </body>
 </html>

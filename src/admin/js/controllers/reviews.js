@@ -5,14 +5,18 @@
 angular.module('app.reviews', [])
 .controller('ReviewController', function ($scope, $http) {
 
-  $http.get('/review/list')
-    .success( function(response) {
-      console.log(response);
-      $scope.reviews = response['data'];
-    }).error( function(err) {
-      console.log(err);
-    });
-
+  /*  
+   *  Loads all relevevant data for the page on initialization
+   */
+  $scope.initPage = function (){
+    $http.get('/review/list')
+      .success( function(response) {
+        console.log(response);
+        $scope.reviews = response['data'];
+      }).error( function(err) {
+        console.log(err);
+      });
+  };
 
   /**
    * Approves a review
