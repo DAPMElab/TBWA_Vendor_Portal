@@ -100,9 +100,6 @@ angular.module('myApp.controllers', [])
                     }
                 }
 
-                //By default, we pick the first company to be displayed initially
-                $scope.selectedCompany = $scope.companies[0];
-
                 //apply search params if we had them from before
                 var homeData = HomeSearchData.getProperty();
 
@@ -121,6 +118,10 @@ angular.module('myApp.controllers', [])
                 }
 
                 $scope.search.text = homeData['keyword'];
+
+                //Pick first company in the results
+                $scope.selectedCompany = $scope.companies[0];
+
             })
         }
 
@@ -219,6 +220,10 @@ angular.module('myApp.controllers', [])
                 var matches = $scope.serverResponseSortedByCategories[cat];
                 var appended = newResults.concat(matches);
                 newResults=appended;
+
+                //update category display
+                var catElement = document.getElementById(cat);
+                catElement.checked = true;
             }
 
             $scope.companies = newResults;
