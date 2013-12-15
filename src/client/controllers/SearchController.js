@@ -219,6 +219,10 @@ angular.module('myApp.controllers', [])
                 var matches = $scope.serverResponseSortedByCategories[cat];
                 var appended = newResults.concat(matches);
                 newResults=appended;
+
+                //update category display
+                var catElement = document.getElementById(cat);
+                catElement.checked = true;
             }
 
             $scope.companies = newResults;
