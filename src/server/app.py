@@ -45,22 +45,14 @@ app.register_blueprint(company_bp, url_prefix='/company')
 from blueprints import admin_bp
 app.register_blueprint(admin_bp, url_prefix='/admin')
 
+""" client asset routes """
+from blueprints import client_bp 
+app.register_blueprint(client_bp, url_prefix='/client')
 
-@app.route('/js/<path:filename>', methods=['GET'])
-def send_js(filename):
-    return send_from_directory('../client/', filename)
+""" admin asset routes """
+from blueprints import admin_assets_bp 
+app.register_blueprint(admin_assets_bp, url_prefix='/admin_asset')
 
-@app.route('/partials/<path:filename>', methods=['GET'])
-def send_partial(filename):
-    return send_from_directory('../client/partials/', filename)
-
-@app.route('/css/<path:filename>', methods=['GET'])
-def send_css(filename):
-    return send_from_directory('../client/styles/', filename)
-
-@app.route('/img/<path:filename>', methods=['GET'])
-def send_img(filename):
-    return send_from_directory('../client/img/', filename)
 
 @app.route('/', methods=['GET'])
 def home():

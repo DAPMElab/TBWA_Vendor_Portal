@@ -62,14 +62,15 @@ def get(uid):
                 'Reviews': {
                     'Messages'  : comp['ReviewIds'].map(
                         lambda rev : r.table(R_TABLE).get(rev)
-                    ),
+                    ).filter({'Approved': True}),
                     'Count'     : comp['ReviewIds'].map(
                         lambda rev : r.table(R_TABLE).get(rev)
-                    ).count(),
+                    ).filter({'Approved': True}).count(),
                     'Sum'       : comp['ReviewIds'].map(
-                        lambda rev : r.table(R_TABLE).get(rev).reduce(
-                            lambda a, b : a+b, 0
-                        )
+                        lambda rev : r.table(R_TABLE).get(rev)
+                    ).filter({'Approved': True})
+                    .reduce(
+                        lambda a, b : a+b, 0
                     )
                 }
             })

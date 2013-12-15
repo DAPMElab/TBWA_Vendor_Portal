@@ -12,10 +12,10 @@ angular.module('myApp', [
     ]).
     config(['$routeProvider', function($routeProvider) {
 
-        $routeProvider.when('/search', {templateUrl: 'partials/search.html', controller: 'SearchController'});
+        $routeProvider.when('/search',              {templateUrl: 'client/partials/search.html',              controller: 'SearchController'});
 
         //Search results
-        $routeProvider.when('/map', {templateUrl: 'partials/map.html', controller: 'SearchController'});
+        $routeProvider.when('/map',                 {templateUrl: 'client/partials/map.html',                 controller: 'SearchController'});
 
         //Don't necessarily want the path, just linking up the controllers
         $routeProvider.when('/category', {templateUrl: 'partials/category.html', controller: 'SearchController'});

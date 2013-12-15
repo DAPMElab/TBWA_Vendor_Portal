@@ -1,6 +1,11 @@
 
 #guide
 
+
+##Assets
+
+All assets (`*.js`, `*.html`, `*.css`, etc) must be prepended by `/client`.
+
 ####index.html
 
 Stores the base html that will be used on every page.

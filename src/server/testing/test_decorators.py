@@ -2,6 +2,7 @@
 # TODO: Figure out a better way of testing this. Possible a test app that uses
 #       the decorators?
 
+import rethinkdb as r
 import unittest
 import template
 import json
@@ -45,6 +46,14 @@ class TestDecorators(template.TestingTemplate):
 
     def test_has_data_success(self):
         """ test that the call passes w/ data """
+        # create fake company to link to
+        outcome = r.table('companies').insert({
+                'Name'  : 'Fake Company',
+                'URL'   : 'Broken URL',
+                'id'    : '123',
+                'ReviewIds' : []
+        }).run(self.rdb)
+
         # makes the call w/ data
         review = {'Submitter': 'test', 'Rating':10}
         resp = self.request_with_role('/review/create/123',
