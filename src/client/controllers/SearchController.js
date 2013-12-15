@@ -165,10 +165,9 @@ angular.module('myApp.controllers', [])
                             $scope.addCategory(paramCat);
                         }
                     }
-
                 }
             }
-        }
+        };
 
         $scope.updateSelectedCompany = function(newSelection) {
             //$scope.selectedCompany = newSelection;
@@ -176,7 +175,7 @@ angular.module('myApp.controllers', [])
             $http.get( '/company/get/' + newSelection['id'] ).success( function(response) {
                 $scope.selectedCompany = response['data'];
             })
-        }
+        };
 
         /**
          * Inits the map to a default state
@@ -184,7 +183,7 @@ angular.module('myApp.controllers', [])
          */
         $scope.initMap = function(mapWidth){
             $scope.mapWidth = mapWidth;
-        }
+        };
 
         /**
          * Highlights a svg xml tag using the element id
