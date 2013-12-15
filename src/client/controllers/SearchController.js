@@ -12,6 +12,8 @@ angular.module('myApp.controllers', [])
         $scope.selectedCompany = null;
         $scope.serverResponseSortedByCategories = {};
         $scope.predicate = '';
+        $scope.selectedRegionNumbers = [];
+
 
         //map settings
         $scope.mapUrl = "client/img/USMap.svg";
@@ -198,11 +200,15 @@ angular.module('myApp.controllers', [])
             var regionToHighlight = $scope.regions[regionNumber];
 
             var index = $scope.activeRegions.indexOf(regionToHighlight);
+            var indexForRegionsNumbers = $scope.selectedRegionNumbers.indexOf(regionToHighlight);
+
             if(index==-1){
                 $scope.activeRegions.push(regionToHighlight);
+                $scope.selectedRegionNumbers.push(regionNumber);
 
             }else{
                 $scope.activeRegions.splice(index,1);
+                $scope.selectedRegionNumbers.splice(indexForRegionsNumbers,1);
 
             }
 
@@ -284,12 +290,32 @@ angular.module('myApp.controllers', [])
         };
 
         /**
-         * Main method for searching
+         * Emails search results
          */
-        $scope.search = function() {
-            var region = $scope.activeRegion;
-            var categories = $scope.categoriesSelected;
-            var keyword = $scope.search.text;
+        $scope.emailSearch = function(){
+
+            var body = '';
+            var categories ='cats=';
+            var regions ='regs=';
+
+            //create categories string
+            for (var index in $scope.categoriesSelected){
+                var category = $scope.categoriesSelected[index];
+                categories=categories+category+",";
+            }
+
+            for (var index in $scope.selectedRegionNumbers){
+                var region = $scope.selectedRegionNumbers[index];
+                regions=regions+region+",";
+            }
+
+            categories = categories.substring(0,categories.length-1);
+            regions = regions.substring(0,regions.length-1);
+
+            body = "http://localhost:5000/#/search/"+categories+":"+regions;
+
+            //Send email
+            window.open('mailto:.?subject=Result from search&body='+body);
         };
 
         $scope.updatePredicate = function(filter){
