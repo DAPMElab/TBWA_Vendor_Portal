@@ -2,172 +2,172 @@
  Manages the map, categories and search box
  */
 angular.module('myApp.controllers')
-    .controller('HomeController',function($scope, HomeSearchData, $location){
+.controller('HomeController',function($scope, HomeSearchData, $location){
 
-        //map settings
-        $scope.mapUrl = "client/img/USMap.svg";
-        $scope.regions = {
-            0:"midwest",
-            1:"southeast",
-            2:"northeast",
-            3:"southwest",
-            4:"west"
-        };
+    //map settings
+    $scope.mapUrl = "client/img/USMap.svg";
+    $scope.regions = {
+        0:"midwest",
+        1:"southeast",
+        2:"northeast",
+        3:"southwest",
+        4:"west"
+    };
 
-        $scope.mapWidth = null;
-        $scope.activeRegions = [];
-        $scope.activeRegionNumbers = [];
+    $scope.mapWidth = null;
+    $scope.activeRegions = [];
+    $scope.activeRegionNumbers = [];
 
-        $scope.mapColors = {
-            highlighted :{
-                opacity :"1.0",
-                fillOpacity : "1.0",
-                fill : "#66CCFF"
-            },
-            defaultState:{
-                opacity :"1.0",
-                fillOpacity : "1.0",
-                fill : "#FFFFFF"
+    $scope.mapColors = {
+        highlighted :{
+            opacity :"1.0",
+            fillOpacity : "1.0",
+            fill : "#66CCFF"
+        },
+        defaultState:{
+            opacity :"1.0",
+            fillOpacity : "1.0",
+            fill : "#FFFFFF"
+        }
+    };
+
+    $scope.availableCategories = [
+        {"text": "Casting"},
+        {"text": "Distribution"},
+        {"text": "Production"},
+        {"text": "Translation"},
+        {"text": "Editorial"},
+        {"text": "Animation"},
+        {"text": "Post Effects"},
+        {"text": "Illustration"},
+        {"text": "Music"},
+        {"text": "Storyboarding"},
+        {"text": "Sound Design"},
+        {"text": "Directorial"}
+    ];
+
+    //Category settings
+    $scope.categoriesSelected = [];
+    $scope.search = {"text":''};
+
+
+    /**
+     * Inits the map to a default state
+     * @param mapWidth
+     */
+    $scope.initMap = function(mapWidth){
+        $scope.mapWidth = mapWidth;
+    };
+
+    /**
+     * Highlights a svg xml tag using the element id
+     * It deselects everything first, then highlights the item requested. The highlight is done by adjusting the alpha
+     *
+     * @param regionNumber
+     * @author will
+     */
+    $scope.highlightMap = function(regionNumber){
+
+        //track added regions
+        var regionToHighlight = $scope.regions[regionNumber];
+
+        var index = $scope.activeRegions.indexOf(regionToHighlight);
+        if(index==-1){
+            $scope.activeRegions.push(regionToHighlight);
+            $scope.activeRegionNumbers.push(regionNumber);
+
+        }else{
+            $scope.activeRegions.splice(index,1);
+            $scope.activeRegionNumbers.splice(index,1);
+        }
+
+
+        //Deselect all regions
+        var svgChilren = document.getElementsByTagName("path");
+        for (var childIndex in svgChilren){
+            var child = svgChilren[childIndex];
+            if(child.style!=null){
+                child.style.fill = $scope.mapColors.defaultState.fill;
+
             }
-        };
+        }
 
-        $scope.availableCategories = [
-            {"text": "Casting"},
-            {"text": "Distribution"},
-            {"text": "Production"},
-            {"text": "Translation"},
-            {"text": "Editorial"},
-            {"text": "Animation"},
-            {"text": "Post Effects"},
-            {"text": "Illustration"},
-            {"text": "Music"},
-            {"text": "Storyboarding"},
-            {"text": "Sound Design"},
-            {"text": "Directorial"}
-        ];
+        // deselect all rooms and highlight jsut the one we want
+        for (var regionIndex in $scope.activeRegions) {
 
-        //Category settings
-        $scope.categoriesSelected = [];
-        $scope.search = {"text":''};
+            var region = $scope.activeRegions[regionIndex];
 
+            // get matching svg element
+            var svgElement = document.getElementById(region);
 
-        /**
-         * Inits the map to a default state
-         * @param mapWidth
-         */
-        $scope.initMap = function(mapWidth){
-            $scope.mapWidth = mapWidth;
-        };
+            svgElement.style.opacity          = $scope.mapColors.highlighted.opacity;
+            svgElement.style['fill-opacity']  = $scope.mapColors.highlighted.fillOpacity;
+            svgElement.style.fill             = $scope.mapColors.highlighted.fill;
 
-        /**
-         * Highlights a svg xml tag using the element id
-         * It deselects everything first, then highlights the item requested. The highlight is done by adjusting the alpha
-         *
-         * @param regionNumber
-         * @author will
-         */
-        $scope.highlightMap = function(regionNumber){
+            $scope.activeRegion = regionToHighlight;
 
-            //track added regions
-            var regionToHighlight = $scope.regions[regionNumber];
-
-            var index = $scope.activeRegions.indexOf(regionToHighlight);
-            if(index==-1){
-                $scope.activeRegions.push(regionToHighlight);
-                $scope.activeRegionNumbers.push(regionNumber);
-
-            }else{
-                $scope.activeRegions.splice(index,1);
-                $scope.activeRegionNumbers.splice(index,1);
-            }
-
-
-            //Deselect all regions
-            var svgChilren = document.getElementsByTagName("path");
+            //Change the colors of the actual region by going into each path node
+            var svgChilren = svgElement.getElementsByTagName("path");
             for (var childIndex in svgChilren){
                 var child = svgChilren[childIndex];
+
                 if(child.style!=null){
-                    child.style.fill = $scope.mapColors.defaultState.fill;
+                    child.style.fill = $scope.mapColors.highlighted.fill;
 
                 }
             }
+        }
+    };
 
-            // deselect all rooms and highlight jsut the one we want
-            for (var regionIndex in $scope.activeRegions) {
+    /**
+     * Adds a category to user selected categories for company filtering
+     * @param categoryToAdd
+     */
+    $scope.addCategory = function(categoryToAdd){
+        //ask for index of item (-1) if not there
+        var itemIndex = $scope.categoriesSelected.indexOf(categoryToAdd);
 
-                var region = $scope.activeRegions[regionIndex];
+        //If we have, remove, otherwise add
+        if(itemIndex!=-1){
+            $scope.categoriesSelected.splice(itemIndex,1);
+        } else{
+            $scope.categoriesSelected.push(categoryToAdd);
+        }
 
-                // get matching svg element
-                var svgElement = document.getElementById(region);
+        //Update display with the new sorted categories
+        var newResults = [];
+        for(var catIndex in $scope.categoriesSelected){
+            var cat = $scope.categoriesSelected[catIndex];
 
-                svgElement.style.opacity          = $scope.mapColors.highlighted.opacity;
-                svgElement.style['fill-opacity']  = $scope.mapColors.highlighted.fillOpacity;
-                svgElement.style.fill             = $scope.mapColors.highlighted.fill;
+            //Append new results to previous results (from this loop)
+            var matches = $scope.serverResponseSortedByCategories[cat];
+            var appended = newResults.concat(matches);
+            newResults=appended;
+        }
 
-                $scope.activeRegion = regionToHighlight;
+        $scope.companies = newResults;
 
-                //Change the colors of the actual region by going into each path node
-                var svgChilren = svgElement.getElementsByTagName("path");
-                for (var childIndex in svgChilren){
-                    var child = svgChilren[childIndex];
+        //Reset data when no cat has been selected
+        if($scope.categoriesSelected.length==0){
+            $scope.companies = $scope.serverResponse;
+        }
+    };
 
-                    if(child.style!=null){
-                        child.style.fill = $scope.mapColors.highlighted.fill;
+    /**
+     * Main method for searching
+     */
+    $scope.search = function() {
 
-                    }
-                }
-            }
-        };
+        //local pointers to data
+        var regions = $scope.activeRegionNumbers;
+        var categories = $scope.categoriesSelected;
+        var keyword = $scope.search.text;
 
-        /**
-         * Adds a category to user selected categories for company filtering
-         * @param categoryToAdd
-         */
-        $scope.addCategory = function(categoryToAdd){
-            //ask for index of item (-1) if not there
-            var itemIndex = $scope.categoriesSelected.indexOf(categoryToAdd);
+        //Set transfer data
+        HomeSearchData.setProperty({regions: regions, categories:categories, keyword:keyword});
 
-            //If we have, remove, otherwise add
-            if(itemIndex!=-1){
-                $scope.categoriesSelected.splice(itemIndex,1);
-            } else{
-                $scope.categoriesSelected.push(categoryToAdd);
-            }
+        //go to new view
+        $location.path('/search');
 
-            //Update display with the new sorted categories
-            var newResults = [];
-            for(var catIndex in $scope.categoriesSelected){
-                var cat = $scope.categoriesSelected[catIndex];
-
-                //Append new results to previous results (from this loop)
-                var matches = $scope.serverResponseSortedByCategories[cat];
-                var appended = newResults.concat(matches);
-                newResults=appended;
-            }
-
-            $scope.companies = newResults;
-
-            //Reset data when no cat has been selected
-            if($scope.categoriesSelected.length==0){
-                $scope.companies = $scope.serverResponse;
-            }
-        };
-
-        /**
-         * Main method for searching
-         */
-        $scope.search = function() {
-
-            //local pointers to data
-            var regions = $scope.activeRegionNumbers;
-            var categories = $scope.categoriesSelected;
-            var keyword = $scope.search.text;
-
-            //Set transfer data
-            HomeSearchData.setProperty({regions: regions, categories:categories, keyword:keyword});
-
-            //go to new view
-            $location.path('/search');
-
-        };
-    });
+    };
+});
