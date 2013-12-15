@@ -23,6 +23,7 @@ angular.module('myApp', [
         $routeProvider.when('/companyDescription', {templateUrl: 'client/partials/companyDescription.html', controller: 'SearchController'});
         $routeProvider.when('/companySnapshot', {templateUrl: 'client/partials/companySnapshot.html', controller: 'SearchController'});
         $routeProvider.when('/companyReviews', {templateUrl: 'client/partials/companyReviews.html', controller: 'SearchController'});
+        $routeProvider.when('/search/:param1', {templateUrl: 'client/partials/search.html', controller: 'SearchController'});
         $routeProvider.when('/home', {templateUrl: 'client/partials/home.html', controller: 'HomeController'});
 
 
