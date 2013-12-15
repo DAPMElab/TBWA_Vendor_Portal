@@ -53,7 +53,6 @@
                     </div>
                 </div>
 
-                <!--black line-->
                 <div class="col-md-5" style="padding: 20px; text-align:right">                    
                     <!-- Displaying the physical address -->
                     <p>
@@ -68,17 +67,24 @@
 
             <div class="row col-md-12">
 
-                <div class="col-md-12" style="height: 2px; background-color: #D3D3D3; margin-left: 10px">&nbsp;</div>
-                <div class="col-md-12" style="margin-left: 25px">
-                    <h3>REVIEWS</h3>
-                    <a style="cursor: pointer" ng-click="open()">Write a review</a>
+                <!-- <div class="col-md-12" style="height: 2px; background-color: #D3D3D3; margin-left: 10px">&nbsp;</div> -->
+                <!-- Thinner, grayer line -->
+                <div><hr></div>
 
-                    <div ng-repeat = "review in companies.Reviews">
+                <div class="col-md-12" style="margin-left: 25px">
+                    <h3>
+                        REVIEWS
+                        <a id="less" style="cursor: pointer; font-size: 14px" ng-click="open()">Add a review</a>
+                    </h3>
+
+                    <!-- When an actual review is written, work on the formatting of this section
+                    <div ng-repeat = "review in selectedCompany.Reviews">
                         {{review.category}} ( {{review.cost}} )
                         <br />
                         {{review.rating}} / 5 stars
                         {{review.content}}
                     </div>
+                    -->
                 </div>
             </div>
         </div>
