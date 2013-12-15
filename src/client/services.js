@@ -70,3 +70,20 @@ angular.module('myApp.services', [])
   };//return
 
 });//
+
+//Service to transfer home search data
+angular.module('myApp.services', []).
+    factory('HomeSearchData',function(){
+
+        var property = { Property1: 'First' };
+
+        return {
+            getProperty: function () {
+                return property;
+            },
+            setProperty: function(value) {
+                property = value;
+            }
+        };
+
+    });

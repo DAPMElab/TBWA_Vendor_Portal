@@ -2,7 +2,7 @@
  Manages the map, categories and search box
  */
 angular.module('myApp.controllers', [])
-    .controller('SearchController',function($scope, $http, $modal){
+    .controller('SearchController',function($scope, $http, $modal, HomeSearchData){
 
         //Live companies showing after sort
         $scope.companies = [];
@@ -67,6 +67,8 @@ angular.module('myApp.controllers', [])
          * Executed on load of the main page to get information about each company
          */
         $scope.loadCompanies = function(){
+
+            //query server for company info
             $http.get('/company/list').success(function(response){
 
                 //load all as live companies
@@ -100,6 +102,25 @@ angular.module('myApp.controllers', [])
 
                 //By default, we pick the first company to be displayed initially
                 $scope.selectedCompany = $scope.companies[0];
+
+                //apply search params if we had them from before
+                var homeData = HomeSearchData.getProperty();
+
+                //Highlight the map and update the regions
+                var regions = homeData['regions'];
+                for(var regionIndex in regions){
+                    var region = regions[regionIndex];
+                    $scope.highlightMap(region);
+                }
+
+                //Add and update categories
+                var categories = homeData['categories'];
+                for(var catIndex in categories){
+                    var category = categories[catIndex];
+                    $scope.addCategory(category);
+                }
+
+                $scope.search.text = homeData['keyword'];
             })
         }
 

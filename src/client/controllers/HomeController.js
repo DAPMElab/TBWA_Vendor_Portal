@@ -2,7 +2,7 @@
  Manages the map, categories and search box
  */
 angular.module('myApp.controllers')
-    .controller('HomeController',function($scope){
+    .controller('HomeController',function($scope, HomeSearchData, $location){
 
         //map settings
         $scope.mapUrl = "client/img/USMap.svg";
@@ -16,6 +16,7 @@ angular.module('myApp.controllers')
 
         $scope.mapWidth = null;
         $scope.activeRegions = [];
+        $scope.activeRegionNumbers = [];
 
         $scope.mapColors = {
             highlighted :{
@@ -73,10 +74,11 @@ angular.module('myApp.controllers')
             var index = $scope.activeRegions.indexOf(regionToHighlight);
             if(index==-1){
                 $scope.activeRegions.push(regionToHighlight);
+                $scope.activeRegionNumbers.push(regionNumber);
 
             }else{
                 $scope.activeRegions.splice(index,1);
-
+                $scope.activeRegionNumbers.splice(index,1);
             }
 
 
@@ -155,12 +157,17 @@ angular.module('myApp.controllers')
          * Main method for searching
          */
         $scope.search = function() {
-            var region = $scope.activeRegion;
+
+            //local pointers to data
+            var regions = $scope.activeRegionNumbers;
             var categories = $scope.categoriesSelected;
             var keyword = $scope.search.text;
-        };
 
-        $scope.updatePredicate = function(filter){
-            $scope.predicate = filter;
+            //Set transfer data
+            HomeSearchData.setProperty({regions: regions, categories:categories, keyword:keyword});
+
+            //go to new view
+            $location.path('/search');
+
         };
     });
