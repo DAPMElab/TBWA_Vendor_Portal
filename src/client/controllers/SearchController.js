@@ -79,22 +79,24 @@ angular.module('myApp.controllers', [])
                 for(var coIndex in $scope.companies){
                     var company = $scope.companies[coIndex];
 
-                    var categories = company['Categories'];
-                    for(var catIndex in categories){
-                        var category = categories[catIndex];
+                    var name = company['Name'];
+                    if (name!=null && name.length>1){
+                        var categories = company['Categories'];
+                        for(var catIndex in categories){
+                            var category = categories[catIndex];
 
-                        if($scope.serverResponseSortedByCategories[category]){
-                            var matchingCompanies = $scope.serverResponseSortedByCategories[category];
-                            var appended = matchingCompanies.concat([company]);
+                            if($scope.serverResponseSortedByCategories[category]){
+                                var matchingCompanies = $scope.serverResponseSortedByCategories[category];
+                                var appended = matchingCompanies.concat([company]);
 
 
-                            $scope.serverResponseSortedByCategories[category] = appended;
-                        }else{
-                            $scope.serverResponseSortedByCategories[category] = [company];
+                                $scope.serverResponseSortedByCategories[category] = appended;
+                            }else{
+                                $scope.serverResponseSortedByCategories[category] = [company];
+                            }
                         }
                     }
                 }
-
 
                 //By default, we pick the first company to be displayed initially
                 $scope.selectedCompany = $scope.companies[0];

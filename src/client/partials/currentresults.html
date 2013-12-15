@@ -9,7 +9,7 @@
     </ul>
 </div>
 
-<h3>CURRENT RESULTS</h3>
+<h4>CURRENT RESULTS</h4>
 
 <!-- for extra whitespace -->
 <br />
@@ -22,12 +22,12 @@
         <!--Company info-->
             <div class="col-md-12" ng-click="updateSelectedCompany(company)">
                 <h4>{{company.Name}}</h4>
-                <a href="{{company.URL}}">{{company.URL}}</a>
+
+                <!--<a href="{{company.URL}}">{{company.URL}}</a>  Will: Took out because it is confusing (link should be in 1 place)-->
 
                 <div ng-repeat="category in company.Categories">
                     {{category}}
                 </div>
-                
 
                 <!--Rating block-->
                 <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
