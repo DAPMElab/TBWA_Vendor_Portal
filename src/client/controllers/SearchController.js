@@ -1,9 +1,8 @@
-
 /*
  Manages the map, categories and search box
  */
-angular.module('myApp.controllers', []).
-    controller('SearchController',function($scope, $http){
+angular.module('myApp.controllers', [])
+    .controller('SearchController',function($scope, $http, $modal){
 
         $scope.companies = [];
         $scope.serverResponse = null;
@@ -35,7 +34,6 @@ angular.module('myApp.controllers', []).
             }
         };
 
-        
         $scope.availableCategories = [
             {"text": "Casting"},
             {"text": "Distribution"},
@@ -53,12 +51,11 @@ angular.module('myApp.controllers', []).
 
         //Category settings
         $scope.categoriesSelected = [];
-        $scope.search = {text:''};
-
+        $scope.search = {"text":''};
 
         /**
          * Executed on load of the main page to get information about each company
-        */
+         */
         $scope.loadCompanies = function(){
             $http.get('/company/list').success(function(response){
 
@@ -155,7 +152,7 @@ angular.module('myApp.controllers', []).
             } else{
                 $scope.categoriesSelected.push(categoryToAdd);
             }
-        }
+        };
 
         /**
          * Main method for searching
@@ -164,6 +161,22 @@ angular.module('myApp.controllers', []).
             var region = $scope.activeRegion;
             var categories = $scope.categoriesSelected;
             var keyword = $scope.search.text;
-        }
+        };
+
+
+        $scope.items = ['item1', 'item2', 'item3'];
+        $scope.selected = {};
+        $scope.open = function () {
+            var modalInstance = $modal.open({
+                templateUrl: 'partials/writereview.html',
+                scope: $scope
+            });
+            console.log('modal opened');
+            modalInstance.result.then(function () {
+                console.log($scope.selected);
+            }, function () {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        };
 
     });

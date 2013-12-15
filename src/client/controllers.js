@@ -3,12 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-  controller('MyCtrl1', [function() {
-
-  }])
-  .controller('MyCtrl2', [function() {
-
-  }]);
+  controller('ReviewModalController', []);
 
 /* Function for using Google Maps API
 http://plnkr.co/edit/vfntxf?p=preview
