@@ -230,6 +230,7 @@ angular.module('myApp.controllers', [])
                 svgElement.style['fill-opacity']  = $scope.mapColors.highlighted.fillOpacity;
                 svgElement.style.fill             = $scope.mapColors.highlighted.fill;
 
+
                 $scope.activeRegion = regionToHighlight;
 
                 //Change the colors of the actual region by going into each path node
@@ -325,5 +326,54 @@ angular.module('myApp.controllers', [])
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
+
+        /**
+         * Main method for searching
+         */
+        $scope.search = function() {
+            var region = $scope.activeRegion;
+            var categories = $scope.categoriesSelected;
+            var keyword = $scope.search.text;
+        };
+
+        $scope.updatePredicate = function(filter){
+            $scope.predicate = filter;
+        };
+
+
+        /**
+         * Function for modal opening
+         */
+        $scope.items = ['item1', 'item2', 'item3'];
+        $scope.selected = {
+            item: $scope.items[0]
+        };
+        $scope.open = function () {
+            var modalInstance = $modal.open({
+                templateUrl: 'client/partials/writereview.html',
+                scope: $scope
+            });
+            console.log('modal opened');
+            modalInstance.result.then(function () {
+                console.log($scope.selected);
+            }, function () {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        };
+
+        // These functions don't work yet
+        $scope.ok = function () {
+            $modalInstance.close($scope.selected.item);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+
+        $scope.jobSizeRanges = [
+            {"Range": "< $250k"},
+            {"Range": "$250k - $500k"},
+            {"Range": "> $500k"}
+        ];
 
     });
