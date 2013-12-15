@@ -21,19 +21,23 @@
         
         <!--Company info-->
             <div class="col-md-12" ng-click="updateSelectedCompany(company)">
-                <h4>{{company.Name}}</h4>
-
-                <!--<a href="{{company.URL}}">{{company.URL}}</a>  Will: Took out because it is confusing (link should be in 1 place)-->
-
-                <div ng-repeat="category in company.Categories">
-                    {{category}}
+                <!--Rating block-->
+                <div style="float:right; text-align:right" >
+                    <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
+                    <p style="font-size: 12px">{{company.ReviewIds.length}} ratings</p>
                 </div>
 
-                <!--Rating block-->
-                <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
-                <h6>{{result.Ratings + rtgs}}</h6>
+                <h4>{{company.Name}}</h4>
+
+                <a href="{{company.URL}}" target="_blank">{{company.URL}}</a>
+
+                <br />
+
+                {{company.Categories.join(", ")}}
+
             </div>
             
+            <!-- Dividing Line -->
             <div><hr></div>
         </div>
     </div>
