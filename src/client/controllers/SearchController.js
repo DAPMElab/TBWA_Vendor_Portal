@@ -2,7 +2,7 @@
  Manages the map, categories and search box
  */
 angular.module('myApp.controllers', [])
-.controller('SearchController',function($scope, $http, $modal, HomeSearchData){
+.controller('SearchController',function($scope, $http, $modal, HomeSearchData, $routeParams){
 
     //Live companies showing after sort
     $scope.companies = [];
@@ -67,6 +67,8 @@ angular.module('myApp.controllers', [])
      * Executed on load of the main page to get information about each company
      */
     $scope.loadCompanies = function(){
+
+        var param1 = $routeParams.param1;
 
         //query server for company info
         $http.get('/company/list').success(function(response){
