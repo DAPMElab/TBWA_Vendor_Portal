@@ -5979,6 +5979,8 @@ button.close {
 }
 
 .modal {
+  display: block; /* APPENDED */
+  /* OMMITTED
   position: fixed;
   top: 0;
   right: 0;
@@ -5988,7 +5990,9 @@ button.close {
   display: none;
   overflow: auto;
   overflow-y: scroll;
+  */
 }
+
 
 .modal.fade .modal-dialog {
   -webkit-transform: translate(0, -25%);
@@ -6057,6 +6061,13 @@ button.close {
   margin-top: -2px;
 }
 
+/* APPENDED */
+.modal-header:before,
+.modal-header:after {
+  display: table;
+  content: " ";
+}
+
 .modal-title {
   margin: 0;
   line-height: 1.428571429;
@@ -6065,6 +6076,13 @@ button.close {
 .modal-body {
   position: relative;
   padding: 20px;
+}
+
+/* APPENDED */
+.modal-body:before,
+  .modal-body:after {
+    display: table;
+    content: " ";
 }
 
 .modal-footer {
