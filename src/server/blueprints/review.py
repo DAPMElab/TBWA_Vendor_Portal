@@ -17,13 +17,13 @@ TABLE       = 'reviews'
 C_TABLE     = 'companies'
 
 required_fields = [
-    'CompanyID',
-    'Submitter',
-    'Rating',
+    'companyID',
+    'submitter',
+    'rating',
 ]
 
 return_fields = required_fields + [
-    'Approved'
+    'approved'
 ]
 
 
@@ -36,8 +36,8 @@ def create(uid):
         @json_format: {'data': <review obj>}
     """
     review = request.get_json(cache=True)
-    review['CompanyID'] = uid
-    review['Approved'] = False
+    review['companyID'] = uid
+    review['approved'] = False
 
     for field in required_fields:
         if field not in review:
@@ -51,7 +51,7 @@ def create(uid):
         key = r_outcome['generated_keys'][0]
 
         c_outcome = (r.table(C_TABLE)
-                .get(uid)['ReviewIds']
+                .get(uid)['reviewIds']
                 .append(key)
                 .run(g.rdb_conn))
         print c_outcome
@@ -68,7 +68,7 @@ def create(uid):
 @admin
 def approve(uid):
     """ Removes a review from the queue and links it to the company. """
-    outcome = r.table(TABLE).get(uid).update({'Approved': True}).run(g.rdb_conn)
+    outcome = r.table(TABLE).get(uid).update({'approved': True}).run(g.rdb_conn)
     
     if outcome['replaced'] == 1:
         return make_response(json.dumps({
@@ -133,7 +133,7 @@ def delete(uid):
 def list():
     """ Returns all reviews that have not yet been approved """
     try:
-        outcome = r.table(TABLE).filter({'Approved':False}).run(g.rdb_conn)
+        outcome = r.table(TABLE).filter({'approved':False}).run(g.rdb_conn)
         reviews = [x for x in outcome]
 
         return make_response(json.dumps({
