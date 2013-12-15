@@ -11,6 +11,7 @@ angular.module('myApp.controllers', [])
         $scope.serverResponse = null;
         $scope.selectedCompany = null;
         $scope.serverResponseSortedByCategories = {};
+        $scope.predicate = '';
 
         //map settings
         $scope.mapUrl = "img/USMap.svg";
@@ -51,6 +52,11 @@ angular.module('myApp.controllers', [])
             {"text": "Storyboarding"},
             {"text": "Sound Design"},
             {"text": "Directorial"}
+        ];
+
+        $scope.sortFilters = [
+            "Rating",
+            "Name"
         ];
 
         //Category settings
@@ -176,7 +182,7 @@ angular.module('myApp.controllers', [])
 
             //If we have, remove, otherwise add
             if(itemIndex!=-1){
-                $scope.categoriesSelected.splice(itemIndex);
+                $scope.categoriesSelected.splice(itemIndex,1);
             } else{
                 $scope.categoriesSelected.push(categoryToAdd);
             }
@@ -207,6 +213,10 @@ angular.module('myApp.controllers', [])
             var region = $scope.activeRegion;
             var categories = $scope.categoriesSelected;
             var keyword = $scope.search.text;
+        };
+
+        $scope.updatePredicate = function(filter){
+            $scope.predicate = filter;
         };
 
 

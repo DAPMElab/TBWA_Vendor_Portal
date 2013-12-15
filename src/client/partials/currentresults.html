@@ -3,10 +3,9 @@
     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
         Sort by <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu">
-        <li><a href="">Rating</a></li>
-        <li><a href="">Name</a></li>
-        <li><a href="">Something else here</a></li>
+    <ul class="dropdown-menu" role="menu" >
+        <li><a href="" ng-repeat = "myFilter in sortFilters" ng-click="updatePredicate(myFilter)">{{myFilter}}</a></li>
+        <!--Stop hard-coding things in html-->
     </ul>
 </div>
 
@@ -18,7 +17,7 @@
 
 <div style="overflow: scroll; height: 400px; overflow-x: hidden">
         <!--result cell -->
-        <div class="row" ng-repeat="company in companies | filter:search.text" style="cursor: pointer">
+        <div class="row" ng-repeat="company in companies | filter:search.text | orderBy:predicate" style="cursor: pointer">
         
         <!--Company info-->
             <div class="col-md-12" ng-click="updateSelectedCompany(company)">
