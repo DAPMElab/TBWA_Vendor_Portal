@@ -273,7 +273,7 @@ angular.module('myApp.controllers', [])
         });
     };
 
-
+    // These functions don't work yet
     $scope.ok = function () {
         $modalInstance.close($scope.selected.item);
     };
@@ -281,5 +281,11 @@ angular.module('myApp.controllers', [])
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+
+    $scope.jobSizeRanges = [
+        {"Range": "< $250k"},
+        {"Range": "$250k - $500k"},
+        {"Range": "> $500k"}
+    ];
 
 });

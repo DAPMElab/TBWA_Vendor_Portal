@@ -1,15 +1,45 @@
-<div class="modal-header" style="text-align: center">
+<div class="modal-header" style="text-align: center; padding: 40px">
     <h3>WRITE A REVIEW</h3>
 </div>
 <div class="modal-body">
-    <ul>
-        <li ng-repeat="item in items">
-            <a ng-click="selected.item = item">{{ item }}</a>
-        </li>
-    </ul>
-    Selected: <b>{{ selected.item }}</b>
+    <!-- Type of Job Button Group -->
+    Type of Job:
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Select a Category <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li ng-repeat="category in selectedCompany.Company.Categories">{{category}}</li>
+        <li class="divider"></li>
+        <li><a href="#">Other/Not Listed</a></li>
+      </ul>
+    </div>
+
+    <!-- Extra spacing needed here -->
+
+    <!-- Size of Job Button Group -->
+    Size of Job:
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Select an Amount <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li ng-repeat="range in jobSizeRanges">{{range.Range}}</li>
+      </ul>
+    </div>
+
+    <!-- Rating Selection -->
+    <div>
+        Rating: <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
+    </div>
+
+    <div>
+        Share your experiences with this company.
+        <textarea class="form-control" rows="10"></textarea>
+    </div>
+
+    
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">OK</button>
-    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="ok()">Submit</button>
 </div>
