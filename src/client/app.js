@@ -12,17 +12,17 @@ angular.module('myApp', [
     ]).
     config(['$routeProvider', function($routeProvider) {
 
-        $routeProvider.when('/search', {templateUrl: 'partials/search.html', controller: 'SearchController'});
+        $routeProvider.when('/search',              {templateUrl: 'client/partials/search.html',              controller: 'SearchController'});
 
         //Search results
-        $routeProvider.when('/map', {templateUrl: 'partials/map.html', controller: 'SearchController'});
+        $routeProvider.when('/map',                 {templateUrl: 'client/partials/map.html',                 controller: 'SearchController'});
 
         //Don't necessarily want the path, just linking up the controllers
-        $routeProvider.when('/category', {templateUrl: 'partials/category.html', controller: 'SearchController'});
-        $routeProvider.when('/currentResults', {templateUrl: 'partials/currentResults.html', controller: 'SearchController'});
-        $routeProvider.when('/companyDescription', {templateUrl: 'partials/companyDescription.html', controller: 'SearchController'});
-        $routeProvider.when('/companySnapshot', {templateUrl: 'partials/companySnapshot.html', controller: 'SearchController'});
-        $routeProvider.when('/companyReviews', {templateUrl: 'partials/companyReviews.html', controller: 'SearchController'});
+        $routeProvider.when('/category',            {templateUrl: 'client/partials/category.html',            controller: 'SearchController'});
+        $routeProvider.when('/currentResults',      {templateUrl: 'client/partials/currentResults.html',      controller: 'SearchController'});
+        $routeProvider.when('/companyDescription',  {templateUrl: 'client/partials/companyDescription.html',  controller: 'SearchController'});
+        $routeProvider.when('/companySnapshot',     {templateUrl: 'client/partials/companySnapshot.html',     controller: 'SearchController'});
+        $routeProvider.when('/companyReviews',      {templateUrl: 'client/partials/companyReviews.html',      controller: 'SearchController'});
 
         $routeProvider.otherwise({redirectTo: '/search'});
     }]);

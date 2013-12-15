@@ -14,7 +14,7 @@ angular.module('myApp.controllers', [])
         $scope.predicate = '';
 
         //map settings
-        $scope.mapUrl = "img/USMap.svg";
+        $scope.mapUrl = "client/img/USMap.svg";
         $scope.regions = {
             0:"midwest",
             1:"southeast",
@@ -226,7 +226,7 @@ angular.module('myApp.controllers', [])
         $scope.selected = {};
         $scope.open = function () {
             var modalInstance = $modal.open({
-                templateUrl: 'partials/writereview.html',
+                templateUrl: 'client/partials/writereview.html',
                 scope: $scope
             });
             console.log('modal opened');
