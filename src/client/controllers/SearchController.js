@@ -165,4 +165,5 @@ angular.module('myApp.controllers', []).
             var categories = $scope.categoriesSelected;
             var keyword = $scope.search.text;
         }
+
     });
