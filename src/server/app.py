@@ -1,8 +1,10 @@
 
-from flask              import Flask, make_response, g, send_from_directory
+from flask              import Flask, make_response, g, send_from_directory, \
+        session
 from rethinkdb.errors   import RqlDriverError
 from data               import setup_db
 from config.errors      import make_error
+from blueprints         import admin
 import rethinkdb
 import argparse
 
@@ -52,6 +54,21 @@ app.register_blueprint(client_bp, url_prefix='/client')
 """ admin asset routes """
 from blueprints import admin_assets_bp 
 app.register_blueprint(admin_assets_bp, url_prefix='/admin_asset')
+
+
+@app.route('/admin_credentials', methods=['GET'])
+def become_admin():
+    """ Testing method that adds a cookie to the browser for admin access """
+    session['role'] = 'admin'
+    return "You're now an admin!", 200
+
+
+@app.route('/admin', methods=['GET'])
+@admin
+def admin():
+    """ Return the html seed file with linked JS """
+    with open(app.config['HOME_PATH']+'/src/admin/base.html') as base:
+        return make_response(base.read())
 
 
 @app.route('/', methods=['GET'])

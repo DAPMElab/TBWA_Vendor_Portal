@@ -12,7 +12,7 @@ Handles wrapping HTTP requests concerning assets for the admin page
 
 @admin_assets_bp.route('/js/<path:filename>', methods=['GET'])
 def send_js(filename):
-    return send_from_directory('../admin/', filename)
+    return send_from_directory('../admin/js/', filename)
 
 @admin_assets_bp.route('/partials/<path:filename>', methods=['GET'])
 def send_partial(filename):
@@ -20,7 +20,7 @@ def send_partial(filename):
 
 @admin_assets_bp.route('/css/<path:filename>', methods=['GET'])
 def send_css(filename):
-    return send_from_directory('../admin/styles/', filename)
+    return send_from_directory('../admin/css/', filename)
 
 @admin_assets_bp.route('/img/<path:filename>', methods=['GET'])
 def send_img(filename):
