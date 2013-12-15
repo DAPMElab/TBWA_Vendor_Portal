@@ -26,5 +26,5 @@ angular.module('myApp', [
         $routeProvider.when('/home', {templateUrl: 'client/partials/home.html', controller: 'HomeController'});
 
 
-        $routeProvider.otherwise({redirectTo: '/search'});
+        $routeProvider.otherwise({redirectTo: '/home'});
     }]);
