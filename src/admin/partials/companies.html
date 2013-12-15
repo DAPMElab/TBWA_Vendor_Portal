@@ -1,0 +1,155 @@
+
+<div class="container" ng-init="initPage()">
+
+  <!-- Review -->
+  <div class="jumbotron">
+    <h2>Company Profiles</h2>
+    <p>Edit information of existing companies.
+      <select
+        class="input-company"
+        ng-model="activeCompany"
+        ng-options="company.Name for company in companies">
+      </select>
+    </p>
+    <p>Add a new company.
+      <button type="submit" class="btn btn-default btn-primary">New Company</button>
+    </p>
+  </div>
+
+
+  <div class="content-area">
+    <!--Form content-->
+    <form role="form">
+      <h3>Company Information</h3>
+      <div class="form-group">            
+        <label for="name">Company Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Name">
+      </div>
+      <div class="form-group">
+        <label for="website">Website</label>
+        <input type="url" class="form-control" id="website" placeholder="URL">
+      </div>
+      <!-- Categories -->
+      <div class="form-group">
+        <div id="left">            
+          <label>Category(s)</label>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Category 1
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Category 2
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Category 3
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Category 4
+            </label>
+          </div>
+        </div>
+      <!-- Classification -->
+        <div id="right">
+          <label>Classification(s)</label>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Class1
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Class2
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Class3
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Class4
+            </label>
+          </div>
+        </div>
+        <br style="clear:both;"/>
+      </div>
+      <!-- Clients -->
+      <div class="form-group">
+        <label for="clients">Past Clients (seperated by commas) </label>
+        <input type="text" class="form-control" id="clients" placeholder="Clients">
+      </div>
+      <!-- DBA -->
+      <div class="form-group">
+        <label for="dba">DBA</label>
+        <input type="text" class="form-control" id="dba" placeholder="DBA">
+      </div>
+      <!--Addresses-->
+      <div class="form-group">
+        <div id="left">
+          <label for="physical-address">Physical Address</label>
+          <input type="text" class="form-control" id="physical-address" 
+            placeholder="PhysicalAddress-Address">
+          <input type="text" class="form-control" id="physical-address" 
+            placeholder="PhysicalAddress-City">
+          <select class="form-control bfh-states" data-country="US" data-state="CA"></select>
+          <input type="text" class="form-control" id="physical-address" 
+            placeholder="PhysicalAddress-ZipCode">
+        </div>
+        <div id="right">
+          <label for="remit-address">Remit Address</label>
+          <input type="text" class="form-control" id="remit-address" 
+            placeholder="RemitAddress-Address">
+          <input type="text" class="form-control" id="remit-address" 
+            placeholder="RemitAddress-City">
+          <select class="form-control bfh-states" data-country="US" data-state="CA"></select>
+          <input type="text" class="form-control" id="remit-address" 
+            placeholder="RemitAddress-ZipCode">
+        </div>
+        <br style="clear:both;"/>
+      </div>
+
+      <h3>Contact Information</h3>
+      <div class="form-group">            
+        <label for="contact-name">Contact Name</label>
+        <input type="text" class="form-control" id="contact-name" placeholder="Contact-Name">
+      </div>
+      <div class="form-group">            
+        <label for="contact-email">Email Address</label>
+        <input type="email" class="form-control" id="contact-email" placeholder="Contact-Email">
+      </div>
+      <div class="form-group">            
+        <label for="contact-phone">Phone Number</label>
+        <input type="tel" class="form-control" id="contact-phone" placeholder="Contact-Phone">
+      </div>
+
+      <h3>Additional Information</h3>
+      <div class="form-group">            
+        <label for="contact-name">Long description</label>
+        <textarea class="form-control" rows="3" placeholder="Description"></textarea>
+      </div>
+      <div class="form-group">            
+        <label for="video">Video (YouTube)</label>
+        <input type="url" class="form-control" id="video" placeholder="Video">
+      </div>
+      <div class="form-group">
+        <label for="image">Logo/Image</label>
+        <input type="file" id="image">
+        <p class="help-block">Please upload a JPEG or PNG file only.</p>
+      </div>
+
+
+      <!--Button-->
+      <button type="submit" class="btn btn-default btn-lg btn-success">Update Information</button>
+      <br style="clear:both;"/>
+  </form>
+</div> 
+
+<pre>{{ companies | json }}</pre>
+
