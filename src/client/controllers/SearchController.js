@@ -120,15 +120,20 @@ angular.module('myApp.controllers', [])
             $scope.search.text = homeData['keyword'];
 
             //Pick first company in the results
-            $scope.selectedCompany = $scope.companies[0];
+            $scope.updateSelectedCompany( response.data[0] );
 
         })
     }
 
-    $scope.updateSelectedCompany = function(newSelection) {
-        $scope.selectedCompany = newSelection;
-    }
 
+    $scope.updateSelectedCompany = function(newSelection) {
+        //$scope.selectedCompany = newSelection;
+        // Send a new Get request to /company/get/uid to retrieve the rest of the information
+        $http.get( '/company/get/' + newSelection['id'] ).success( function(response) {
+            $scope.selectedCompany = response['data'];
+        })
+    }
+    
     /**
      * Inits the map to a default state
      * @param mapWidth

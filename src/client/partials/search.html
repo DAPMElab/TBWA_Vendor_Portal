@@ -31,41 +31,36 @@
             <div class="row col-md-12" style="margin-left: 10px">
                 <div class="col-md-7">
                     <div>
-                        <h2>{{selectedCompany.Name}}</h2>
+                        <h2>{{selectedCompany.Company.Name}}</h2>
                         <!--Rating block-->
-                        <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
-                        <h6>{{selectedCompany.Ratings + rtgs}}</h6>
+                        <h6><img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15"> {{selectedCompany.Reviews.Count}} ratings</h6>
 
-                        <div ng-repeat="category in selectedCompany.Categories">
-                            <p>{{category}}</p>
-                        </div>
-
+                        <p>{{selectedCompany.Company.Categories.join(", ")}}</p>
+                        
                         <p>
-                            <a href="{{selectedCompany.URL}}">{{selectedCompany.URL}}</a>
+                            <a href="{{selectedCompany.URL}}">{{selectedCompany.Company.URL}}</a>
                         </p>
 
                         <!-- Displaying the contact information -->
                         <p>
-                            {{selectedCompany.Contact.Name}}
+                            {{selectedCompany.Company.Contact.Name}}
                             </br>
-                            {{selectedCompany.Contact.Email}}
+                            {{selectedCompany.Company.Contact.Email}}
                             </br>
-                            {{selectedCompany.Contact.Phone}}
-                        </p>
-
-                        <!-- Displaying the physical address -->
-                        <p>
-                            {{selectedCompany.PhysicalAddress.Address}}
-                            </br>
-                            {{selectedCompany.PhysicalAddress.City}} {{selectedCompany.PhysicalAddress.State}} {{selectedCompany.PhysicalAddress.ZipCode}}
+                            {{selectedCompany.Company.Contact.Phone}}
                         </p>
                         
                     </div>
                 </div>
 
                 <!--black line-->
-                <div class="col-md-5">
-                    <!-- include something about snapshot -->
+                <div class="col-md-5" style="padding: 20px; text-align:right">                    
+                    <!-- Displaying the physical address -->
+                    <p>
+                        {{selectedCompany.Company.PhysicalAddress.Address}}
+                        </br>
+                        {{selectedCompany.Company.PhysicalAddress.City}} {{selectedCompany.Company.PhysicalAddress.State}} {{selectedCompany.Company.PhysicalAddress.ZipCode}}
+                    </p>
                 </div>
 
             </div>
