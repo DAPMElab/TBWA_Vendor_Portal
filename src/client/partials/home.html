@@ -1,26 +1,7 @@
-<div ng-controller = "homeSearchController">
-
-    <div id="leftPane">
-
-        <!--Top left map search-->
-        <div id="map">
-        </div>
-
-        <!--Bottom right company search-->
-        <div id="companyAutoComplete">
-
-            <input type="text" ng-model="searchText">
-            <table>
-                <!-- Enable filtering by the search term and by the company name-->
-                <tr class= "filterSearchResult" ng-repeat="company in companies | filter:searchText | orderBy:'Company'">
-                    <td>{{company.Company}}</td>
-                </tr>
-            </table>
-        </div>
+<div class="mainBackImage">
+    <div class="row" style="height: 25%"></div>
+    <div class="row" style="height: 300px; width: 600px; background-color: red; margin: auto">
     </div>
-
-    <!--Main company detail-->
-    <div id ="detailView">
-    </div>
+    <div class="row" style="height: 25%"></div>
 
 </div>

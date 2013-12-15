@@ -23,6 +23,8 @@ angular.module('myApp', [
         $routeProvider.when('/companyDescription', {templateUrl: 'partials/companyDescription.html', controller: 'SearchController'});
         $routeProvider.when('/companySnapshot', {templateUrl: 'partials/companySnapshot.html', controller: 'SearchController'});
         $routeProvider.when('/companyReviews', {templateUrl: 'partials/companyReviews.html', controller: 'SearchController'});
+        $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'SearchController'});
+
 
         $routeProvider.otherwise({redirectTo: '/search'});
     }]);

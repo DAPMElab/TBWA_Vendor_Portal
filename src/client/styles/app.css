@@ -49,3 +49,20 @@
   display: table;
   content: " ";
 }
+
+/*Home search*/
+.mainBackImage {
+    background: url(back.png) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: 100%;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
