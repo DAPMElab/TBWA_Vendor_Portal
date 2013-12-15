@@ -4,9 +4,13 @@
 angular.module('myApp.controllers', [])
     .controller('SearchController',function($scope, $http, $modal){
 
+        //Live companies showing after sort
         $scope.companies = [];
+
+        //Original server data so we can undo any sorts
         $scope.serverResponse = null;
         $scope.selectedCompany = null;
+        $scope.serverResponseSortedByCategories = {};
 
         //map settings
         $scope.mapUrl = "img/USMap.svg";
@@ -59,8 +63,32 @@ angular.module('myApp.controllers', [])
         $scope.loadCompanies = function(){
             $http.get('/company/list').success(function(response){
 
-                //extract company data
+                //load all as live companies
                 $scope.companies = response['data'];
+
+                //keep original companies intact when no filter is applied
+                $scope.serverResponse = response['data'];
+
+                //Create an index of each category and the corresponding companies
+                for(var coIndex in $scope.companies){
+                    var company = $scope.companies[coIndex];
+
+                    var categories = company['Categories'];
+                    for(var catIndex in categories){
+                        var category = categories[catIndex];
+
+                        if($scope.serverResponseSortedByCategories[category]){
+                            var matchingCompanies = $scope.serverResponseSortedByCategories[category];
+                            var appended = matchingCompanies.concat([company]);
+
+
+                            $scope.serverResponseSortedByCategories[category] = appended;
+                        }else{
+                            $scope.serverResponseSortedByCategories[category] = [company];
+                        }
+                    }
+                }
+
 
                 //By default, we pick the first company to be displayed initially
                 $scope.selectedCompany = $scope.companies[0];
@@ -151,6 +179,24 @@ angular.module('myApp.controllers', [])
                 $scope.categoriesSelected.splice(itemIndex);
             } else{
                 $scope.categoriesSelected.push(categoryToAdd);
+            }
+
+            //Update display with the new sorted categories
+            var newResults = [];
+            for(var catIndex in $scope.categoriesSelected){
+                var cat = $scope.categoriesSelected[catIndex];
+
+                //Append new results to previous results (from this loop)
+                var matches = $scope.serverResponseSortedByCategories[cat];
+                var appended = newResults.concat(matches);
+                newResults=appended;
+            }
+
+            $scope.companies = newResults;
+
+            //Reset data when no cat has been selected
+            if($scope.categoriesSelected.length==0){
+                $scope.companies = $scope.serverResponse;
             }
         };
 
