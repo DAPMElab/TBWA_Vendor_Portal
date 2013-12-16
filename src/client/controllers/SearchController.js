@@ -96,7 +96,7 @@ angular.module('myApp.controllers', [])
                 var company = $scope.companies[coIndex];
 
                 //Uncomment below line to test star rating system
-                //company['AverageReview'] = 3;
+                //company['AverageReview'] = Math.floor((Math.random()*5)+1);
                 var name = company['Name'];
                 if (name!=null && name.length>1){
                     var categories = company['Categories'];
