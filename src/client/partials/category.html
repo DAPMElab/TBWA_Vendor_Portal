@@ -1,11 +1,11 @@
 <div class="col-md-12">
-	<div class="col-md-6">
+	<div class="col-md-6" style="padding-left: 0px;">
 		<div ng-repeat="category in availableCategoriesLeft">
 		    <input id="{{category.text}}" type="checkbox" ng-click = "addCategory(category.text)"> {{category.text}}
 		</div>
 	</div>
 
-	<div class="col-md-6">
+	<div class="col-md-6" style="padding-right: 0px;">
 		<div ng-repeat="category in availableCategoriesRight">
 		    <input id="{{category.text}}" type="checkbox" ng-click = "addCategory(category.text)"> {{category.text}}
 		</div>
