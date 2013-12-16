@@ -10,11 +10,16 @@
         ng-model="activeCompany"
         ng-options="company.Name for company in companies">
       </select>
-    </p>
-    <p>Add a new company.</p>
-      <a ng-href="/admin#/companies/new">
-        <button type="submit" class="btn btn-default btn-primary">New Company</button>
+      <a ng-href='/admin#/companies/edit/{{ activeCompany.id }}'>
+        <button type="submit" class="btn btn-default btn-primary">Edit Company</button>
       </a>
+    </p>
+    <p>
+      Add a new company.
+      <a ng-href="/admin#/companies/new">
+        <button type="submit" class="btn btn-default btn-success">New Company</button>
+      </a>
+    </p>
   </div>
 
 </div> 
