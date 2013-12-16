@@ -290,4 +290,8 @@ angular.module('myApp.controllers', [])
         {"Range": "> $500k"}
     ];
 
+    $scope.newReview = null;
+
+    
+
 });
