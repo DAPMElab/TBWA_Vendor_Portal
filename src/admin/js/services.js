@@ -18,7 +18,6 @@ angular.module('app.Services', [])
   for (var key in chosenList) {
     scopeVar[chosenList[key]] = true;
   };
-  console.log(scopeVar);
   return scopeVar;
 })
 

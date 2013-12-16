@@ -11,9 +11,10 @@
         ng-options="company.Name for company in companies">
       </select>
     </p>
-    <p>Add a new company.
-      <button type="submit" class="btn btn-default btn-primary">New Company</button>
-    </p>
+    <p>Add a new company.</p>
+      <a ng-href="/admin#/companies/new">
+        <button type="submit" class="btn btn-default btn-primary">New Company</button>
+      </a>
   </div>
 
 </div> 

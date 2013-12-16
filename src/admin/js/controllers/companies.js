@@ -2,7 +2,7 @@
 /*  Controls the homepage where unapproved reviews are shown.
  **/
 
-angular.module('app.companies', [])
+angular.module('app.listCompany', [])
 .controller('CompanyController', function ($scope, $http) {
 
   /*

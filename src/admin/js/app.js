@@ -1,7 +1,6 @@
 
 var app = angular.module('app', [
-  'app.reviews',
-  'app.companies',
+  'app.controllers',
   'app.Values',
   'app.Services',
   'ngRoute'
@@ -22,7 +21,7 @@ app.config(['$routeProvider', function($routeProvider) {
     })
 
     .when('/companies', {
-      templateUrl:  'admin_asset/partials/companies.html',
+      templateUrl:  'admin_asset/partials/listCompany.html',
       controller:   'CompanyController'
     })
 

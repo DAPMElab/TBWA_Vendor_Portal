@@ -1,13 +1,15 @@
 
 /*
- *  Controls the page where a company is editted
+ *  Controls the page where a company is edited
  */
 
-angular.module('app.companies', [])
+angular.module('app.editCompany', [])
 .controller('EditCompanyController', function ($scope, $http, $routeParams,
       categories, classifications, states, setUpDict, condenseDictionary) {
 
   // declare scope variables
+  $scope.pageTitle = 'Edit Company';
+  $scope.actionButtonText = 'Update Company';
   $scope.companyId = $routeParams.cid;
   $scope.categories = {};
   $scope.classifications = {};
@@ -35,7 +37,7 @@ angular.module('app.companies', [])
   /*
    *  Sends the update version to the API
    */
-  $scope.updateCompany = function () {
+  $scope.pageAction = function () {
     // reform the object
     $scope.company.Categories = condenseDictionary($scope.categories);
     $scope.company.Classifications = condenseDictionary($scope.classifications);
