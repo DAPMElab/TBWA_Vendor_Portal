@@ -18,7 +18,6 @@ C_TABLE     = 'companies'
 
 required_fields = [
     'companyID',
-    'submitter',
     'rating',
 ]
 

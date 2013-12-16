@@ -2,7 +2,8 @@
  Manages the map, categories and search box
  */
 angular.module('myApp.controllers', [])
-.controller('SearchController',function($scope, $http, $modal, HomeSearchData, $routeParams, $timeout, $location){
+.controller('SearchController',function($scope, $http, $modal, HomeSearchData,
+      $routeParams, $timeout, $location, setUpDict, condenseDictionary){
 
     //Live companies showing after sort
     $scope.companies = [];
@@ -355,6 +356,7 @@ angular.module('myApp.controllers', [])
      * Function for modal opening
      */
     $scope.open = function () {
+        $scope.reviewCategoryChoices = setUpDict([], $scope.selectedCompany.Company.Categories);
         $scope.modalInstance = $modal.open({
             templateUrl: 'client/partials/writereview.html',
             scope: $scope
@@ -367,14 +369,19 @@ angular.module('myApp.controllers', [])
     };
 
     // Doesn't interface with the backend yet
-    $scope.ok = function () {
+    $scope.submitReview = function () {
         var data = {};
         data["company"] = $scope.selectedCompany.Company.id;
         data["rating"] = 5;
         data["description"] = $scope.newReview.Content;
-        $http.post('/review/create/' + $scope.selectedCompany.Company.id, data).success( function(response) {
-            console.log("Review was received.");
-        });
+        data["category"] = condenseDictionary($scope.reviewCategoryChoices);
+        $http.post('/review/create/' + $scope.selectedCompany.Company.id, data)
+            .success(function (response) {
+                console.log("Review was received.");
+            })
+            .error(function (err) {
+                console.log(err);
+            });
         $scope.modalInstance.close();
     };
 
