@@ -3,10 +3,11 @@
  */
 angular.module('myApp.controllers', [])
 .controller('SearchController',function($scope, $http, $modal, HomeSearchData,
-      $routeParams, $timeout, $location, setUpDict, condenseDictionary){
+      $routeParams, $timeout, $location, setUpDict, condenseDictionary, jobSizeRanges){
 
     //Live companies showing after sort
     $scope.companies = [];
+    $scope.jobSizeRanges = jobSizeRanges;
 
     //Original server data so we can undo any sorts
     $scope.serverResponse = null;
@@ -356,6 +357,11 @@ angular.module('myApp.controllers', [])
      * Function for modal opening
      */
     $scope.open = function () {
+        $scope.newReview = {
+          description: null,
+          cost: null,
+          category: null
+        };
         $scope.reviewCategoryChoices = setUpDict([], $scope.selectedCompany.Company.Categories);
         $scope.modalInstance = $modal.open({
             templateUrl: 'client/partials/writereview.html',
@@ -373,8 +379,9 @@ angular.module('myApp.controllers', [])
         var data = {};
         data["company"] = $scope.selectedCompany.Company.id;
         data["rating"] = 5;
-        data["description"] = $scope.newReview.Content;
+        data["description"] = $scope.newReview.description;
         data["category"] = condenseDictionary($scope.reviewCategoryChoices);
+        data["cost"] = $scope.newReview.cost;
         $http.post('/review/create/' + $scope.selectedCompany.Company.id, data)
             .success(function (response) {
                 console.log("Review was received.");
@@ -385,26 +392,8 @@ angular.module('myApp.controllers', [])
         $scope.modalInstance.close();
     };
 
-    /*
-     * New Review function
-     */
-    $scope.jobSizeRanges = [
-        {"Range": "< $250k"},
-        {"Range": "$250k - $500k"},
-        {"Range": "> $500k"}
-    ];
-
-    $scope.newReview = {};
-
-    $scope.initializeNewReview = function() {
-        $scope.newReview.Categories = [];
-        for (var i = 0; i < $scope.selectedCompany.Company.Categories.length; i++) {
-            $scope.newReview.Categories[ $scope.selectedCompany.Company.Categories[i] ] = false;
-        }
-    }
-
-    $scope.setNewReviewRange = function(range) {
-        $scope.newReview.Range = range;
+    $scope.setNewReviewRange = function(cost) {
+        $scope.newReview['cost'] = cost;
     }
 
     $scope.test = function(stuff) {

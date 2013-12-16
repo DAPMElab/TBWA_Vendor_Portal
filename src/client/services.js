@@ -118,6 +118,12 @@ angular.module('myApp.services', [])
     }
   };
   return chosen;
-});
+})
+
+.value('jobSizeRanges', [
+  {"Range": "< $250k"},
+  {"Range": "$250k - $500k"},
+  {"Range": "> $500k"}
+]);
 
 
