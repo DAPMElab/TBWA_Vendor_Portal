@@ -64,9 +64,12 @@ def become_admin():
 
 
 @app.route('/admin', methods=['GET'])
-@admin
 def admin():
     """ Return the html seed file with linked JS """
+    if 'role' not in session or session['role'] != 'admin':
+        with open(app.config['HOME_PATH']+'/src/admin/signin.html') as base:
+            return make_response(base.read())
+
     with open(app.config['HOME_PATH']+'/src/admin/base.html') as base:
         return make_response(base.read())
 
