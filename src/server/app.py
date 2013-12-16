@@ -1,6 +1,6 @@
 
 from flask              import Flask, make_response, g, send_from_directory, \
-        session
+        session, render_template
 from rethinkdb.errors   import RqlDriverError
 from data               import setup_db
 from config.errors      import make_error
@@ -56,6 +56,11 @@ from blueprints import admin_assets_bp
 app.register_blueprint(admin_assets_bp, url_prefix='/admin_asset')
 
 
+@app.route('/favicon.ico', methods=['GET'])
+def favicon():
+    return send_from_directory('static/', 'favicon.ico')
+
+
 @app.route('/admin_credentials', methods=['GET'])
 def become_admin():
     """ Testing method that adds a cookie to the browser for admin access """
@@ -67,9 +72,7 @@ def become_admin():
 def admin():
     """ Return the html seed file with linked JS """
     if 'role' not in session or session['role'] != 'admin':
-        with open(app.config['HOME_PATH']+'/src/admin/signin.html') as base:
-            return make_response(base.read())
-
+        return render_template('admin_signin.html')
     with open(app.config['HOME_PATH']+'/src/admin/base.html') as base:
         return make_response(base.read())
 

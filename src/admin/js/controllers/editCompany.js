@@ -8,8 +8,8 @@ angular.module('app.editCompany', [])
       categories, classifications, states, setUpDict, condenseDictionary) {
 
   // declare scope variables
-  $scope.pageTitle = 'Edit Company';
-  $scope.actionButtonText = 'Update Company';
+  $scope.pageTitle = 'Edit Existing Company Information';
+  $scope.actionButtonText = 'Update Information';
   $scope.companyId = $routeParams.cid;
   $scope.categories = {};
   $scope.classifications = {};
