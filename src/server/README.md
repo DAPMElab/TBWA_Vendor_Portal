@@ -107,8 +107,9 @@ Example:
 -------------------------------------------------------------------------------------------------------
 ##Reviews
 
-####POST `/review/create`
+####POST `/review/create/<cid>`
 
+- @param: cid is the `id` of the company it's for
 - @data: json w/ `company`, `submitter`, `rating`, `title` & `description`
 - @return: 201 w/ `uid` for review
 
