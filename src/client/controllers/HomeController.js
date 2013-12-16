@@ -31,20 +31,26 @@ angular.module('myApp.controllers')
         }
     };
 
-    $scope.availableCategories = [
-        {"text": "Casting"},
-        {"text": "Distribution"},
-        {"text": "Production"},
-        {"text": "Translation"},
-        {"text": "Editorial"},
-        {"text": "Animation"},
-        {"text": "Post Effects"},
-        {"text": "Illustration"},
-        {"text": "Music"},
-        {"text": "Storyboarding"},
-        {"text": "Sound Design"},
-        {"text": "Directorial"}
-    ];
+        $scope.availableCategoriesRight = [
+            {"text": "Post Effects"},
+            {"text": "Print Production"},
+            {"text": "Production"},
+            {"text": "Sound Design"},
+            {"text": "Storyboarding"},
+            {"text": "Translation"},
+            {"text": "Other"}
+        ];
+
+        $scope.availableCategoriesLeft = [
+            {"text": "Animation"},
+            {"text": "Casting"},
+            {"text": "Digital Production"},
+            {"text": "Directorial"},
+            {"text": "Distribution"},
+            {"text": "Editorial"},
+            {"text": "Illustration"},
+            {"text": "Music"}
+        ];
 
     //Category settings
     $scope.categoriesSelected = [];
