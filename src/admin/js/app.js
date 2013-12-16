@@ -3,6 +3,7 @@ var app = angular.module('app', [
   'app.reviews',
   'app.companies',
   'app.Values',
+  'app.Services',
   'ngRoute'
 ]);
 
