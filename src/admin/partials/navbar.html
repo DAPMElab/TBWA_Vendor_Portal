@@ -1,0 +1,34 @@
+
+<div class="navbar navbar-default navbar-fixed-top" ng-controller="NavbarController">
+<img src="admin_asset/img/logo.jpg" id="logo" alt='TBWA logo'>
+  <div class="navbar-header">
+    <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>-->
+    <a class="navbar-brand" href="/admin">TBWA Supplier Diversity Admin Panel</a>
+  </div>
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+
+      <li ng-class="{active: (currentTab == '/')}">
+        <a href="/admin">Reviews</a>
+      </li>
+
+      <li ng-class="{active: (currentTab == '/companies')}">
+        <a href="/admin#/companies">Edit Company Profiles</a>
+      </li>
+
+      <li ng-class="{active: (currentTab == '/companies/new')}">
+        <a href="/admin#/companies/new">Create New Company Profiles</a>
+      </li>
+
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="signin.html">Logout</a></li>
+    </ul>
+  </div><!--/.nav-collapse -->
+</div>
+
