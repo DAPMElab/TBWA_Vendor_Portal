@@ -11,15 +11,15 @@ class TestReview(template.TestingTemplate):
     """ Tests the API endpoints associated with handling reviews. """
 
     def __create_review(self, review={
-            'Submitter': 'review submitter',
-            'Rating':10}):
+            'submitter': 'review submitter',
+            'rating':10}):
         """ method for use in the tests """
 
         outcome = r.table('companies').insert({
-                'Name'  : 'Fake Company',
+                'name'  : 'Fake Company',
                 'URL'   : 'Broken URL',
                 'id'    : '123',
-                'ReviewIds' : []
+                'reviewIds' : []
             }).run(self.rdb)
 
         r_resp = self.request_with_role('/review/create/123',
@@ -35,7 +35,7 @@ class TestReview(template.TestingTemplate):
         """ Tests a successful review creation """
         #TODO: make /create calls log their ID as the company id
         # creating review
-        review = {'Rating':10, 'Submitter': 'tester'}
+        review = {'rating':10, 'submitter': 'tester'}
         resp = self.request_with_role('/review/create/123',
             method='POST',
             data=json.dumps(review))
@@ -70,7 +70,7 @@ class TestReview(template.TestingTemplate):
         resp = self.request_with_role('/review/get/{}'.format(rid),
             method='GET')
         get_resp_data = json.loads(resp.data)
-        self.assertTrue(get_resp_data['data']['Approved'])
+        self.assertTrue(get_resp_data['data']['approved'])
     
 
     def test_approve_fail(self):
@@ -87,9 +87,9 @@ class TestReview(template.TestingTemplate):
 
     def test_get_success(self):
         """ Tests returning a review """
-        get_review = {'Rating':10, 'Submitter': 'tester'}
+        get_review = {'rating':10, 'submitter': 'tester'}
         rid = self.__create_review(get_review)
-        get_review['Approved'] = False      # update obj
+        get_review['approved'] = False      # update obj
 
         # getting review
         resp = self.request_with_role('/review/get/{}'.format(rid))
@@ -97,7 +97,7 @@ class TestReview(template.TestingTemplate):
         # testing response
         self.assertEqual(resp.status_code, 200)
         resp_data = json.loads(resp.data)['data']
-        del resp_data['CompanyID']
+        del resp_data['companyID']
 
         self.assertDictEqual(resp_data, get_review)
 
@@ -113,7 +113,7 @@ class TestReview(template.TestingTemplate):
     def test_edit_success(self):
         """ Test that a review properly updates """
         # creating a review
-        review = {'Rating':10, 'Submitter': 'tester'}
+        review = {'rating':10, 'submitter': 'tester'}
         resp = self.request_with_role('/review/create/123',
             method='POST',
             data=json.dumps(review))
@@ -121,7 +121,7 @@ class TestReview(template.TestingTemplate):
 
         # updating review
         new_rating = 5
-        review['Rating'] = new_rating
+        review['rating'] = new_rating
         edit_resp = self.request_with_role('/review/edit/{}'.format(rid),
             method='PATCH', data=json.dumps(review))
         self.assertEqual(edit_resp.status_code, 200)
@@ -131,7 +131,7 @@ class TestReview(template.TestingTemplate):
             method='GET')
         self.assertEqual(resp_get.status_code, 200)
         data_get = json.loads(resp_get.data)
-        self.assertEqual(data_get['data']['Rating'], new_rating)
+        self.assertEqual(data_get['data']['rating'], new_rating)
 
 
     def test_edit_fail(self):
@@ -187,9 +187,9 @@ class TestReview(template.TestingTemplate):
         """ Test that reviews that are unapproved are returned """
         # creating reviews
         reviews_list = [
-            {'Rating':5, 'Submitter': 'tester1'},
-            {'Rating':2, 'Submitter': 'tester2'},
-            {'Rating':8, 'Submitter': 'tester3'},
+            {'rating':5, 'submitter': 'tester1'},
+            {'rating':2, 'submitter': 'tester2'},
+            {'rating':8, 'submitter': 'tester3'},
         ]
         for review in reviews_list:
             resp = self.request_with_role('/review/create/123',
@@ -208,10 +208,10 @@ class TestReview(template.TestingTemplate):
         # checking that all created reviews were returned
         returned_list = resp_data['data']
         for review in returned_list:
-            self.assertFalse(review['Approved'])
-            del review['CompanyID']
+            self.assertFalse(review['approved'])
+            del review['companyID']
             del review['id']
-            del review['Approved']
+            del review['approved']
         for review in reviews_list:
             self.assertIn(review, returned_list)
 
