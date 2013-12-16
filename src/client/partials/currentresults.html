@@ -23,7 +23,13 @@
             <div class="col-md-12" style="width: 95%">
                 <!--Rating block-->
                 <div style="float:right; text-align:right" >
-                    <img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15">
+
+                    <!--Rating stars-->
+                    <div>
+                        <img data-ng-repeat="i in getNumberOfFullStars(company.AverageReview) track by $index" ng-src="{{starPhoto}}">
+                        <img ng-repeat="i in getNumberOfEmptyStars(company.AverageReview) track by $index" ng-src="{{emptyPhoto}}">
+                    </div>
+
                     <p style="font-size: 12px">{{company.ReviewIds.length}} ratings</p>
                 </div>
 

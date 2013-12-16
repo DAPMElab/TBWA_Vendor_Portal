@@ -13,7 +13,8 @@ angular.module('myApp.controllers', [])
     $scope.serverResponseSortedByCategories = {};
     $scope.predicate = '';
     $scope.selectedRegionNumbers = [];
-
+    $scope.ratings=[];
+    $scope.ratings.length = 5;
 
     //map settings
     $scope.mapUrl = "client/img/USMap.svg";
@@ -71,7 +72,12 @@ angular.module('myApp.controllers', [])
     $scope.categoriesSelected = [];
     $scope.search = {"text":''};
 
-    /**
+    //Image settings
+    $scope.starPhoto = "client/img/star.png";
+    $scope.emptyPhoto = "client/img/starEmpty.png";
+
+
+        /**
      * Executed on load of the main page to get information about each company
      */
     $scope.loadCompanies = function(){
@@ -89,6 +95,8 @@ angular.module('myApp.controllers', [])
             for(var coIndex in $scope.companies){
                 var company = $scope.companies[coIndex];
 
+                //Uncomment below line to test star rating system
+                //company['AverageReview'] = 3;
                 var name = company['Name'];
                 if (name!=null && name.length>1){
                     var categories = company['Categories'];
@@ -308,6 +316,7 @@ angular.module('myApp.controllers', [])
 
     /**
      * Emails search results
+     * @author will
      */
     $scope.emailSearch = function(){
 
@@ -325,6 +334,8 @@ angular.module('myApp.controllers', [])
             var region = $scope.selectedRegionNumbers[index];
             regions=regions+region+",";
         }
+
+        //remove last comma
         categories = categories.substring(0,categories.length-1);
         regions = regions.substring(0,regions.length-1);
 
@@ -334,14 +345,6 @@ angular.module('myApp.controllers', [])
         window.open('mailto:.?subject=Result from search&body='+body);
     };
 
-    /**
-     * Main method for searching
-     */
-    $scope.search = function() {
-        var region = $scope.activeRegion;
-        var categories = $scope.categoriesSelected;
-        var keyword = $scope.search.text;
-    };
 
     $scope.updatePredicate = function(filter){
         $scope.predicate = filter;
@@ -425,5 +428,14 @@ angular.module('myApp.controllers', [])
         {stateOn: 'icon-heart'},
         {stateOff: 'icon-off'}
     ];
+
+    $scope.getNumberOfFullStars = function(num){
+        return new Array(num);
+    };
+
+    $scope.getNumberOfEmptyStars = function(num){
+        var emptyCount = 5-num;
+        return new Array(emptyCount);
+    };
 
 });
