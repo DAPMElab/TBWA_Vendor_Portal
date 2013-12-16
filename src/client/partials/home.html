@@ -1,8 +1,22 @@
 <div class="mainBackImage">
+
+    <!-- Altered header with transparent background -->
+    <div class="navbar navbar-default" style="background-color:transparent; margin: 0px; border: none">
+        <img src="admin_asset/img/logo.jpg" id="logo" alt='TBWA logo' style="max-height: 100%; float: left; clear: right; position: absolute;">
+        <div class="navbar-header">
+            <a class="navbar-brand" style="margin-left: 50px; color: white" id="less">TBWA Supplier Diversity</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/logout" style="color: white">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
     <div class="row" style="height: 25%"></div>
 
     <!--Main search menu-->
-    <div class="row" style="height: 300px; width: 600px; background-color: #000000; margin: auto; opacity: .7">
+    <div class="row" style="height: 300px; width: 600px; background-color: #e7e7e7; margin: auto;">
         <div class="row" ng-include="'client/partials/map.html'" style="height: 50%; margin-left: 25%"></div>
         <div ng-include="'client/partials/category.html'" class="categoryColumn"></div>
 
