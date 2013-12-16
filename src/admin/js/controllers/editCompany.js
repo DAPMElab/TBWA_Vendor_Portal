@@ -1,19 +1,23 @@
 
-/*  Controls the page where a company is editted
- **/
+/*
+ *  Controls the page where a company is edited
+ */
 
-angular.module('app.companies', [])
+angular.module('app.editCompany', [])
 .controller('EditCompanyController', function ($scope, $http, $routeParams,
-      categories, classifications, states) {
+      categories, classifications, states, setUpDict, condenseDictionary) {
 
+  // declare scope variables
+  $scope.pageTitle = 'Edit Company';
+  $scope.actionButtonText = 'Update Company';
   $scope.companyId = $routeParams.cid;
   $scope.categories = {};
   $scope.classifications = {};
   $scope.states = states;
   $scope.company = null;
 
+  // deep watch the company object
   $scope.$watch('company', function (newVal){ /* */ }, true);
-
 
   /*
    *  Loads the company
@@ -30,7 +34,10 @@ angular.module('app.companies', [])
       });
   };
 
-  $scope.updateCompany = function () {
+  /*
+   *  Sends the update version to the API
+   */
+  $scope.pageAction = function () {
     // reform the object
     $scope.company.Categories = condenseDictionary($scope.categories);
     $scope.company.Classifications = condenseDictionary($scope.classifications);
@@ -44,42 +51,5 @@ angular.module('app.companies', [])
       });
   };
 
-  /*
-   *  Initializes a scope variable to a dictionary representing the activated values.
-   *
-   *  @param chosenlist: list of keys that are chosen
-   *  @param choices: list of all possible keys
-   *  @return: dictionary with the choices represented as true values
-   */
-  var setUpDict = function (chosenList, choices) {
-    scopeVar = {}
-    // iterates over all possibles setting to false
-    for (var key in choices) {
-      scopeVar[choices[key]] = false;
-    };
-    // iterates over all chosen setting to true
-    for (var key in chosenList) {
-      scopeVar[chosenList[key]] = true;
-    };
-    console.log(scopeVar);
-    return scopeVar;
-  };
-
-  /*
-   *  Condenses the categories in $scope.categories to a single array for pashing back to the server
-   *
-   *  @param dict: dictionary where the value is a boolean
-   *  @return: list of keys where the value was true
-   */
-  var condenseDictionary = function (dict) {
-    var chosen = []; 
-    for (var key in dict) {
-      if (dict[key]) {
-        chosen.push(key);
-      }
-    };
-    return chosen;
-  };
 });
-
 
