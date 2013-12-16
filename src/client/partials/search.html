@@ -2,7 +2,7 @@
 <div class="container bs-docs-container" data-ng-init = "loadCompanies()">
     <div class="row">
         <div class="col-md-4">
-            <div style="background-color: #D3D3D3">
+            <div style="background-color: #e7e7e7">
                 <div style="padding: 20px; overflow: auto">
                     <h5>Refine search:</h5>
                     <h4>LOCATION</h4>
@@ -19,7 +19,7 @@
                         <h4>KEYWORD</h4>
                         <input type="text" class="form-control" ng-model ="search.text">
                     </div>                    
-                    <!--
+                    <!-- Is the email link necessary?
                     <div class="col-md-12" style="margin-top: 15px">
                         <div class="col-md-12">
                             <h4 style="vertical-align: middle">KEYWORD</h4>
@@ -37,14 +37,14 @@
                 </div>
             </div>
 
-            <div style="clear: both;"></div>
+            <div style="clear: both; padding: 20px"></div>
 
             <div ng-include="'client/partials/currentResults.html'"></div>
         </div>
 
         <!--Detail portion-->
         <div class="row col-md-8">
-            <div class="row col-md-12" style="height: 30px; background-color: #D3D3D3; margin-left: 10px">&nbsp;</div>
+            <!-- <div class="row col-md-12" style="height: 30px; background-color: #D3D3D3; margin-left: 10px">&nbsp;</div> Taking away because I think it looks better!-->
             <div class="row col-md-12" style="margin-left: 10px">
                 <div class="col-md-7">
                     <div>
@@ -107,5 +107,15 @@
         </div>
 
     </div>
+
+      <!-- Footer -->
+    <div style="clear: both;"></div>
+    <p><hr></p>
+    <div id="footer">
+        <div class="container">
+            <p style="padding: 30px;" class="muted credit"></p>
+        </div>
+    </div>
+
 </div>
 
