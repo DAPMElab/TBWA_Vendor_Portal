@@ -2,7 +2,7 @@
  Manages the map, categories and search box
  */
 angular.module('myApp.controllers', [])
-.controller('SearchController',function($scope, $http, $modal, HomeSearchData, $routeParams){
+.controller('SearchController',function($scope, $http, $modal, HomeSearchData, $routeParams, $timeout){
 
     //Live companies showing after sort
     $scope.companies = [];
@@ -12,6 +12,8 @@ angular.module('myApp.controllers', [])
     $scope.selectedCompany = null;
     $scope.serverResponseSortedByCategories = {};
     $scope.predicate = '';
+    $scope.selectedRegionNumbers = [];
+
 
     //map settings
     $scope.mapUrl = "client/img/USMap.svg";
@@ -68,8 +70,6 @@ angular.module('myApp.controllers', [])
      */
     $scope.loadCompanies = function(){
 
-        var param1 = $routeParams.param1;
-
         //query server for company info
         $http.get('/company/list').success(function(response){
 
@@ -124,9 +124,52 @@ angular.module('myApp.controllers', [])
             //Pick first company in the results
             $scope.updateSelectedCompany( response.data[0] );
 
-        })
-    }
+            //populate parameters if passed in after 1 second delay
+            $timeout(function(){
+                $scope.applyParameters($routeParams.param1);
+            }, 1000);
 
+        })
+    };
+
+    /**
+     *Applies parameters passed through the URL
+     *
+     * Format is http://site/#/view/cat1=subcat,subcat2,subcat3:cat2=subcat1,subcat2,subcat3
+     * Example: http://localhost:5000/#/search/cats=Casting,Distribution,Music:regs=0,1
+     *
+     * For categories use actual name. For regions use the number that maps to that region
+     * @param routeParameters
+     * @author will
+     */
+    $scope.applyParameters = function(routeParameters) {
+
+        if(routeParameters!=null){
+            //home/cats=asdasd,fasfasf,asasfasf,asfasf#reg=asdasd,asdasd,asdasd#stxt=asdasd
+            var paramCollections = routeParameters.split(":");
+            for (var paramIndex in paramCollections){
+                var param = paramCollections[paramIndex];
+
+                var equalIndex = param.indexOf("=");
+                var paramCategory = param.substring(0, equalIndex);
+                var paramsForCategory = param.substring(equalIndex+1, param.length).split(",");
+
+                //regions
+                if(paramCategory == "regs"){
+                    for(var paramIndex in paramsForCategory){
+                        var paramRegion = paramsForCategory[paramIndex];
+                        $scope.highlightMap(paramRegion);
+                    }
+
+                }else if (paramCategory == "cats"){
+                    for(var paramIndex in paramsForCategory){
+                        var paramCat = paramsForCategory[paramIndex];
+                        $scope.addCategory(paramCat);
+                    }
+                }
+            }
+        }
+    };
 
     $scope.updateSelectedCompany = function(newSelection) {
         //$scope.selectedCompany = newSelection;
@@ -134,15 +177,15 @@ angular.module('myApp.controllers', [])
         $http.get( '/company/get/' + newSelection['id'] ).success( function(response) {
             $scope.selectedCompany = response['data'];
         })
-    }
-    
+    };
+
     /**
      * Inits the map to a default state
      * @param mapWidth
      */
     $scope.initMap = function(mapWidth){
         $scope.mapWidth = mapWidth;
-    }
+    };
 
     /**
      * Highlights a svg xml tag using the element id
@@ -157,11 +200,15 @@ angular.module('myApp.controllers', [])
         var regionToHighlight = $scope.regions[regionNumber];
 
         var index = $scope.activeRegions.indexOf(regionToHighlight);
+        var indexForRegionsNumbers = $scope.selectedRegionNumbers.indexOf(regionToHighlight);
+
         if(index==-1){
             $scope.activeRegions.push(regionToHighlight);
+            $scope.selectedRegionNumbers.push(regionNumber);
 
         }else{
             $scope.activeRegions.splice(index,1);
+            $scope.selectedRegionNumbers.splice(indexForRegionsNumbers,1);
 
         }
 
@@ -187,6 +234,7 @@ angular.module('myApp.controllers', [])
             svgElement.style.opacity          = $scope.mapColors.highlighted.opacity;
             svgElement.style['fill-opacity']  = $scope.mapColors.highlighted.fillOpacity;
             svgElement.style.fill             = $scope.mapColors.highlighted.fill;
+
 
             $scope.activeRegion = regionToHighlight;
 
@@ -242,6 +290,34 @@ angular.module('myApp.controllers', [])
     };
 
     /**
+     * Emails search results
+     */
+    $scope.emailSearch = function(){
+
+        var body = '';
+        var categories ='cats=';
+        var regions ='regs=';
+
+        //create categories string
+        for (var index in $scope.categoriesSelected){
+            var category = $scope.categoriesSelected[index];
+            categories=categories+category+",";
+        }
+
+        for (var index in $scope.selectedRegionNumbers){
+            var region = $scope.selectedRegionNumbers[index];
+            regions=regions+region+",";
+        }
+        categories = categories.substring(0,categories.length-1);
+        regions = regions.substring(0,regions.length-1);
+
+        body = "http://localhost:5000/#/search/"+categories+":"+regions;
+
+        //Send email
+        window.open('mailto:.?subject=Result from search&body='+body);
+    };
+
+    /**
      * Main method for searching
      */
     $scope.search = function() {
@@ -258,10 +334,6 @@ angular.module('myApp.controllers', [])
     /**
      * Function for modal opening
      */
-    $scope.items = ['item1', 'item2', 'item3'];
-    $scope.selected = {
-        item: $scope.items[0]
-    };
     $scope.open = function () {
         var modalInstance = $modal.open({
             templateUrl: 'client/partials/writereview.html',
