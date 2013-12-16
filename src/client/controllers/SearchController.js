@@ -2,7 +2,7 @@
  Manages the map, categories and search box
  */
 angular.module('myApp.controllers', [])
-.controller('SearchController',function($scope, $http, $modal, HomeSearchData, $routeParams, $timeout){
+.controller('SearchController',function($scope, $http, $modal, HomeSearchData, $routeParams, $timeout, $location){
 
     //Live companies showing after sort
     $scope.companies = [];
@@ -396,6 +396,15 @@ angular.module('myApp.controllers', [])
     $scope.setNewReviewRange = function(range) {
         $scope.newReview.Range = range;
     }
+
+    $scope.test = function(stuff) {
+        $location.path('search/awesome'); 
+        alert($location.path());
+    }
+
+    $scope.$on('$routeUpdate', function(){
+      console.log("changed");
+    });
 
     /*
      * Rating controller
