@@ -358,6 +358,9 @@ angular.module('myApp.controllers', [])
         $modalInstance.close($scope.selected.item);
     };
 
+    /*
+     * New Review function
+     */
     $scope.jobSizeRanges = [
         {"Range": "< $250k"},
         {"Range": "$250k - $500k"},
@@ -376,5 +379,25 @@ angular.module('myApp.controllers', [])
     $scope.setNewReviewRange = function(range) {
         $scope.newReview.Range = range;
     }
+
+    /*
+     * Rating controller
+     */
+    $scope.rate = 7;
+    $scope.max = 10;
+    $scope.isReadonly = false;
+
+    $scope.hoveringOver = function(value) {
+        $scope.overStar = value;
+        $scope.percent = 100 * (value / $scope.max);
+    };
+
+    $scope.ratingStates = [
+        {stateOn: 'icon-ok-sign', stateOff: 'icon-ok-circle'},
+        {stateOn: 'icon-star', stateOff: 'icon-star-empty'},
+        {stateOn: 'icon-heart', stateOff: 'icon-ban-circle'},
+        {stateOn: 'icon-heart'},
+        {stateOff: 'icon-off'}
+    ];
 
 });
