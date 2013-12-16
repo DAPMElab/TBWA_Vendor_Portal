@@ -125,9 +125,10 @@ angular.module('myApp.controllers', [])
                 $scope.addCategory(category);
             }
 
+            //Update the search text keyword
             $scope.search.text = homeData['keyword'];
 
-            //Pick first company in the results
+            //Pick first company in the results as the selected company
             $scope.updateSelectedCompany( response.data[0] );
 
             //populate parameters if passed in after 1 second delay
@@ -167,11 +168,13 @@ angular.module('myApp.controllers', [])
                         $scope.highlightMap(paramRegion);
                     }
 
-                }else if (paramCategory == "cats"){
+                } else if (paramCategory == "cats"){
                     for(var paramIndex in paramsForCategory){
                         var paramCat = paramsForCategory[paramIndex];
                         $scope.addCategory(paramCat);
                     }
+                } else if (paramCategory == "id"){
+                    $scope.updateSelectedCompanyByID(paramsForCategory);
                 }
             }
         }
@@ -181,6 +184,14 @@ angular.module('myApp.controllers', [])
         //$scope.selectedCompany = newSelection;
         // Send a new Get request to /company/get/uid to retrieve the rest of the information
         $http.get( '/company/get/' + newSelection['id'] ).success( function(response) {
+            $scope.selectedCompany = response['data'];
+        })
+    };
+
+    $scope.updateSelectedCompanyByID = function(newSelectionID) {
+        //$scope.selectedCompany = newSelection;
+        // Send a new Get request to /company/get/uid to retrieve the rest of the information
+        $http.get( '/company/get/' + newSelectionID ).success( function(response) {
             $scope.selectedCompany = response['data'];
         })
     };
