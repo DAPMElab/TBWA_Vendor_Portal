@@ -110,3 +110,12 @@ def login():
     return redirect('/admin')
 
 
+@admin_bp.route('/logout', methods=['POST'])
+def logout():
+
+    session.clear()
+    
+    return make_response(json.dumps({
+        'message': 'Logged out'
+    }), 200)
+

@@ -107,16 +107,17 @@ Example:
 -------------------------------------------------------------------------------------------------------
 ##Reviews
 
-####POST `/review/create`
+####POST `/review/create/<cid>`
 
-- @data: json w/ `company`, `submitter`, `rating`, `title` & `description`
+- @param: cid is the `id` of the company it's for
+- @data: json w/ `company`, `rating`  & `description`
 - @return: 201 w/ `uid` for review
 
 ####GET `/review/get/< uid >`
 
 - admin only
 - @data: None
-- @return: 200 & json w/ `company`, `submitter`, `rating`, `title`, `description` & `approved` (boolean status)
+- @return: 200 & json w/ `company`, `submitter`, `rating`, `description` & `approved` (boolean status)
 
 ####GET  `/review/list`
 
