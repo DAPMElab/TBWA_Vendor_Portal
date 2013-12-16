@@ -46,7 +46,8 @@ class TestingTemplate(unittest.TestCase):
             pass
 
 
-    def request_with_role(self, path, method='GET', role='admin', *args, **kwargs):
+    def request_with_role(self, path, method='GET', role='admin',
+            *args, **kwargs):
         """ Make an http request with the given role in the session """
         #with self.app_ref.test_client() as c:
         with app.test_client() as c:
