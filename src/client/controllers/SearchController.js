@@ -353,13 +353,9 @@ angular.module('myApp.controllers', [])
         });
     };
 
-    // These functions don't work yet
+    // Doesn't interface with the backend yet
     $scope.ok = function () {
         $modalInstance.close($scope.selected.item);
-    };
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
     };
 
     $scope.jobSizeRanges = [
@@ -368,6 +364,17 @@ angular.module('myApp.controllers', [])
         {"Range": "> $500k"}
     ];
 
-    $scope.newReview = null;
+    $scope.newReview = {};
+
+    $scope.initializeNewReview = function() {
+        $scope.newReview.Categories = [];
+        for (var i = 0; i < $scope.selectedCompany.Company.Categories.length; i++) {
+            $scope.newReview.Categories[ $scope.selectedCompany.Company.Categories[i] ] = false;
+        }
+    }
+
+    $scope.setNewReviewRange = function(range) {
+        $scope.newReview.Range = range;
+    }
 
 });
