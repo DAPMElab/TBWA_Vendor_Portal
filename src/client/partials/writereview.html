@@ -1,11 +1,15 @@
+<!--
 <div class="modal-header" style="text-align: center; padding: 40px">
-    <h3>WRITE A REVIEW</h3>
 </div>
-<div class="modal-body">
+-->
+<div class="modal-body" ng-init="initializeNewReview()">
+
+    <h3 class="text-center" style="padding: 20px">WRITE A REVIEW</h3>
+
     <!-- Type of Job Button Group -->
     <h4>Type of Job:</h4>
     <div ng-repeat="jobType in selectedCompany.Company.Categories">
-        <input type="checkbox" ng-click="" > {{jobType}}
+        <input type="checkbox" ng-model="newReview.Categories[jobType]"> {{jobType}}
     </div>
     
     <!-- Extra spacing needed here -->
@@ -14,7 +18,7 @@
     <!-- Size of Job Button Group -->
     <h4>Size of Job:</h4>
     <div class="radio" ng-repeat="range in jobSizeRanges">
-        <input type="radio" name="jobSize" ng-click="" > {{range.Range}}
+        <input type="radio" name="jobSize" ng-click="setNewReviewRange(range.Range)"> {{range.Range}}
     </div>
 
     <!-- Extra spacing needed here -->
@@ -33,7 +37,7 @@
 
     <div>
         Share your experiences with this company.
-        <textarea class="form-control" rows="10" ng-model="newReview.Content">{{newReview.Content}}</textarea>
+        <textarea class="form-control" rows="3" ng-model="newReview.Content">{{newReview.Content}}</textarea>
     </div>
 
     <!-- Extra spacing needed here -->
