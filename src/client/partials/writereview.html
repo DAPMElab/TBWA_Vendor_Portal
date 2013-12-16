@@ -1,7 +1,4 @@
-<!--
-<div class="modal-header" style="text-align: center; padding: 40px">
-</div>
--->
+
 <div class="modal-body" ng-init="initializeNewReview()" style="max-height: 800px; padding: 40px">
 
     <h3 class="text-center" style="margin:0px">WRITE A REVIEW</h3>
@@ -20,7 +17,7 @@
     <div class="radio" ng-repeat="range in jobSizeRanges">
         <input type="radio" name="jobSize" ng-click="setNewReviewRange(range.Range)"> {{range.Range}}
     </div>
-    <pre>{{ jobSizeRanges }}</pre>
+    <pre>{{ newReview }}</pre>
 
     <!-- Extra spacing needed here -->
     <br />
@@ -38,7 +35,7 @@
 
     <div>
         Share your experiences with this company.
-        <textarea class="form-control" rows="6" ng-model="newReview.Content">{{newReview.Content}}</textarea>
+        <textarea class="form-control" rows="6" ng-model="newReview.description">{{newReview.Content}}</textarea>
     </div>
 
     <!-- Extra spacing needed here -->
@@ -46,7 +43,4 @@
     <button class="btn btn-primary" style="float: right" ng-click="submitReview()">Submit</button>
     
 </div>
-<!--
-<div class="modal-footer">
-</div>
--->
+
