@@ -6,11 +6,9 @@
 // Demonstrate how to register services
 // In this case it is a simple value service.
 angular.module('myApp.services', [])
-  .value('version', '0.1');
 
 // Adding service for google maps
-angular.module('myApp.services', [])
-  .factory('Map', function( $rootScope , $compile ){
+.factory('Map', function( $rootScope , $compile ){
 
   var canvas   = document.getElementById('map'),
     defaults = {
@@ -68,22 +66,58 @@ angular.module('myApp.services', [])
       }//for()
     }//init
   };//return
-
-});//
+})
 
 //Service to transfer home search data
-angular.module('myApp.services', []).
-    factory('HomeSearchData',function(){
+.factory('HomeSearchData',function(){
 
-        var property = { Property1: 'First' };
+    var property = { Property1: 'First' };
 
-        return {
-            getProperty: function () {
-                return property;
-            },
-            setProperty: function(value) {
-                property = value;
-            }
-        };
+    return {
+        getProperty: function () {
+            return property;
+        },
+        setProperty: function(value) {
+            property = value;
+        }
+    };
 
-    });
+})
+
+/*
+ *  Initializes a scope variable to a dictionary representing the activated values.
+ *
+ *  @param chosenlist: list of keys that are chosen
+ *  @param choices: list of all possible keys
+ *  @return: dictionary with the choices represented as true values
+ */
+.constant('setUpDict', function (chosenList, choices) {
+  var scopeVar = {}
+  // iterates over all possibles setting to false
+  for (var key in choices) {
+    scopeVar[choices[key]] = false;
+  };
+  // iterates over all chosen setting to true
+  for (var key in chosenList) {
+    scopeVar[chosenList[key]] = true;
+  };
+  return scopeVar;
+})
+
+/*
+ *  Condenses the categories in $scope.categories to a single array for pashing back to the server
+ *
+ *  @param dict: dictionary where the value is a boolean
+ *  @return: list of keys where the value was true
+ */
+.constant('condenseDictionary', function (dict) {
+  var chosen = []; 
+  for (var key in dict) {
+    if (dict[key]) {
+      chosen.push(key);
+    }
+  };
+  return chosen;
+});
+
+

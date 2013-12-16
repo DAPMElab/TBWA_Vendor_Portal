@@ -13,6 +13,12 @@ angular.module('app.reviews', [])
       .success( function(response) {
         console.log(response);
         $scope.reviews = response['data'];
+
+        for (var reviewIndex in $scope.reviews) {
+          if ('category' in $scope.reviews[reviewIndex]) {
+            $scope.reviews[reviewIndex]['category'] = $scope.reviews[reviewIndex]['category'].join(', ');
+          }
+        };
       }).error( function(err) {
         console.log(err);
       });

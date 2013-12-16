@@ -8,8 +8,8 @@
 
     <!-- Type of Job Button Group -->
     <h4>Type of Job:</h4>
-    <div ng-repeat="jobType in selectedCompany.Company.Categories">
-        <input type="checkbox" ng-model="newReview.Categories[jobType]"> {{jobType}}
+    <div ng-repeat="(name, value) in reviewCategoryChoices">
+        <input type="checkbox" ng-model="reviewCategoryChoices[name]"> {{ name }}
     </div>
     
     <!-- Extra spacing needed here -->
@@ -20,6 +20,7 @@
     <div class="radio" ng-repeat="range in jobSizeRanges">
         <input type="radio" name="jobSize" ng-click="setNewReviewRange(range.Range)"> {{range.Range}}
     </div>
+    <pre>{{ jobSizeRanges }}</pre>
 
     <!-- Extra spacing needed here -->
     <br />
@@ -42,7 +43,7 @@
 
     <!-- Extra spacing needed here -->
     <br />
-    <button class="btn btn-primary" style="float: right" ng-click="ok()">Submit</button>
+    <button class="btn btn-primary" style="float: right" ng-click="submitReview()">Submit</button>
     
 </div>
 <!--
