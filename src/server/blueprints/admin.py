@@ -1,6 +1,6 @@
 
 from flask              import Blueprint, request, g, session, \
-    make_response, render_template, flash
+    make_response, render_template, flash, redirect
 from rethinkdb.errors   import RqlRuntimeError
 from datetime           import datetime
 from copy               import deepcopy
@@ -78,7 +78,8 @@ def login():
     password = login_data.get('password', default=None)
 
     if not email or not password:
-        return make_error('MISSING_LOGIN_DATA')
+        flash('Please enter an email and password')
+        return render_template('admin_signin.html')
 
     # look for the specified admin
     db_admin = [x for x in (r.table('admin')
@@ -102,8 +103,10 @@ def login():
     session['role'] = 'admin'
     session['email'] = db_admin['email']
 
-    return make_response(json.dumps({
-        'message': 'logged in'
-    }), 201)
+    #return make_response(json.dumps({
+    #    'message': 'logged in'
+    #}), 201)
+
+    return redirect('/admin')
 
 

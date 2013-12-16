@@ -79,20 +79,24 @@ class TestAdmin(template.TestingTemplate):
 
         # fails missing all data
         resp = self.request_with_role('/admin/login', method='POST')
-        self.check_error(resp, 'DATA_NEEDED_FOR_REQUEST')
+        #self.check_error(resp, 'DATA_NEEDED_FOR_REQUEST')
+        self.assertTrue('Please enter an email and password' in resp.data)
 
         # fails missing a password
         resp = self.request_with_role('/admin/login', method='POST',
-                data=json.dumps({'data':{'email': 'missing pw'}}))
-        self.check_error(resp, 'MISSING_LOGIN_DATA')
+                data={'email': 'missing pw'})
+                #data=json.dumps({'data':{'email': 'missing pw'}}))
+        #self.check_error(resp, 'MISSING_LOGIN_DATA')
+        self.assertTrue('Please enter an email and password' in resp.data)
         
         # non_existent admin
         resp = self.request_with_role('/admin/login', method='POST',
-                data=json.dumps({'data':{
-                        'email': 'non_existent@admin.com',
-                        'password': 'insecure'}}))
-        print resp.data
-        self.check_error(resp, 'ADMIN_DNE')
+                data=dict(email='non_existent@admin.com',password='insecure'))
+                #data=json.dumps({'data':{
+                #        'email': 'non_existent@admin.com',
+                #        'password': 'insecure'}}))
+        #self.check_error(resp, 'ADMIN_DNE')
+        self.assertTrue('Admin does not exist' in resp.data)
 
         # incorrect password, make user then check
         admin = {
@@ -101,13 +105,16 @@ class TestAdmin(template.TestingTemplate):
             'repeat_password'   :'abc'}
         resp = self.request_with_role('/admin/create', method='POST',
                 data=json.dumps({'data': admin}))
+        print resp.data
         self.assertEqual(201, resp.status_code)
+
         
         admin['password'] = 'wrong'
         del admin['repeat_password']
-        resp = self.request_with_role('/admin/login', method='POST',
-                data=json.dumps({'data':admin}))
-        self.check_error(resp, 'INCORRECT_PASSWORD')
+        resp = self.request_with_role('/admin/login', method='POST',data=admin)
+                #data=json.dumps({'data':admin}))
+        #self.check_error(resp, 'INCORRECT_PASSWORD')
+        self.assertTrue('Incorrect password' in resp.data)
 
 
     def test_login_success(self):
@@ -128,8 +135,11 @@ class TestAdmin(template.TestingTemplate):
             resp = c.open(  # make request
                     path='/admin/login',
                     method='POST',
-                    data=json.dumps({'data':admin}))
-            self.assertEqual(201, resp.status_code)
+                    data=admin)
+                    #data=json.dumps({'data':admin}))
+            #self.assertEqual(201, resp.status_code)
+            self.assertTrue('<title>Redirecting...</title>'
+                    in resp.data)
 
             with c.session_transaction() as sess:
                 # confirm the session was changed
