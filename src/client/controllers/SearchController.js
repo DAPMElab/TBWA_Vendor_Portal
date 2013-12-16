@@ -352,13 +352,12 @@ angular.module('myApp.controllers', [])
      * Function for modal opening
      */
     $scope.open = function () {
-        var modalInstance = $modal.open({
+        $scope.modalInstance = $modal.open({
             templateUrl: 'client/partials/writereview.html',
             scope: $scope
         });
         console.log('modal opened');
-        modalInstance.result.then(function () {
-            console.log($scope.selected);
+        $scope.modalInstance.result.then(function () {
         }, function () {
             console.log('Modal dismissed at: ' + new Date());
         });
@@ -366,7 +365,14 @@ angular.module('myApp.controllers', [])
 
     // Doesn't interface with the backend yet
     $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
+        var data = {};
+        data["company"] = $scope.selectedCompany.Company.id;
+        data["rating"] = 5;
+        data["description"] = $scope.newReview.Content;
+        $http.post('/review/create/' + $scope.selectedCompany.Company.id, data).success( function(response) {
+            console.log("Review was received.");
+        });
+        $scope.modalInstance.close();
     };
 
     /*

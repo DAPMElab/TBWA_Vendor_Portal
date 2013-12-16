@@ -2,9 +2,9 @@
 <div class="modal-header" style="text-align: center; padding: 40px">
 </div>
 -->
-<div class="modal-body" ng-init="initializeNewReview()">
+<div class="modal-body" ng-init="initializeNewReview()" style="max-height: 800px; padding: 40px">
 
-    <h3 class="text-center" style="padding: 20px">WRITE A REVIEW</h3>
+    <h3 class="text-center" style="margin:0px">WRITE A REVIEW</h3>
 
     <!-- Type of Job Button Group -->
     <h4>Type of Job:</h4>
@@ -37,14 +37,15 @@
 
     <div>
         Share your experiences with this company.
-        <textarea class="form-control" rows="3" ng-model="newReview.Content">{{newReview.Content}}</textarea>
+        <textarea class="form-control" rows="6" ng-model="newReview.Content">{{newReview.Content}}</textarea>
     </div>
 
     <!-- Extra spacing needed here -->
     <br />
-
+    <button class="btn btn-primary" style="float: right" ng-click="ok()">Submit</button>
     
 </div>
+<!--
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">Submit</button>
 </div>
+-->
