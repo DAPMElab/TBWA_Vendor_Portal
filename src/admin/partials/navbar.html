@@ -1,3 +1,4 @@
+
 <div class="navbar navbar-default navbar-fixed-top" ng-controller="NavbarController">
 <img src="admin_asset/img/logo.jpg" id="logo" alt='TBWA logo'>
   <div class="navbar-header">
@@ -20,10 +21,9 @@
         <a href="/admin#/companies">Edit Company Profiles</a>
       </li>
 
-
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="signin.html">Logout</a></li>
+      <li><a ng-click="logout()">Logout</li></a>
     </ul>
   </div><!--/.nav-collapse -->
 </div>
