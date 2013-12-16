@@ -41,19 +41,25 @@ angular.module('myApp.controllers', [])
         }
     };
 
-    $scope.availableCategories = [
-        {"text": "Casting"},
-        {"text": "Distribution"},
-        {"text": "Production"},
-        {"text": "Translation"},
-        {"text": "Editorial"},
-        {"text": "Animation"},
+    $scope.availableCategoriesRight = [
         {"text": "Post Effects"},
-        {"text": "Illustration"},
-        {"text": "Music"},
-        {"text": "Storyboarding"},
+        {"text": "Print Production"},
+        {"text": "Production"},
         {"text": "Sound Design"},
-        {"text": "Directorial"}
+        {"text": "Storyboarding"},
+        {"text": "Translation"},
+        {"text": "Other"}
+    ];
+
+    $scope.availableCategoriesLeft = [
+        {"text": "Animation"},
+        {"text": "Casting"},
+        {"text": "Digital Production"},
+        {"text": "Directorial"},
+        {"text": "Distribution"},
+        {"text": "Editorial"},
+        {"text": "Illustration"},
+        {"text": "Music"}
     ];
 
     $scope.sortFilters = [
@@ -363,7 +369,5 @@ angular.module('myApp.controllers', [])
     ];
 
     $scope.newReview = null;
-
-    
 
 });

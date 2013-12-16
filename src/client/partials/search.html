@@ -7,10 +7,22 @@
                     <h5>Refine search:</h5>
                     <h4>LOCATION</h4>
                     <div ng-include="'client/partials/map.html'" class="map"></div>
+                    
                     <h4>CATEGORY</h4>
-                    <div ng-include="'client/partials/category.html'" class="categoryColumn"></div>
-                    <div class="row" style="margin-top: 15px">
-                        <div class="col-md-4">
+                    <div ng-include="'client/partials/category.html'"></div>
+
+                    <!-- Clear the div -->
+                    <div style="clear: both;"></div>
+
+                    <div class="col-md-4">
+                        <h4 style="vertical-align: middle">KEYWORD</h4>
+                    </div>
+                    <div class="input-group col-md-8">
+                        <input type="text" class="form-control" ng-model ="search.text">
+                    </div>
+                    <!--
+                    <div class="col-md-12" style="margin-top: 15px">
+                        <div class="col-md-12">
                             <h4 style="vertical-align: middle">KEYWORD</h4>
 
                         </div>
@@ -21,6 +33,7 @@
                     <div class="row">
                         <button ng-click = "emailSearch()" style="margin: auto">Email results</button>
                     </div>
+                    -->
 
                 </div>
             </div>
