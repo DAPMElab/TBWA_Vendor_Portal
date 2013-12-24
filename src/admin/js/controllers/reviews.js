@@ -29,10 +29,11 @@ angular.module('app.reviews', [])
    *
    * @param id: database id corresponding to the review
    */
-  $scope.approveReview = function (id) {
-    $http.post('/review/approve/'+id)
+  $scope.approveReview = function (review) {
+    console.log(review);
+    $http.post('/review/approve/'+review.id)
       .success(function (resp) {
-        console.log(resp);
+        review.approved = true;
       })
       .error(function (err) {
         console.log(err);
@@ -44,10 +45,11 @@ angular.module('app.reviews', [])
    *
    * @param id: database id corresponding to the review
    */
-  $scope.deleteReview = function (id) {
-    $http.delete('/review/delete/'+id)
+  $scope.deleteReview = function (review) {
+    $http.delete('/review/delete/'+review.id)
       .success(function (resp) {
         console.log(resp);
+        review.approved = true;
       })
       .error(function (err) {
         console.log(err);

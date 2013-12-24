@@ -9,7 +9,7 @@
 
   <div
     class="content-area"
-    ng-repeat="review in reviews">
+    ng-repeat="review in reviews | filter:{approved: false}">
     <div id="left">
       <h3>1080 Productions</h3>
       <span><b>Category:</b> {{ review.category }}, <b>Cost Range:</b> {{ review.cost }}</span>
@@ -18,12 +18,12 @@
     <div id="right">
       <button
         class="btn btn-large btn-success"
-        ng-click="approveReview(review.id)">
+        ng-click="approveReview(review)">
         Approve
       </button>
       <button
         class="btn btn-large"
-        ng-click="deleteReview(review.id)">
+        ng-click="deleteReview(review)">
           Dismiss
       </button>
     </div>
