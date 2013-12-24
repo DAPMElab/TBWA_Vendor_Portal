@@ -43,7 +43,7 @@
 
     <ul class="list-group">
       <li
-        ng-repeat="company in companies | filter : companySearch"
+        ng-repeat="company in companies | orderBy : 'Name' | filter : companySearch"
         ng-class="{'list-group-item':true, 'active':(chosenId == company.id)}">
         {{ company.Name }}
 
