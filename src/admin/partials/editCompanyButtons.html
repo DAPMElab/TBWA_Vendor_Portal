@@ -1,11 +1,23 @@
 
-<button type="submit" class="btn btn-default btn-lg btn-success"
+<button
+  type="submit"
+  class="btn btn-default btn-lg btn-success"
   ng-click="update()">
     Update Information
 </button>
 
-<button type="submit" class="btn btn-default btn-lg btn-danger"
-  ng-click="delete()">
+<button
+  type="submit"
+  class="btn btn-default btn-lg btn-warning"
+  ng-click="deleteButton=true">
     Delete Company
+</button>
+
+<button
+  ng-show="deleteButton"
+  type="submit"
+  class="btn btn-default btn-lg btn-danger"
+  ng-click="delete()">
+    Confirm Delete Company
 </button>
 
