@@ -16,17 +16,35 @@
       <h4>Submitted by {{ review.submitter.email }} on {{ review.date }}</h4>
     </div>
     <div id="right">
+
       <button
-        class="btn btn-large btn-success"
-        ng-click="approveReview(review)">
+        ng-show="!confirmApprove"
+        class="btn btn-large btn-primary"
+        ng-click="confirmApprove=true">
         Approve
       </button>
       <button
-        class="btn btn-large"
-        ng-click="deleteReview(review)">
+        ng-show="confirmApprove"
+        class="btn btn-large btn-success"
+        ng-click="approveReview($index)">
+        Confirm Approve
+      </button>
+
+      <button
+        ng-show="!confirmDelete"
+        class="btn btn-large btn-warning"
+        ng-click="confirmDelete=true">
           Dismiss
       </button>
+      <button
+        ng-show="confirmDelete"
+        class="btn btn-large btn-danger"
+        ng-click="deleteReview($index)">
+          Confirm Dismiss
+      </button>
+
     </div>
+
     <br style="clear:both;"/>
     <p>
       {{ review.description }}
@@ -34,4 +52,8 @@
   </div>
 
 </div>
+
+<h1 ng-show="!reviews.length">
+  No reviews to address!
+</h1>
 

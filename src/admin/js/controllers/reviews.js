@@ -29,11 +29,11 @@ angular.module('app.reviews', [])
    *
    * @param id: database id corresponding to the review
    */
-  $scope.approveReview = function (review) {
-    console.log(review);
+  $scope.approveReview = function (reviewIndex) {
+    review = $scope.reviews[reviewIndex];
     $http.post('/review/approve/'+review.id)
       .success(function (resp) {
-        review.approved = true;
+        $scope.reviews.splice(reviewIndex, 1); // remove from list
       })
       .error(function (err) {
         console.log(err);
@@ -45,11 +45,12 @@ angular.module('app.reviews', [])
    *
    * @param id: database id corresponding to the review
    */
-  $scope.deleteReview = function (review) {
+  $scope.deleteReview = function (reviewIndex) {
+    review = $scope.reviews[reviewIndex];
     $http.delete('/review/delete/'+review.id)
       .success(function (resp) {
         console.log(resp);
-        review.approved = true;
+        $scope.reviews.splice(reviewIndex, 1);  // remove from list
       })
       .error(function (err) {
         console.log(err);
