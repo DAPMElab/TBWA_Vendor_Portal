@@ -122,7 +122,22 @@
 
       <div class="form-group">            
         <label for="video">Video (YouTube)</label>
-        <input type="url" class="form-control" id="video" placeholder="Video URL">
+        <div ng-repeat="video in company.videos">
+          <input
+            ng-model="video"
+            type="url"
+            class="form-control"
+            id="video"
+            placeholder="Video URL">
+          <button ng-click="company.videos.splice($index, 1)">Remove Video</button>
+        </div>
+        <input
+          ng-model="nextVideo"
+          type="url"
+          class="form-control"
+          id="video"
+          placeholder="Video URL">
+        <button ng-click="addVideo()">Add Video</button>
       </div>
 
       <div class="form-group">

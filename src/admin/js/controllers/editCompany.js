@@ -67,5 +67,15 @@ angular.module('app.editCompany', [])
       });
   };
 
+  /*
+   *  Adds a video to the list of videos for the company
+   */
+  $scope.addVideo = function () {
+    if ($scope.nextVideo && (!$scope.company.videos.length || $scope.company.videos[$scope.company.videos.length - 1])) {
+      $scope.company.videos.push($scope.nextVideo);
+      $scope.nextVideo = "";
+    }
+  };
+
 });
 
