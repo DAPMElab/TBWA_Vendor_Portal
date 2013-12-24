@@ -51,11 +51,11 @@ class TestDecorators(template.TestingTemplate):
                 'Name'  : 'Fake Company',
                 'URL'   : 'Broken URL',
                 'id'    : '123',
-                'ReviewIds' : []
+                'reviewIds' : []
         }).run(self.rdb)
 
         # makes the call w/ data
-        review = {'Submitter': 'test', 'Rating':10}
+        review = {'companyID': '123', 'rating':10}
         resp = self.request_with_role('/review/create/123',
             method='POST', data=json.dumps(review))
         self.assertEqual(201, resp.status_code)

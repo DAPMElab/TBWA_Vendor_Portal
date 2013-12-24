@@ -87,7 +87,10 @@ class TestReview(template.TestingTemplate):
 
     def test_get_success(self):
         """ Tests returning a review """
-        get_review = {'rating':10, 'submitter': 'tester'}
+        get_review = {
+            'rating':10,
+            # 'submitter': 'tester'   # TODO: uncomment when submitter is set
+        }
         rid = self.__create_review(get_review)
         get_review['approved'] = False      # update obj
 
