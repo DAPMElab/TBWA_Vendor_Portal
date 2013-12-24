@@ -16,7 +16,9 @@ angular.module('app.Services', [])
   };
   // iterates over all chosen setting to true
   for (var key in chosenList) {
-    scopeVar[chosenList[key]] = true;
+    if (chosenList[key]) {  // prevent empty keys
+      scopeVar[chosenList[key]] = true;
+    }
   };
   return scopeVar;
 })

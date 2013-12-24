@@ -131,12 +131,10 @@
         <p class="help-block">Please upload a JPEG or PNG file only.</p>
       </div>
 
-      <!--Button-->
-      <button type="submit" class="btn btn-default btn-lg btn-success"
-        ng-click="pageAction()">
-          {{ actionButtonText }}
-      </button>
+      <!-- Buttons -->
+      <div ng-include="pageButtons"></div>
       <br style="clear:both;"/>
+
   </form>
 </div> 
 

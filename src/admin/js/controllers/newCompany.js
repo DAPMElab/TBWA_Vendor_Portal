@@ -9,7 +9,7 @@ angular.module('app.newCompany', [])
 
   // declare scope variables
   $scope.pageTitle = 'Create New Company';
-  $scope.actionButtonText = 'Create Company';
+  $scope.pageButtons = 'admin_asset/partials/newCompanyButtons.html';
   $scope.categories = {};
   $scope.classifications = {};
   $scope.states = states;
@@ -29,7 +29,7 @@ angular.module('app.newCompany', [])
   /*
    *  Sends the update version to the API
    */
-  $scope.pageAction = function () {
+  $scope.create = function () {
     // reform the object
     $scope.company.Categories = condenseDictionary($scope.categories);
     $scope.company.Classifications = condenseDictionary($scope.classifications);

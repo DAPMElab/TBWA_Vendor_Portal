@@ -4,12 +4,12 @@
  */
 
 angular.module('app.editCompany', [])
-.controller('EditCompanyController', function ($scope, $http, $routeParams,
+.controller('EditCompanyController', function ($scope, $http, $routeParams, $location,
       categories, classifications, states, setUpDict, condenseDictionary) {
 
   // declare scope variables
   $scope.pageTitle = 'Edit Existing Company Information';
-  $scope.actionButtonText = 'Update Information';
+  $scope.pageButtons = 'admin_asset/partials/editCompanyButtons.html';
   $scope.companyId = $routeParams.cid;
   $scope.categories = {};
   $scope.classifications = {};
@@ -25,19 +25,21 @@ angular.module('app.editCompany', [])
   $scope.initPage = function () {
     $http.get('/company/get/' + $scope.companyId)
       .success(function (resp) {
+        console.log(resp);
         $scope.company = resp.data.Company;
         $scope.categories = setUpDict($scope.company.Categories, categories);
         $scope.classifications = setUpDict($scope.company.Classifications, classifications);
       })
       .error(function (err) {
         console.log(err);
+        $location.path('/companies');
       });
   };
 
   /*
    *  Sends the update version to the API
    */
-  $scope.pageAction = function () {
+  $scope.update = function () {
     // reform the object
     $scope.company.Categories = condenseDictionary($scope.categories);
     $scope.company.Classifications = condenseDictionary($scope.classifications);
@@ -47,6 +49,20 @@ angular.module('app.editCompany', [])
         console.log(resp);
       })
       .error(function (err) {
+        console.log(err);
+      });
+  };
+
+  /*
+   *  Deletes the company
+   */
+  $scope.delete = function () {
+    $http.delete('/company/delete/'+$scope.companyId)
+      .success( function (data) {
+        console.log(data);
+        $location.path('/companies');
+      })
+      .error( function (err) {
         console.log(err);
       });
   };
