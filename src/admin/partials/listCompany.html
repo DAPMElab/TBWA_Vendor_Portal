@@ -2,6 +2,7 @@
 <div class="container" ng-init="initPage()">
 
   <!-- Review -->
+  <!-- 
   <div class="jumbotron">
     <h2>Company Profiles</h2>
     <p>Edit information of existing companies.
@@ -20,6 +21,40 @@
         <button type="submit" class="btn btn-default btn-success">New Company</button>
       </a>
     </p>
+  </div>
+  -->
+
+  <div class="jumbotron">
+    <h2>Company Profiles</h2>
+    <p>Edit information of existing companies.
+    <div>
+      <p>
+        Add a new company.
+        <a ng-href="/admin#/companies/new">
+          <button type="submit" class="btn btn-default btn-success">New Company</button>
+        </a>
+      </p>
+    </div>
+
+    <div>
+      <input type="text" ng-model="companySearch">
+    </div>
+    <br style="clear:both;"/>
+
+    <ul class="list-group">
+      <li
+        ng-repeat="company in companies | filter : companySearch"
+        ng-class="{'list-group-item':true, 'active':(chosenId == company.id)}">
+        {{ company.Name }}
+
+        <span style="float:right">
+          <a ng-href='/admin#/companies/edit/{{ company.id }}'>
+            <button type="submit" class="btn btn-default btn-primary">Edit Company</button>
+          </a>
+        </span>
+
+      </li>
+    </ul>
   </div>
 
 </div> 
