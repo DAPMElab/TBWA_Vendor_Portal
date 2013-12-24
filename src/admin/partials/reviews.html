@@ -20,7 +20,7 @@
       <button
         ng-show="!confirmApprove"
         class="btn btn-large btn-primary"
-        ng-click="confirmApprove=true">
+        ng-click="confirmApprove=true;confirmDelete=false">
         Approve
       </button>
       <button
@@ -33,7 +33,7 @@
       <button
         ng-show="!confirmDelete"
         class="btn btn-large btn-warning"
-        ng-click="confirmDelete=true">
+        ng-click="confirmDelete=true;confirmApprove=false">
           Dismiss
       </button>
       <button
