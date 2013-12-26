@@ -17,12 +17,12 @@ TABLE       = 'reviews'
 C_TABLE     = 'companies'
 
 required_fields = [
-    'companyID',
-    'rating',
+    'CompanyID',
+    'Rating',
 ]
 
 return_fields = required_fields + [
-    'approved'
+    'Approved'
 ]
 
 
@@ -35,8 +35,8 @@ def create(uid):
         @json_format: {'data': <review obj>}
     """
     review = request.get_json(cache=True)
-    review['companyID'] = uid
-    review['approved'] = False
+    review['CompanyID'] = uid
+    review['Approved'] = False
 
     for field in required_fields:
         if field not in review:
@@ -50,7 +50,7 @@ def create(uid):
         key = r_outcome['generated_keys'][0]
 
         c_outcome = (r.table(C_TABLE)
-                .get(uid)['reviewIds']
+                .get(uid)['ReviewIds']
                 .append(key)
                 .run(g.rdb_conn))
         print c_outcome
@@ -67,7 +67,7 @@ def create(uid):
 @admin
 def approve(uid):
     """ Removes a review from the queue and links it to the company. """
-    outcome = r.table(TABLE).get(uid).update({'approved': True}).run(g.rdb_conn)
+    outcome = r.table(TABLE).get(uid).update({'Approved': True}).run(g.rdb_conn)
     
     if outcome['replaced'] == 1:
         return make_response(json.dumps({
@@ -97,8 +97,6 @@ def get(uid):
 @has_data
 def edit(uid):
     updated_review = request.get_json(cache=True)
-
-    #TODO: think about logging edits in the obj
     try:
         outcome = r.table(TABLE).get(uid).update(updated_review).run(g.rdb_conn)
         if outcome['skipped']:
@@ -132,7 +130,7 @@ def delete(uid):
 def list():
     """ Returns all reviews that have not yet been approved """
     try:
-        outcome = r.table(TABLE).filter({'approved':False}).run(g.rdb_conn)
+        outcome = r.table(TABLE).filter({'Approved':False}).run(g.rdb_conn)
         reviews = [x for x in outcome]
 
         return make_response(json.dumps({

@@ -377,11 +377,11 @@ angular.module('myApp.controllers', [])
     // Doesn't interface with the backend yet
     $scope.submitReview = function () {
         var data = {};
-        data["company"] = $scope.selectedCompany.Company.id;
-        data["rating"] = 5;
-        data["description"] = $scope.newReview.description;
-        data["category"] = condenseDictionary($scope.reviewCategoryChoices);
-        data["cost"] = $scope.newReview.cost;
+        data["Company"] = $scope.selectedCompany.Company.id;
+        data["Rating"] = 5;
+        data["Description"] = $scope.newReview.Description;
+        data["Category"] = condenseDictionary($scope.reviewCategoryChoices);
+        data["Cost"] = $scope.newReview.Cost;
         $http.post('/review/create/' + $scope.selectedCompany.Company.id, data)
             .success(function (response) {
                 console.log("Review was received.");

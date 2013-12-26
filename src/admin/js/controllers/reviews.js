@@ -14,6 +14,7 @@ angular.module('app.reviews', [])
         console.log(response);
         $scope.reviews = response['data'];
 
+        // join the applicable categories into one string for easy display
         for (var reviewIndex in $scope.reviews) {
           if ('category' in $scope.reviews[reviewIndex]) {
             $scope.reviews[reviewIndex]['category'] = $scope.reviews[reviewIndex]['category'].join(', ');

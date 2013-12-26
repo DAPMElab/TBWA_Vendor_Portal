@@ -9,11 +9,11 @@
 
   <div
     class="content-area"
-    ng-repeat="review in reviews | filter:{approved: false}">
+    ng-repeat="review in reviews | filter:{Approved: false}">
     <div id="left">
       <h3>1080 Productions</h3>
-      <span><b>Category:</b> {{ review.category }}, <b>Cost Range:</b> {{ review.cost }}</span>
-      <h4>Submitted by {{ review.submitter.email }} on {{ review.date }}</h4>
+      <span><b>Category:</b> {{ review.Category }}, <b>Cost Range:</b> {{ review.Cost }}</span>
+      <h4>Submitted by {{ review.Submitter.Email }} on {{ review.Date }}</h4>
     </div>
     <div id="right">
 
@@ -47,7 +47,7 @@
 
     <br style="clear:both;"/>
     <p>
-      {{ review.description }}
+      {{ review.Description }}
     </p>
   </div>
 
