@@ -4,6 +4,7 @@ angular.module('app.controllers', [
   'app.newCompany',
   'app.listCompany',
   'app.reviews',
-  'app.navbar'
+  'app.navbar',
+  'app.admin'
 ]);
 

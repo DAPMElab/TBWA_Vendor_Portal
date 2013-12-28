@@ -10,6 +10,11 @@ app.config(['$routeProvider', function($routeProvider) {
   // Declare the routes
   $routeProvider
 
+    .when('/new', {
+      templateUrl:  'admin_asset/partials/newAdmin.html',
+      controller:   'NewAdminController'
+    })
+
     .when('/companies/edit/:cid', {
       templateUrl:  'admin_asset/partials/company.html',
       controller:   'EditCompanyController'
