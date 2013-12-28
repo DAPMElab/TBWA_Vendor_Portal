@@ -325,8 +325,9 @@ button,
 select,
 textarea {
   font-family: inherit;
-  font-size: inherit;
+  font-size: 14px;
   line-height: inherit;
+  padding:6px;
 }
 
 a {
