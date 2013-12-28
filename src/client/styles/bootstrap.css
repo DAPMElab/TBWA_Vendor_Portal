@@ -1318,7 +1318,7 @@ pre code {
     width: 41.66666666666667%;
   }
   .col-md-4 {
-    width: 33.33333333333333%;
+    width: 30%;
   }
   .col-md-3 {
     width: 25%;
@@ -2240,12 +2240,13 @@ textarea.input-lg {
   margin-bottom: 0;
   font-size: 14px;
   font-weight: normal;
+  color:#ffffff;
   line-height: 1.428571429;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
-  background-image: none;
+  background-color: rgba(14, 157, 252, 1);
   border: 1px solid transparent;
   border-radius: 4px;
   -webkit-user-select: none;
@@ -2263,8 +2264,8 @@ textarea.input-lg {
 
 .btn:hover,
 .btn:focus {
-  color: #333333;
   text-decoration: none;
+  background-color:rgba(1, 137, 228, 1);
 }
 
 .btn:active,
