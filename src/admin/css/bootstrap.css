@@ -46,6 +46,7 @@ html {
 body {
   margin: 0;
   padding-top: 70px;
+  overflow-y:scroll;
 }
 
 a {
@@ -5611,6 +5612,7 @@ a.thumbnail.active {
   margin-bottom: -1px;
   background-color: #ffffff;
   border: 1px solid #dddddd;
+  font-size:14px;
 }
 
 .list-group-item:first-child {
