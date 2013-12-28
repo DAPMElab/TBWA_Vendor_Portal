@@ -5342,6 +5342,7 @@ a.list-group-item.active > .badge,
   .container .content-area {
     padding-right: 60px;
     padding-left: 60px;
+    margin-top:25px;
   }
   .content-area h1,
   .content-area .h1 {

@@ -8,7 +8,7 @@ angular.module('app.newCompany', [])
       categories, classifications, states, setUpDict, condenseDictionary) {
 
   // declare scope variables
-  $scope.pageTitle = 'Create New Company';
+  $scope.pageTitle = 'New Company Information';
   $scope.pageButtons = 'admin_asset/partials/newCompanyButtons.html';
   $scope.categories = {};
   $scope.classifications = {};

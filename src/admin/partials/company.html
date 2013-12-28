@@ -1,12 +1,8 @@
-<div class="jumbotron">
-  <h2> {{ pageTitle }} </h2>
-</div>
-
 <div class="container" ng-init="initPage()">
   <div class="content-area">
     <form role="form">
       <!-- Basic company info -->
-      <h3>Company Information</h3>
+      <h3> {{ pageTitle }} <i>{{ company.Name }}</i></h3>
       <div class="form-group">
         <label for="name">Company Name</label>
         <input
