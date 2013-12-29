@@ -9,21 +9,6 @@ angular.module('myApp.services', [
     'myApp.constants'
 ])
 
-//Service to transfer home search data
-.factory('HomeSearchData',function(){
-
-    var property = { Property1: 'First' };
-
-    return {
-        getProperty: function () {
-            return property;
-        },
-        setProperty: function(value) {
-            property = value;
-        }
-    };
-
-})
 
 /*
  *  Initializes a scope variable to a dictionary representing the activated values.

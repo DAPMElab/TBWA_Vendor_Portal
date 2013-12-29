@@ -1,13 +1,25 @@
+
 <div class="col-md-12">
 	<div class="col-md-6" style="padding-left: 0px;">
-		<div ng-repeat="category in availableCategoriesLeft">
-		    <input id="{{category.text}}" type="checkbox" ng-click = "addCategory(category.text)"> {{category.text}}
+		<div ng-repeat="(name, val) in categories">
+      <div ng-show="$even">
+		    <input
+          type="checkbox"
+          ng-model="categories[name]">
+        {{ name }}
+      </div>
 		</div>
 	</div>
 
 	<div class="col-md-6" style="padding-right: 0px;">
-		<div ng-repeat="category in availableCategoriesRight">
-		    <input id="{{category.text}}" type="checkbox" ng-click = "addCategory(category.text)"> {{category.text}}
+		<div ng-repeat="(name, val) in categories">
+      <div ng-show="$odd">
+		    <input
+          type="checkbox"
+          ng-model="categories[name]">
+        {{ name }}
+      </div>
 		</div>
 	</div>
 </div>
+
