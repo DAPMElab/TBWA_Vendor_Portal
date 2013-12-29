@@ -4,7 +4,7 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="100%" height="100%" viewBox="-100 0 1200 617.83" enable-background="new 0 40.787 1000 617.83"
 	 xml:space="preserve" preserveAspectRatio="xMinYMin meet">
-<g id="midwest" ng-click = "highlightMap(0)">
+<g id="MW" ng-click="highlightMap('MW')">
 	<g id="Kansas">
 		<g>
 			<line fill="#FFFFFF" x1="658.729" y1="185.767" x2="659.455" y2="186.131"/>
@@ -227,7 +227,7 @@
 		</g>
 	</g>
 </g>
-<g id="southeast" ng-click = "highlightMap(1)">
+<g id="SE" ng-click="highlightMap('SE')">
 	<g id="Louisiana">
 		<g>
 			<path fill="#FFFFFF" d="M816.521,303.565c2.893-0.743,3.593-3.678,5.09-5.817c2.257,0.052,4.514-0.975,5.091-4.362
@@ -475,7 +475,7 @@
 			/>
 	</g>
 </g>
-<g id="northeast"ng-click = "highlightMap(2)">
+<g id="NE" ng-click="highlightMap('NE')">
 	<g id="Maine">
 		<path fill="#FFFFFF" d="M1001.216,119.597c1.411-0.289,1.063,3.312-0.727,2.181c0-0.484,0-0.97,0-1.454
 			C1001.107,120.457,1001.175,120.04,1001.216,119.597z"/>
@@ -606,7 +606,7 @@
 		</g>
 	</g>
 </g>
-<g id="southwest" ng-click = "highlightMap(3)">
+<g id="SW" ng-click="highlightMap('SW')">
 	<g id="Texas">
 		<g>
 			<path fill="#FFFFFF" d="M529.296,460.63c-2.336-0.64-0.997,2.397-2.909,2.183c-2.287,0.349-2.842-1.036-4.362-1.454
@@ -685,7 +685,7 @@
 		</g>
 	</g>
 </g>
-<g id="west" ng-click = "highlightMap(4)">
+<g id="W" ng-click="highlightMap('W')">
 	<g id="Washington">
 		<path fill="#FFFFFF" d="M83.552,66.514c1.612-0.4,1.036,1.389,2.182,1.455C85.438,69.779,82.915,68.012,83.552,66.514z"/>
 		<path fill="#FFFFFF" d="M81.371,70.15c1.811,0.296,0.043,2.819-1.455,2.182C80.173,71.376,81.197,71.188,81.371,70.15z"/>

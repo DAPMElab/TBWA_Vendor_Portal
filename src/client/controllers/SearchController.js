@@ -4,7 +4,7 @@
 angular.module('myApp.controllers', [])
 .controller('SearchController',function($scope, $http, $modal, HomeSearchData,
       $routeParams, $timeout, $location, setUpDict, condenseDictionary, jobSizeRanges,
-      mapRegions, mapColors){
+      mapRegions, mapColors, alterSVG){
 
     //Live companies showing after sort
     $scope.companies = [];
@@ -23,7 +23,7 @@ angular.module('myApp.controllers', [])
     $scope.mapUrl = "client/img/USMap.svg";
     $scope.mapColors = mapColors;
     $scope.regions = mapRegions;
-    $scope.activeRegions = [];
+    var activeRegions = [];
 
 
     $scope.availableCategoriesRight = [
@@ -189,66 +189,22 @@ angular.module('myApp.controllers', [])
     };
 
     /**
-     * Highlights a svg xml tag using the element id
-     * It deselects everything first, then highlights the item requested. The highlight is done by adjusting the alpha
+     * Flips the highlighting of a map region
      *
-     * @param regionNumber
-     * @author will
+     * Function is called by clicking a SVG region
+     * @param region: abbreviation for the region represented by the svg layer
      */
-    $scope.highlightMap = function(regionNumber){
-
-        //track added regions
-        var regionToHighlight = $scope.regions[regionNumber];
-
-        var index = $scope.activeRegions.indexOf(regionToHighlight);
-        var indexForRegionsNumbers = $scope.selectedRegionNumbers.indexOf(regionToHighlight);
-
-        if(index==-1){
-            $scope.activeRegions.push(regionToHighlight);
-            $scope.selectedRegionNumbers.push(regionNumber);
-
-        }else{
-            $scope.activeRegions.splice(index,1);
-            $scope.selectedRegionNumbers.splice(indexForRegionsNumbers,1);
-
-        }
-
-
-        //Deselect all regions
-        var svgChilren = document.getElementsByTagName("path");
-        for (var childIndex in svgChilren){
-            var child = svgChilren[childIndex];
-            if(child.style!=null){
-                child.style.fill = $scope.mapColors.defaultState.fill;
-
-            }
-        }
-
-        // deselect all rooms and highlight jsut the one we want
-        for (var regionIndex in $scope.activeRegions) {
-
-            var region = $scope.activeRegions[regionIndex];
-
-            // get matching svg element
-            var svgElement = document.getElementById(region);
-
-            svgElement.style.opacity          = $scope.mapColors.highlighted.opacity;
-            svgElement.style['fill-opacity']  = $scope.mapColors.highlighted.fillOpacity;
-            svgElement.style.fill             = $scope.mapColors.highlighted.fill;
-
-
-            $scope.activeRegion = regionToHighlight;
-
-            //Change the colors of the actual region by going into each path node
-            var svgChilren = svgElement.getElementsByTagName("path");
-            for (var childIndex in svgChilren){
-                var child = svgChilren[childIndex];
-
-                if(child.style!=null){
-                    child.style.fill = $scope.mapColors.highlighted.fill;
-
-                }
-            }
+    $scope.highlightMap = function(region){
+        var svgElement = document.getElementById(region);
+        var regionIndex = activeRegions.indexOf(region);
+        if (regionIndex == -1) {
+            // highlight and add to list if highlighting
+            activeRegions.push(region);
+            alterSVG(svgElement, mapColors.highlighted);
+        } else {
+            // fade and delete from list if unhighlighting
+            activeRegions.splice(regionIndex, 1);
+            alterSVG(svgElement, mapColors.defaultState);
         }
     };
 

@@ -144,14 +144,31 @@ angular.module('myApp.services', [])
 })
 
 /* Regions for the SVG map
- *
  */
 .constant('mapRegions', {
-    0:"midwest",
-    1:"southeast",
-    2:"northeast",
-    3:"southwest",
-    4:"west"
+    'MW': "midwest",
+    'SE': "southeast",
+    'NE': "northeast",
+    'SW': "southwest",
+    'W': "west"
+})
+
+/*  Alters an svg element with the given color choices
+ *
+ *  @param svgElement: the svg element to be altered
+ *  @param colors: an object w/ opacity, fillOpacity & fill to alter the svg appropriately
+ */
+.constant('alterSVG', function (svgElement, colors) {
+    // finds all the "path" nodes for the svg (states that make up the region)
+    var svgChildren = svgElement.getElementsByTagName("path");
+    for (var childIndex in svgChildren){
+        var child = svgChildren[childIndex];
+        if (child.style != null){
+            // highlights the path appropriately if it's a valid path
+            child.style.fill = colors.fill;
+        }
+    };
 });
+
 
 
