@@ -92,16 +92,16 @@ angular.module('myApp.services', [])
  *  @return: dictionary with the choices represented as true values
  */
 .constant('setUpDict', function (chosenList, choices) {
-  var scopeVar = {}
-  // iterates over all possibles setting to false
-  for (var key in choices) {
-    scopeVar[choices[key]] = false;
-  };
-  // iterates over all chosen setting to true
-  for (var key in chosenList) {
-    scopeVar[chosenList[key]] = true;
-  };
-  return scopeVar;
+    var scopeVar = {}
+    // iterates over all possibles setting to false
+    for (var key in choices) {
+        scopeVar[choices[key]] = false;
+    };
+    // iterates over all chosen setting to true
+    for (var key in chosenList) {
+        scopeVar[chosenList[key]] = true;
+    };
+    return scopeVar;
 })
 
 /*
@@ -111,19 +111,47 @@ angular.module('myApp.services', [])
  *  @return: list of keys where the value was true
  */
 .constant('condenseDictionary', function (dict) {
-  var chosen = []; 
-  for (var key in dict) {
-    if (dict[key]) {
-      chosen.push(key);
-    }
-  };
+    var chosen = []; 
+    for (var key in dict) {
+        if (dict[key]) {
+            chosen.push(key);
+        }
+    };
   return chosen;
 })
 
 .value('jobSizeRanges', [
-  {"Range": "< $250k"},
-  {"Range": "$250k - $500k"},
-  {"Range": "> $500k"}
-]);
+    {"Range": "< $250k"},
+    {"Range": "$250k - $500k"},
+    {"Range": "> $500k"}
+])
+
+/*
+ * SVG map constants
+ * Represent the highlighted and default states of the map regions.
+ */
+.constant('mapColors', {
+    highlighted :{
+        opacity :"1.0",
+        fillOpacity : "1.0",
+        fill : "#66CCFF"
+    },
+    defaultState:{
+        opacity :"1.0",
+        fillOpacity : "1.0",
+        fill : "#FFFFFF"
+    }
+})
+
+/* Regions for the SVG map
+ *
+ */
+.constant('mapRegions', {
+    0:"midwest",
+    1:"southeast",
+    2:"northeast",
+    3:"southwest",
+    4:"west"
+});
 
 

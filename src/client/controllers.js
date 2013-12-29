@@ -7,7 +7,6 @@ angular.module('myApp.controllers', []).
 
 /* Function for using Google Maps API
 http://plnkr.co/edit/vfntxf?p=preview
-*/
 function GoogleMaps( $scope , $http , Map ) {
 
   $http.get('resources/map.json')
@@ -21,3 +20,5 @@ function GoogleMaps( $scope , $http , Map ) {
   });
   
 }//GoogleMaps{}
+*/
+

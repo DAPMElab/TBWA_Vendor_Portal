@@ -3,7 +3,8 @@
  */
 angular.module('myApp.controllers', [])
 .controller('SearchController',function($scope, $http, $modal, HomeSearchData,
-      $routeParams, $timeout, $location, setUpDict, condenseDictionary, jobSizeRanges){
+      $routeParams, $timeout, $location, setUpDict, condenseDictionary, jobSizeRanges,
+      mapRegions, mapColors){
 
     //Live companies showing after sort
     $scope.companies = [];
@@ -20,29 +21,10 @@ angular.module('myApp.controllers', [])
 
     //map settings
     $scope.mapUrl = "client/img/USMap.svg";
-    $scope.regions = {
-        0:"midwest",
-        1:"southeast",
-        2:"northeast",
-        3:"southwest",
-        4:"west"
-    };
-
-    $scope.mapWidth = null;
+    $scope.mapColors = mapColors;
+    $scope.regions = mapRegions;
     $scope.activeRegions = [];
 
-    $scope.mapColors = {
-        highlighted :{
-            opacity :"1.0",
-            fillOpacity : "1.0",
-            fill : "#66CCFF"
-        },
-        defaultState:{
-            opacity :"1.0",
-            fillOpacity : "1.0",
-            fill : "#FFFFFF"
-        }
-    };
 
     $scope.availableCategoriesRight = [
         {"text": "Post Effects"},
@@ -79,7 +61,7 @@ angular.module('myApp.controllers', [])
     $scope.emptyPhoto = "client/img/starEmpty.png";
 
 
-        /**
+    /**
      * Executed on load of the main page to get information about each company
      */
     $scope.loadCompanies = function(){
@@ -204,14 +186,6 @@ angular.module('myApp.controllers', [])
         $http.get( '/company/get/' + newSelectionID ).success( function(response) {
             $scope.selectedCompany = response['data'];
         })
-    };
-
-    /**
-     * Inits the map to a default state
-     * @param mapWidth
-     */
-    $scope.initMap = function(mapWidth){
-        $scope.mapWidth = mapWidth;
     };
 
     /**

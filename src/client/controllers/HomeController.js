@@ -2,34 +2,17 @@
  Manages the map, categories and search box
  */
 angular.module('myApp.controllers')
-.controller('HomeController',function($scope, HomeSearchData, $location){
+.controller('HomeController',function($scope, $location,
+   mapColors, mapRegions, HomeSearchData) {
 
     //map settings
     $scope.mapUrl = "client/img/USMap.svg";
-    $scope.regions = {
-        0:"midwest",
-        1:"southeast",
-        2:"northeast",
-        3:"southwest",
-        4:"west"
-    };
+    $scope.regions = mapRegions;
+    $scope.mapColors = mapColors;
 
-    $scope.mapWidth = null;
     $scope.activeRegions = [];
     $scope.activeRegionNumbers = [];
 
-    $scope.mapColors = {
-        highlighted :{
-            opacity :"1.0",
-            fillOpacity : "1.0",
-            fill : "#66CCFF"
-        },
-        defaultState:{
-            opacity :"1.0",
-            fillOpacity : "1.0",
-            fill : "#FFFFFF"
-        }
-    };
 
         $scope.availableCategoriesRight = [
             {"text": "Post Effects"},
@@ -56,14 +39,6 @@ angular.module('myApp.controllers')
     $scope.categoriesSelected = [];
     $scope.search = {"text":''};
 
-
-    /**
-     * Inits the map to a default state
-     * @param mapWidth
-     */
-    $scope.initMap = function(mapWidth){
-        $scope.mapWidth = mapWidth;
-    };
 
     /**
      * Highlights a svg xml tag using the element id
