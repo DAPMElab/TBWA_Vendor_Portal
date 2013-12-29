@@ -5,7 +5,79 @@
 
 // Demonstrate how to register services
 // In this case it is a simple value service.
-angular.module('myApp.services', [])
+angular.module('myApp.services', [
+    'myApp.constants'
+])
+
+//Service to transfer home search data
+.factory('HomeSearchData',function(){
+
+    var property = { Property1: 'First' };
+
+    return {
+        getProperty: function () {
+            return property;
+        },
+        setProperty: function(value) {
+            property = value;
+        }
+    };
+
+})
+
+/*
+ *  Initializes a scope variable to a dictionary representing the activated values.
+ *
+ *  @param chosenlist: list of keys that are chosen
+ *  @param choices: list of all possible keys
+ *  @return: dictionary with the choices represented as true values
+ */
+.constant('setUpDict', function (chosenList, choices) {
+    var scopeVar = {}
+    // iterates over all possibles setting to false
+    for (var key in choices) {
+        scopeVar[choices[key]] = false;
+    };
+    // iterates over all chosen setting to true
+    for (var key in chosenList) {
+        scopeVar[chosenList[key]] = true;
+    };
+    return scopeVar;
+})
+
+/*
+ *  Condenses the categories in $scope.categories to a single array for pashing back to the server
+ *
+ *  @param dict: dictionary where the value is a boolean
+ *  @return: list of keys where the value was true
+ */
+.constant('condenseDictionary', function (dict) {
+    var chosen = []; 
+    for (var key in dict) {
+        if (dict[key]) {
+            chosen.push(key);
+        }
+    };
+  return chosen;
+})
+
+/*  Alters an svg element with the given color choices
+ *
+ *  @param svgElement: the svg element to be altered
+ *  @param colors: an object w/ opacity, fillOpacity & fill to alter the svg appropriately
+ */
+.constant('alterSVG', function (svgElement, colors) {
+    // finds all the "path" nodes for the svg (states that make up the region)
+    var svgChildren = svgElement.getElementsByTagName("path");
+    for (var childIndex in svgChildren){
+        var child = svgChildren[childIndex];
+        if (child.style != null){
+            // highlights the path appropriately if it's a valid path
+            child.style.fill = colors.fill;
+        }
+    };
+})
+
 
 // Adding service for google maps
 .factory('Map', function( $rootScope , $compile ){
@@ -66,109 +138,5 @@ angular.module('myApp.services', [])
       }//for()
     }//init
   };//return
-})
-
-//Service to transfer home search data
-.factory('HomeSearchData',function(){
-
-    var property = { Property1: 'First' };
-
-    return {
-        getProperty: function () {
-            return property;
-        },
-        setProperty: function(value) {
-            property = value;
-        }
-    };
-
-})
-
-/*
- *  Initializes a scope variable to a dictionary representing the activated values.
- *
- *  @param chosenlist: list of keys that are chosen
- *  @param choices: list of all possible keys
- *  @return: dictionary with the choices represented as true values
- */
-.constant('setUpDict', function (chosenList, choices) {
-    var scopeVar = {}
-    // iterates over all possibles setting to false
-    for (var key in choices) {
-        scopeVar[choices[key]] = false;
-    };
-    // iterates over all chosen setting to true
-    for (var key in chosenList) {
-        scopeVar[chosenList[key]] = true;
-    };
-    return scopeVar;
-})
-
-/*
- *  Condenses the categories in $scope.categories to a single array for pashing back to the server
- *
- *  @param dict: dictionary where the value is a boolean
- *  @return: list of keys where the value was true
- */
-.constant('condenseDictionary', function (dict) {
-    var chosen = []; 
-    for (var key in dict) {
-        if (dict[key]) {
-            chosen.push(key);
-        }
-    };
-  return chosen;
-})
-
-.value('jobSizeRanges', [
-    {"Range": "< $250k"},
-    {"Range": "$250k - $500k"},
-    {"Range": "> $500k"}
-])
-
-/*
- * SVG map constants
- * Represent the highlighted and default states of the map regions.
- */
-.constant('mapColors', {
-    highlighted :{
-        opacity :"1.0",
-        fillOpacity : "1.0",
-        fill : "#66CCFF"
-    },
-    defaultState:{
-        opacity :"1.0",
-        fillOpacity : "1.0",
-        fill : "#FFFFFF"
-    }
-})
-
-/* Regions for the SVG map
- */
-.constant('mapRegions', {
-    'MW': "midwest",
-    'SE': "southeast",
-    'NE': "northeast",
-    'SW': "southwest",
-    'W': "west"
-})
-
-/*  Alters an svg element with the given color choices
- *
- *  @param svgElement: the svg element to be altered
- *  @param colors: an object w/ opacity, fillOpacity & fill to alter the svg appropriately
- */
-.constant('alterSVG', function (svgElement, colors) {
-    // finds all the "path" nodes for the svg (states that make up the region)
-    var svgChildren = svgElement.getElementsByTagName("path");
-    for (var childIndex in svgChildren){
-        var child = svgChildren[childIndex];
-        if (child.style != null){
-            // highlights the path appropriately if it's a valid path
-            child.style.fill = colors.fill;
-        }
-    };
 });
-
-
 
