@@ -24,14 +24,10 @@ angular.module('myApp.controllers', [])
     $scope.mapColors = mapColors;
     var activeRegions = [];
 
-    // category settings
-    $scope.availableCategories = availableCategories;
-
     $scope.sortFilters = [
         "Rating",
         "Name"
     ];
-
 
     //Image settings
     $scope.starPhoto = "client/img/star.png";
@@ -43,7 +39,6 @@ angular.module('myApp.controllers', [])
      */
     $scope.initPage = function(){
         var searchParams = $location.search();
-        console.log(searchParams);
 
         //Highlight the map and update the regions
         var regions = searchParams.regions;
@@ -52,7 +47,7 @@ angular.module('myApp.controllers', [])
         }
 
         //Add and update categories
-        var paramCats = searchParams.categories;
+        var paramCats = [].concat(searchParams.categories);
         $scope.categories = setUpDict(paramCats, availableCategories);
 
         //Update the search text keyword

@@ -1,3 +1,4 @@
+
 <!-- "Sort by" button group-->
 <div class="btn-group" style="float:right;">
     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -11,13 +12,15 @@
 
 <h5>CURRENT RESULTS</h5>
 
-<!-- for extra whitespace -->
-
-<br />
+<br/>
 
 <div style="overflow: scroll; height: 400px; overflow-x: hidden">
         <!--result cell -->
-        <div class="row" ng-repeat="company in companies | filter:search.text | orderBy:predicate" style="cursor: pointer" ng-click="updateSelectedCompany(company)">
+        <div
+          class="row"
+          ng-repeat="company in companies | selectListToListAttribute : 'Categories' : categories : true | filter:search.text | orderBy:predicate"
+          style="cursor: pointer"
+          ng-click="updateSelectedCompany(company)">
         
         <!--Company info-->
             <div class="col-md-12" style="width: 95%">
@@ -48,7 +51,4 @@
         </div>
     </div>
 </div>
-
-
-
 
