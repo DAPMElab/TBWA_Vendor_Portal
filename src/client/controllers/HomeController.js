@@ -2,7 +2,7 @@
  Manages the map, categories and search box
  */
 angular.module('myApp.controllers')
-.controller('HomeController',function($scope, $location, $document, $resource,
+.controller('HomeController',function($scope, $location, $document, setUpDict,
    mapUrl, mapColors, alterSVG, availableCategories, condenseDictionary) {
 
     //map settings
@@ -11,28 +11,27 @@ angular.module('myApp.controllers')
     var activeRegions = [];
 
     //Category settings
-    $scope.categories = availableCategories;
+    $scope.categories = setUpDict([], availableCategories);
 
     // Search box
-    $scope.searchBox = "";
+    $scope.searchText = "";
 
     /**
      * Flips the highlighting of a map region
      *
      * Function is called by clicking a SVG region
-     * @param region: abbreviation for the region represented by the svg layer
+     * @param region: region ID
      */
     $scope.highlightMap = function(region){
-        var svgElement = document.getElementById(region);
         var regionIndex = activeRegions.indexOf(region);
         if (regionIndex == -1) {
             // highlight and add to list if highlighting
             activeRegions.push(region);
-            alterSVG(svgElement, mapColors.highlighted);
+            alterSVG(region, mapColors.highlighted);
         } else {
             // fade and delete from list if unhighlighting
             activeRegions.splice(regionIndex, 1);
-            alterSVG(svgElement, mapColors.defaultState);
+            alterSVG(region, mapColors.defaultState);
         }
     };
 
@@ -46,8 +45,8 @@ angular.module('myApp.controllers')
 
         // set search categories
         var cats = condenseDictionary($scope.categories);
-        $location.search('categories', cats);
-        $location.search('keyword', $scope.searchBox);
         $location.search('regions', activeRegions);
+        $location.search('categories', cats);
+        $location.search('searchText', $scope.searchText);
     };
 });

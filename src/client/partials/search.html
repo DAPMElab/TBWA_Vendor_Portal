@@ -1,41 +1,25 @@
 <div ng-include="'client/partials/header.html'"></div>
 
 <!--Load the companies on start-->
-<div class="container bs-docs-container" data-ng-init = "loadCompanies()">
+<div class="container bs-docs-container">
     <div class="row">
         <div class="col-md-5">
             <div style="background-color: #e7e7e7">
                 <div style="padding: 20px; overflow: auto; padding-top: 0px">
                     <h6>Refine search:</h6>
                     <h5>LOCATION</h5>
-                    <div ng-include="'client/partials/map.html'" class="map"></div>
-                    
+                    <div ng-include="mapUrl" class="map" onload="initPage()"></div>
+
                     <h5>CATEGORY</h5>
                     <div ng-include="'client/partials/category.html'"></div>
 
                     <!-- Clear the div -->
                     <div style="clear: both;"></div>
 
-                    
                     <div class="form-horizontal">
                         <h5>KEYWORD</h5>
-                        <input type="text" class="form-control" ng-model ="search.text">
-                    </div>                    
-                    <!-- Is the email link necessary?
-                    <div class="col-md-12" style="margin-top: 15px">
-                        <div class="col-md-12">
-                            <h4 style="vertical-align: middle">KEYWORD</h4>
-
-                        </div>
-                        <div class="input-group col-md-8">
-                            <input type="text" class="form-control" ng-model ="search.text" style="width: 100%; height: 25px; vertical-align: middle; margin-left: 10px; margin-top: 6px">
-                        </div>
+                        <input type="text" class="form-control" ng-model="searchText">
                     </div>
-                    <div class="row">
-                        <button ng-click = "emailSearch()" style="margin: auto">Email results</button>
-                    </div>
-                    -->
-
                 </div>
             </div>
 
@@ -46,7 +30,6 @@
 
         <!--Detail portion-->
         <div class="row col-md-7">
-            <!-- <div class="row col-md-12" style="height: 30px; background-color: #D3D3D3; margin-left: 10px">&nbsp;</div> Taking away because I think it looks better!-->
             <div class="row col-md-12" style="margin-left: 10px">
                 <div class="col-md-7">
                     <div>
@@ -54,42 +37,39 @@
                         <!--Rating block-->
                         <h6><img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15"> {{selectedCompany.Reviews.Count}} ratings</h6>
 
-                        <p>{{selectedCompany.Company.Categories.join(", ")}}</p>
-                        
+                        <p>{{ selectedCompany.Company.Categories.join(", ") }}</p>
                         <p>
                             <a href="{{selectedCompany.Company.URL}}" target="_blank">{{selectedCompany.Company.URL}}</a>
                         </p>
 
                         <!-- Displaying the contact information -->
                         <p>
-                            {{selectedCompany.Company.Contact.Name}}
+                            {{ selectedCompany.Company.Contact.Name }}
                             </br>
-                            {{selectedCompany.Company.Contact.Email}}
+                            {{ selectedCompany.Company.Contact.Email }}
                             </br>
-                            {{selectedCompany.Company.Contact.Phone}}
+                            {{ selectedCompany.Company.Contact.Phone }}
                         </p>
-                        
+
                     </div>
                 </div>
 
-                <div class="col-md-5" style="padding: 20px; text-align:right">                    
+                <div class="col-md-5" style="padding: 20px; text-align:right">
                     <!-- Displaying the physical address -->
                     <p>
-                        {{selectedCompany.Company.PhysicalAddress.Address}}
+                        {{ selectedCompany.Company.PhysicalAddress.Address }}
                         </br>
-                        {{selectedCompany.Company.PhysicalAddress.City}} {{selectedCompany.Company.PhysicalAddress.State}} {{selectedCompany.Company.PhysicalAddress.ZipCode}}
+                        {{ selectedCompany.Company.PhysicalAddress.City }}
+                        {{selectedCompany.Company.PhysicalAddress.State }}
+                        {{ selectedCompany.Company.PhysicalAddress.ZipCode }}
                     </p>
                 </div>
-
             </div>
 
 
             <div class="row col-md-12">
-
-                <!-- <div class="col-md-12" style="height: 2px; background-color: #D3D3D3; margin-left: 10px">&nbsp;</div> -->
                 <!-- Thinner, grayer line -->
                 <div><hr></div>
-
                 <div class="col-md-12" style="margin-left: 25px">
                     <h3>
                         REVIEWS

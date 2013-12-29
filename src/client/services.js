@@ -9,7 +9,6 @@ angular.module('myApp.services', [
     'myApp.constants'
 ])
 
-
 /*
  *  Initializes a scope variable to a dictionary representing the activated values.
  *
@@ -43,17 +42,18 @@ angular.module('myApp.services', [
             chosen.push(key);
         }
     };
-  return chosen;
+    return chosen;
 })
 
-/*  Alters an svg element with the given color choices
+/*  
+ *  Alters an svg element with the given color choices
  *
  *  @param svgElement: the svg element to be altered
  *  @param colors: an object w/ opacity, fillOpacity & fill to alter the svg appropriately
  */
-.constant('alterSVG', function (svgElement, colors) {
+.constant('alterSVG', function (region, colors) {
     // finds all the "path" nodes for the svg (states that make up the region)
-    var svgChildren = svgElement.getElementsByTagName("path");
+    var svgChildren = document.getElementById(region).getElementsByTagName("path");
     for (var childIndex in svgChildren){
         var child = svgChildren[childIndex];
         if (child.style != null){

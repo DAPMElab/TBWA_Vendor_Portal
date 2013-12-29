@@ -40,21 +40,21 @@ angular.module('myApp.constants', [])
     'W': "west"
 })
 
-.constant('availableCategories', {
-    "Animation": false,
-    "Casting": false,
-    "Digital Production": false,
-    "Directorial": false,
-    "Distribution": false,
-    "Editorial": false,
-    "Illustration": false,
-    "Music": false,
-    "Post Effects": false,
-    "Print Production": false,
-    "Production": false,
-    "Sound Design": false,
-    "Storyboarding": false,
-    "Translation": false,
-    "Other": false,
-});
+.constant('availableCategories', [
+    "Animation",
+    "Casting",
+    "Digital Production",
+    "Directorial",
+    "Distribution",
+    "Editorial",
+    "Illustration",
+    "Music",
+    "Post Effects",
+    "Print Production",
+    "Production",
+    "Sound Design",
+    "Storyboarding",
+    "Translation",
+    "Other",
+]);
 
