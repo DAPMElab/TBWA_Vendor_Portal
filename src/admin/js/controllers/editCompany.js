@@ -5,7 +5,7 @@
 
 angular.module('app.editCompany', [])
 .controller('EditCompanyController', function ($scope, $http, $routeParams, $location,
-      categories, classifications, states, setUpDict, condenseDictionary) {
+      availableCategories, classifications, states, setUpDict, condenseDictionary) {
 
   // declare scope variables
   $scope.pageTitle = 'Editing Company -';

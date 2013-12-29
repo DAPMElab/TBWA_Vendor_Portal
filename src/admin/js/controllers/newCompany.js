@@ -5,7 +5,7 @@
 
 angular.module('app.newCompany', [])
 .controller('NewCompanyController', function ($scope, $http, $window,
-      categories, classifications, states, setUpDict, condenseDictionary) {
+      availableCategories, classifications, states, setUpDict, condenseDictionary) {
 
   // declare scope variables
   $scope.pageTitle = 'New Company Information';

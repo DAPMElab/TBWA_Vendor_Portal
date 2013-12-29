@@ -3,7 +3,9 @@
  *  Holds constants for the project
  */
 
-angular.module('myApp.constants', [])
+angular.module('myApp.constants', [
+    'site.constants'
+])
 
 .value('mapUrl', "client/img/USMap.svg")
 
@@ -38,23 +40,5 @@ angular.module('myApp.constants', [])
     'NE': "northeast",
     'SW': "southwest",
     'W': "west"
-})
-
-.constant('availableCategories', [
-    "Animation",
-    "Casting",
-    "Digital Production",
-    "Directorial",
-    "Distribution",
-    "Editorial",
-    "Illustration",
-    "Music",
-    "Post Effects",
-    "Print Production",
-    "Production",
-    "Sound Design",
-    "Storyboarding",
-    "Translation",
-    "Other",
-]);
+});
 
