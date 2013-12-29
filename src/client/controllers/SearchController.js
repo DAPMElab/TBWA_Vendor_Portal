@@ -3,8 +3,8 @@
  */
 angular.module('myApp.controllers', [])
 .controller('SearchController',function($scope, $http, $modal,
-      $location, setUpDict, condenseDictionary, jobSizeRanges,
-      mapColors, availableCategories, mapUrl, alterSVG){
+        $location, setUpDict, condenseDictionary, jobSizeRanges,
+        mapColors, availableCategories, mapUrl, alterSVG){
 
     //Live companies showing after sort
     $scope.companies = [];
@@ -22,7 +22,7 @@ angular.module('myApp.controllers', [])
     //map settings
     $scope.mapUrl = mapUrl;
     $scope.mapColors = mapColors;
-    var activeRegions = [];
+    $scope.activeRegions = [];
 
     $scope.sortFilters = [
         "Rating",
@@ -42,6 +42,7 @@ angular.module('myApp.controllers', [])
 
         //Highlight the map and update the regions
         var regions = searchParams.regions;
+        $scope.activeRegions = regions || [];
         for (regionIndex in regions) {
             alterSVG(regions[regionIndex], mapColors.highlighted);
         }
@@ -63,6 +64,20 @@ angular.module('myApp.controllers', [])
                 $scope.updateSelectedCompany( $scope.companies[0] );
             })
     };
+
+    /*
+     *  Watch the search values and update the query string
+     */
+    $scope.$watchCollection('categories', function (newCategories, oldCategories) {
+        $location.search('categories', condenseDictionary(newCategories));
+    });
+    $scope.$watchCollection('activeRegions', function (newRegions, oldRegions) {
+        $location.search('regions', newRegions);
+    });
+    $scope.$watch('searchText', function (newSearch, oldSearch) {
+        $location.search('regions', newSearch);
+    });
+
 
     $scope.updateSelectedCompany = function(newSelection) {
         // Send a new Get request to retrieve the rest of the information
@@ -87,16 +102,17 @@ angular.module('myApp.controllers', [])
      * @param region: region ID
      */
     $scope.highlightMap = function(region){
-        var regionIndex = activeRegions.indexOf(region);
+        var regionIndex = $scope.activeRegions.indexOf(region);
         if (regionIndex == -1) {
             // highlight and add to list if highlighting
-            activeRegions.push(region);
+            $scope.activeRegions.push(region);
             alterSVG(region, mapColors.highlighted);
         } else {
             // fade and delete from list if unhighlighting
-            activeRegions.splice(regionIndex, 1);
+            $scope.activeRegions.splice(regionIndex, 1);
             alterSVG(region, mapColors.defaultState);
         }
+        console.log($scope.activeRegions);
     };
 
 

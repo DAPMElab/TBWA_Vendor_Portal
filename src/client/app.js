@@ -12,9 +12,16 @@ angular.module('myApp', [
 ])
 .config(['$routeProvider', function($routeProvider) {
     //Search results
-    $routeProvider.when('/search', {templateUrl: 'client/partials/search.html', controller: 'SearchController'});
+    $routeProvider.when('/search', {
+        templateUrl: 'client/partials/search.html',
+        controller: 'SearchController',
+        reloadOnSearch: false
+    });
     // home
-    $routeProvider.when('/', {templateUrl: 'client/partials/home.html', controller: 'HomeController'});
+    $routeProvider.when('/', {
+        templateUrl: 'client/partials/home.html',
+        controller: 'HomeController'
+    });
 
     $routeProvider.otherwise({redirectTo: '/'});
 }]);

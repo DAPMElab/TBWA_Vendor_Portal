@@ -25,7 +25,7 @@ angular.module('app.newCompany', [])
    *  Initializes the category & classification lists
    */
   $scope.initPage = function () {
-    $scope.categories = setUpDict([], categories);
+    $scope.categories = setUpDict([], availableCategories);
     $scope.classifications = setUpDict([], classifications);
   };
 

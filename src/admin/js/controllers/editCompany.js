@@ -27,7 +27,7 @@ angular.module('app.editCompany', [])
       .success(function (resp) {
         console.log(resp);
         $scope.company = resp.data.Company;
-        $scope.categories = setUpDict($scope.company.Categories, categories);
+        $scope.categories = setUpDict($scope.company.Categories, availableCategories);
         $scope.classifications = setUpDict($scope.company.Classifications, classifications);
       })
       .error(function (err) {
