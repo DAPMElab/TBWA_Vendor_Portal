@@ -29,6 +29,10 @@ angular.module('app.editCompany', [])
         $scope.company = resp.data.Company;
         $scope.categories = setUpDict($scope.company.Categories, availableCategories);
         $scope.classifications = setUpDict($scope.company.Classifications, classifications);
+
+        if (!$scope.company.videos) { // set videos to any array if it DNE
+          $scope.company.videos = [];
+        }
       })
       .error(function (err) {
         console.log(err);
