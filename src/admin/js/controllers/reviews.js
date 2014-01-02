@@ -16,8 +16,8 @@ angular.module('app.reviews', [])
 
         // join the applicable categories into one string for easy display
         for (var reviewIndex in $scope.reviews) {
-          if ('category' in $scope.reviews[reviewIndex]) {
-            $scope.reviews[reviewIndex]['category'] = $scope.reviews[reviewIndex]['category'].join(', ');
+          if ('Category' in $scope.reviews[reviewIndex]) {
+            $scope.reviews[reviewIndex]['Category'] = $scope.reviews[reviewIndex]['Category'].join(', ');
           }
         };
       }).error( function(err) {
