@@ -1,0 +1,59 @@
+
+<div class="row col-md-7">
+    <div class="row col-md-12" style="margin-left: 10px">
+        <div class="col-md-7">
+            <div>
+                <h2>{{selectedCompany.Company.Name}}</h2>
+                <!--Rating block-->
+                <h6><img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15"> {{selectedCompany.Reviews.Count}} ratings</h6>
+
+                <p>{{ selectedCompany.Company.Categories.join(", ") }}</p>
+                <p>
+                    <a href="{{selectedCompany.Company.URL}}" target="_blank">{{selectedCompany.Company.URL}}</a>
+                </p>
+
+                <!-- Displaying the contact information -->
+                <p>
+                    {{ selectedCompany.Company.Contact.Name }}
+                    </br>
+                    {{ selectedCompany.Company.Contact.Email }}
+                    </br>
+                    {{ selectedCompany.Company.Contact.Phone }}
+                </p>
+
+            </div>
+        </div>
+
+        <div class="col-md-5" style="padding: 20px; text-align:right">
+            <!-- Displaying the physical address -->
+            <p>
+                {{ selectedCompany.Company.PhysicalAddress.Address }}
+                </br>
+                {{ selectedCompany.Company.PhysicalAddress.City }}
+                {{selectedCompany.Company.PhysicalAddress.State }}
+                {{ selectedCompany.Company.PhysicalAddress.ZipCode }}
+            </p>
+        </div>
+    </div>
+
+
+    <div class="row col-md-12">
+        <!-- Thinner, grayer line -->
+        <div><hr></div>
+        <div class="col-md-12" style="margin-left: 25px">
+            <h3>
+                REVIEWS
+                <a id="less" style="cursor: pointer; font-size: 14px" ng-click="open()">Add a review</a>
+            </h3>
+
+            <!-- When an actual review is written, work on the formatting of this section
+            <div ng-repeat = "review in selectedCompany.Reviews">
+                {{review.category}} ( {{review.cost}} )
+                <br />
+                {{review.rating}} / 5 stars
+                {{review.content}}
+            </div>
+            -->
+        </div>
+    </div>
+</div>
