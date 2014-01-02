@@ -6,7 +6,6 @@ angular.module('myApp', [
         'ngResource',
         'myApp.filters',
         'myApp.services',
-        'myApp.directives',
         'myApp.controllers',
         'ui.bootstrap',
 ])
