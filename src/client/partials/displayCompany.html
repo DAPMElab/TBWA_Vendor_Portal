@@ -7,7 +7,6 @@
                 <!--Rating block-->
                 <h6><img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15"> {{selectedCompany.Reviews.Count}} ratings</h6>
 
-                <p>{{ selectedCompany.Company.Categories.join(", ") }}</p>
                 <p>
                     <a href="{{selectedCompany.Company.URL}}" target="_blank">{{selectedCompany.Company.URL}}</a>
                 </p>
@@ -45,15 +44,16 @@
                 REVIEWS
                 <a id="less" style="cursor: pointer; font-size: 14px" ng-click="open()">Add a review</a>
             </h3>
-
-            <!-- When an actual review is written, work on the formatting of this section
-            <div ng-repeat = "review in selectedCompany.Reviews">
-                {{review.category}} ( {{review.cost}} )
+  
+            <div ng-repeat="review in selectedCompany.Reviews.Messages">
+                Category: {{ review.Category.join(', ') }}
                 <br />
-                {{review.rating}} / 5 stars
-                {{review.content}}
+                Cost: {{ review.Cost }}
+                <br />
+                Rating: {{ review.Rating }} / 5 stars
+                <br />
+                Description: {{ review.Description }}
             </div>
-            -->
         </div>
     </div>
 </div>
