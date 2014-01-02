@@ -50,8 +50,9 @@ def create(uid):
         key = r_outcome['generated_keys'][0]
 
         c_outcome = (r.table(C_TABLE)
-                .get(uid)['ReviewIds']
-                .append(key)
+                .update({
+                    'ReviewIds': r.row['ReviewIds'].set_insert(key)
+                })
                 .run(g.rdb_conn))
         print c_outcome
 
@@ -67,7 +68,12 @@ def create(uid):
 @admin
 def approve(uid):
     """ Removes a review from the queue and links it to the company. """
-    outcome = r.table(TABLE).get(uid).update({'Approved': True}).run(g.rdb_conn)
+    outcome = (r.table(TABLE)
+                .get(uid)
+                .update({
+                    'Approved': True
+                })
+                .run(g.rdb_conn))
     
     if outcome['replaced'] == 1:
         return make_response(json.dumps({

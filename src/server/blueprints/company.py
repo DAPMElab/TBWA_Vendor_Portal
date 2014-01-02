@@ -60,22 +60,23 @@ def get(uid):
             lambda comp : r.expr({
                 'Company': comp,
                 'Reviews': {
-                    'Messages'  : comp['ReviewIds'].map(
-                        lambda rev : r.table(R_TABLE).get(rev)
-                    ).filter({'Approved': True}),
-                    'Count'     : comp['ReviewIds'].map(
-                        lambda rev : r.table(R_TABLE).get(rev)
-                    ).filter({'Approved': True}).count(),
-                    'Sum'       : comp['ReviewIds'].map(
-                        lambda rev : r.table(R_TABLE).get(rev)
-                    ).filter({'Approved': True})
-                    .reduce(
+                    'Messages'  : r.table(R_TABLE).filter({
+                        'Approved': True,
+                        'Company': comp['id']
+                    }).coerce_to('array'),
+                    'Sum'       : r.table(R_TABLE).filter({
+                        'Approved': True,
+                        'Company': comp['id']
+                    }).map(
+                        lambda rev: rev['Rating']
+                    ).reduce(
                         lambda a, b : a+b, 0
                     )
                 }
             })
         )).run(g.rdb_conn)
-    except RqlRuntimeError:
+    except RqlRuntimeError, e:
+        print e
         return make_error(err='COMPANY_NOT_FOUND')
 
 
@@ -108,9 +109,11 @@ def list(info):
                             lambda rev : r.table(R_TABLE).get(rev)
                         ).count(),
                         'Sum'       : comp['ReviewIds'].map(
-                            lambda rev : r.table(R_TABLE).get(rev).reduce(
-                                lambda a, b : a+b, 0
-                            )
+                            lambda rev : (r.table(R_TABLE)
+                                        .get(rev)['Rating']
+                                        .default(0))
+                        ).reduce(
+                            lambda a, b : a+b, 0
                         )
                     }
                 })
