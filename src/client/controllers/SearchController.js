@@ -6,6 +6,22 @@ angular.module('myApp.controllers', [])
         $location, setUpDict, condenseDictionary, jobSizeRanges,
         mapColors, availableCategories, mapUrl, alterSVG){
 
+    var searchParams = $location.search();
+    var regions =  [];
+    if (searchParams.regions) {
+      regions = [].concat(searchParams.regions);
+    }
+    $scope.activeRegions = [];
+    //Add and update categories
+    var paramCats = [];
+    if (searchParams.categories) {
+      paramCats = [].concat(searchParams.categories);
+    }
+    $scope.categories = setUpDict(paramCats, availableCategories);
+
+    //Update the search text keyword
+    $scope.searchText = searchParams.searchText;
+
     //Live companies showing after sort
     $scope.companies = [];
     $scope.jobSizeRanges = jobSizeRanges;
@@ -22,7 +38,6 @@ angular.module('myApp.controllers', [])
     //map settings
     $scope.mapUrl = mapUrl;
     $scope.mapColors = mapColors;
-    $scope.activeRegions = [];
 
     $scope.sortFilters = [
         "AverageReview",
@@ -33,26 +48,16 @@ angular.module('myApp.controllers', [])
     $scope.starPhoto = "client/img/star.png";
     $scope.emptyPhoto = "client/img/starEmpty.png";
 
+
     /**
      * Executed on load of the main page to get information about each company and
      * load the search parameters
      */
     $scope.initPage = function(){
-        var searchParams = $location.search();
-
         //Highlight the map and update the regions
-        var regions = searchParams.regions;
-        $scope.activeRegions = regions || [];
         for (regionIndex in regions) {
-            alterSVG(regions[regionIndex], mapColors.highlighted);
+            $scope.highlightMap(regions[regionIndex]);
         }
-
-        //Add and update categories
-        var paramCats = [].concat(searchParams.categories);
-        $scope.categories = setUpDict(paramCats, availableCategories);
-
-        //Update the search text keyword
-        $scope.searchText = searchParams.searchText;
 
         //query server for company list
         $http.get('/company/list')
@@ -75,7 +80,7 @@ angular.module('myApp.controllers', [])
         $location.search('regions', newRegions);
     });
     $scope.$watch('searchText', function (newSearch, oldSearch) {
-        $location.search('regions', newSearch);
+        $location.search('searchText', newSearch);
     });
 
 
@@ -112,7 +117,6 @@ angular.module('myApp.controllers', [])
             $scope.activeRegions.splice(regionIndex, 1);
             alterSVG(region, mapColors.defaultState);
         }
-        console.log($scope.activeRegions);
     };
 
 
