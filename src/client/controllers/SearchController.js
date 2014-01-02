@@ -25,7 +25,7 @@ angular.module('myApp.controllers', [])
     $scope.activeRegions = [];
 
     $scope.sortFilters = [
-        "Rating",
+        "AverageReview",
         "Name"
     ];
 

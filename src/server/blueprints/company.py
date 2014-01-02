@@ -105,13 +105,15 @@ def list(info):
                         *return_company_attribute
                     ),
                     'Reviews': {
-                        'Count'     : comp['ReviewIds'].map(
-                            lambda rev : r.table(R_TABLE).get(rev)
-                        ).count(),
-                        'Sum'       : comp['ReviewIds'].map(
-                            lambda rev : (r.table(R_TABLE)
-                                        .get(rev)['Rating']
-                                        .default(0))
+                        'Count'     : r.table(R_TABLE).filter({
+                            'Approved': True,
+                            'Company': comp['id']
+                        }).count(),
+                        'Sum'       : r.table(R_TABLE).filter({
+                            'Approved': True,
+                            'Company': comp['id']
+                        }).map(
+                            lambda rev: rev['Rating']
                         ).reduce(
                             lambda a, b : a+b, 0
                         )

@@ -5,8 +5,13 @@
         Sort by <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu" >
-        <li><a href="" ng-repeat = "myFilter in sortFilters" ng-click="updatePredicate(myFilter)">{{myFilter}}</a></li>
-        <!--Stop hard-coding things in html-->
+        <li>
+            <a href=""
+                ng-repeat="myFilter in sortFilters"
+                ng-click="updatePredicate(myFilter)">
+                {{ myFilter }}
+            </a>
+        </li>
     </ul>
 </div>
 
@@ -33,7 +38,7 @@
                         <img ng-repeat="i in getNumberOfEmptyStars(company.AverageReview) track by $index" ng-src="{{emptyPhoto}}">
                     </div>
 
-                    <p style="font-size: 12px">{{company.ReviewIds.length}} ratings</p>
+                    <p style="font-size: 12px">{{ company.ReviewIds.length }} ratings</p>
                 </div>
 
                 <h4>{{company.Name}}</h4>
