@@ -1,42 +1,36 @@
 <!doctype html>
 <html lang="en" ng-app="myApp">
-<head>
-  <meta charset="utf-8">
-  <title>TBWA</title>
-  <link rel="stylesheet" href="client/css/app.css"/>
-  <link rel="stylesheet" href="client/css/bootstrap.css"/>
-  <link rel='icon' href='/favicon.ico' type="image/x-icon">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> 
-</head>
-<body>
 
-  <!--<div ng-include="'client/partials/header.html'"></div>  -->
-  <div ng-view style="height: 100%; width: 100%"></div>
+  <head>
+    <meta charset="utf-8">
+    <title>TBWA</title>
+    <link rel="stylesheet" href="client/css/app.css"/>
+    <link rel="stylesheet" href="client/css/bootstrap.css"/>
+    <link rel='icon' href='/favicon.ico' type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> 
+  </head>
 
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-  -->
-  <script src="client/js/lib/angular.js"></script>
-  <script src="client/js/lib/angular-route.js"></script>
-  <script src="//code.angularjs.org/1.2.3/angular-resource.js"></script>
+  <body>
+    <!--<div ng-include="'client/partials/header.html'"></div>  -->
+    <div ng-view style="height: 100%; width: 100%"></div>
 
-  <script src="client/js/lib/jquery-2.0.3.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.6.0/ui-bootstrap-tpls.min.js"></script>
+    <!-- libaries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.6.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 
-  <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <!-- app files -->
+    <script src="client/js/app.js"></script>
+    <script src="client/js/services.js"></script>
+    <script src="client/js/services/constants.js"></script>
+    <script src="client/js/controllers.js"></script>
+    <script src="client/js/filters.js"></script>
+    <script src="client/js/controllers/SearchController.js"></script>
+    <script src="client/js/controllers/HomeController.js"></script>
 
-  <script src="client/js/app.js"></script>
-  <script src="client/js/services.js"></script>
-  <script src="client/js/services/constants.js"></script>
-  <script src="client/js/controllers.js"></script>
-  <script src="client/js/filters.js"></script>
+    <!-- sitewide constants -->
+    <script src="static/js/appConstants.js"></script>
 
-  <script src="static/js/appConstants.js"></script>
-
-  <!-- Controllers -->
-  <script src="client/js/controllers/SearchController.js"></script>
-  <script src="client/js/controllers/HomeController.js"></script>
-
-</body>
-
+  </body>
 </html>
