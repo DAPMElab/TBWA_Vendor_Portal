@@ -13,8 +13,8 @@ angular.module('site.constants', [])
   'Post Production',
   'Print',
   'Production',
-  'Sound/Music’,
+  'Sound/Music',
   'Translations',
-  'Other'
+  'Other',
 ]);
 
