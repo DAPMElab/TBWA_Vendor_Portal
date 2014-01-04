@@ -20,8 +20,6 @@ angular.module('app.listCompany', [])
       .error(function (err) {
         console.log(err);
       });
-
   };
-
 });
 
