@@ -15,6 +15,7 @@ man/
 lib/
 bin/
 *.pyc
+build/
 
 # angular
 !src/client/lib
