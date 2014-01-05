@@ -9,6 +9,7 @@ chardet==2.0.1
 command-not-found==0.2.44
 ## FIXME: could not find svn URL in dependency_links for this package:
 distribute==0.6.24dev-r0
+gunicorn==18.0
 itsdangerous==0.23
 language-selector==0.1
 logilab-astng==0.23.0

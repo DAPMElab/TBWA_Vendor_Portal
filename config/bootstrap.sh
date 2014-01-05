@@ -25,7 +25,6 @@ sudo echo "http-port=8080" >> /etc/rethinkdb/instances.d/instance1.conf
 # python
 apt-get -y install python
 apt-get -y install python-pip
-apt-get -y install pylint
 # install all declared requirements
 sudo pip install -r /vagrant/config/requirements.txt
 

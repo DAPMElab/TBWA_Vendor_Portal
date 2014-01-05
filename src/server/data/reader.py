@@ -6,8 +6,12 @@ from sys import exit
 import os
 this_dir = os.path.dirname(__file__)
 
-data_paths = { 'companies': os.path.join(this_dir, 'assets/tbwa/companies.json')}
-application_tables = ['admin', 'reviews']
+if os.environ['DEPLOY'] == 'TRUE':
+    data_paths = {'companies': os.path.join(this_dir, 'assets/tbwa/companies.json')}
+    application_tables = ['admin', 'reviews']
+else:
+    data_paths = {}
+    application_tables = ['admin', 'reviews', 'companies']
 
 
 def setup_db(rdb_host, rdb_port, rdb_name,
