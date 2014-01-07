@@ -14,7 +14,13 @@ try:
         DEBUG = True
     SECRET_KEY = 's2k3j42lk3j4lk23j'    # TODO: generate real key
 
+
+    HOST = '0.0.0.0'
     HOME_PATH = '/vagrant'
+    if env['DEPLOY']:
+        HOST = 'localhost'
+        HOME_PATH = '/root/TBWA'
+
 
 except KeyError:
     """ Throw an error and exit if any settings are missing """
