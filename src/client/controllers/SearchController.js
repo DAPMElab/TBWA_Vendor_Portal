@@ -148,7 +148,7 @@ angular.module('myApp.controllers', [])
         };
         $scope.reviewCategoryChoices = setUpDict([], $scope.selectedCompany.Company.Categories);
         $scope.modalInstance = $modal.open({
-            templateUrl: 'client/partials/writereview.html',
+            templateUrl: 'client/partials/writeReview.html',
             scope: $scope
         });
         console.log('modal opened');
