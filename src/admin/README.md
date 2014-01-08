@@ -31,12 +31,12 @@
   - `editCompany.js`
     - facilitates editting the information of a company
     - controls `admin#/companies/edit/< cid >`
-    - tied to `editCompanyButtons.html`
+    - tied to `/partials/editCompanyButtons.html`
     - shares `/partials/company.html` with `newCompany.js`
   - `newCompany.js`
     - facilitates the creation of a company
     - controls `admin#/companies/new`
-    - tied to `/partials/company.html` & `newCompanyButtons.html`
+    - tied to `/partials/company.html` & `/partials/newCompanyButtons.html`
   - `newAdmin.js`
     - allows the admin to create another admin profile
     - controls `/admin#/new`

@@ -22,10 +22,20 @@
 
       <div class="form-group">
 
-        <!-- Categories -->
+        <!-- Categories LEFT -->
         <div id="left">
           <label>Category(s)</label>
-          <div class="checkbox" ng-repeat="(name, value) in categories">
+          <div class="checkbox" ng-repeat="(name, value) in categories" ng-show="$even">
+            <label>
+              <input type="checkbox" ng-model="categories[name]"> {{ name }}
+            </label>
+          </div>
+        </div>
+
+        <!-- Categories RIGHT -->
+        <div id="left">
+          <label>Category(s)</label>
+          <div class="checkbox" ng-repeat="(name, value) in categories" ng-show="!$even">
             <label>
               <input type="checkbox" ng-model="categories[name]"> {{ name }}
             </label>
@@ -145,7 +155,7 @@
           placeholder="http://youtube.com/...">
       </div>
 
-      <!-- Buttons -->
+      <!-- Buttons, loads a partial declared in the controller  -->
       <br><br>
       <div ng-include="pageButtons"></div>
       <br style="clear:both;"/>
