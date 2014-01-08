@@ -1,5 +1,5 @@
 
-/*  Controls the homepage where unapproved reviews are shown.
+/*  Controls the homepage where companies are listed for editting.
  **/
 
 angular.module('app.listCompany', [])

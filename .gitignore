@@ -5,9 +5,6 @@
 # rethinkdb
 rethinkdb_data/
 
-# node
-node_modules/
-
 # python
 .Python
 include/
