@@ -1,5 +1,5 @@
 
-<div class="container" ng-init="initPage()">
+<div ng-init="initPage()">
 
   <!-- Review -->
   <div class="jumbotron">
@@ -53,7 +53,9 @@
 
 </div>
 
-<h1 ng-show="!reviews.length">
-  No reviews to address!
-</h1>
+  <div class="content-area">
+    <h3 ng-show="!reviews.length">
+      No reviews to address!
+    </h3>
+  </div>
 
