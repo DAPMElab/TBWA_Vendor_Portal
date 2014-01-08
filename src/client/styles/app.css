@@ -88,3 +88,9 @@ html, body {
 .categoryColumn{
     height: 100px;
 }
+
+/* Review Display */
+p.content {
+    white-space: pre;
+}
+

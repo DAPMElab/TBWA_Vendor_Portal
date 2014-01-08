@@ -45,19 +45,16 @@
         ng-click="deleteReview($index)">
           Confirm Dismiss
       </button>
-
     </div>
 
     <br style="clear:both;"/>
-    <p>
-      {{ review.Description }}
-    </p>
+    <p class="content">{{ review.Description }}</p>
   </div>
 
 </div>
 
-  <div class="content-area">
-    <h3 ng-show="!reviews.length">
+  <div class="content-area" ng-show="!reviews.length">
+    <h3>
       No reviews to address!
     </h3>
   </div>

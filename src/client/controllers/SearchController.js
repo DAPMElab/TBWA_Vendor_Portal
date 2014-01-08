@@ -159,12 +159,14 @@ angular.module('myApp.controllers', [])
     };
 
     $scope.submitReview = function () {
-        var data = {};
-        data["Company"] = $scope.selectedCompany.Company.id;
-        data["Rating"] = 5;
-        data["Description"] = $scope.newReview.Description;
-        data["Category"] = condenseDictionary($scope.reviewCategoryChoices);
-        data["Cost"] = $scope.newReview.Cost;
+        var data = {
+          Company:      $scope.selectedCompany.Company.id,
+          Rating:       5,
+          Description:  $scope.newReview.Description,
+          Category:     condenseDictionary($scope.reviewCategoryChoices),
+          Cost:         $scope.newReview.Cost,
+        };
+        console.log(data);
         $http.post('/review/create/' + $scope.selectedCompany.Company.id, data)
             .success(function (response) {
                 console.log("Review was received.");
