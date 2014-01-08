@@ -115,7 +115,7 @@
         <textarea class="form-control" rows="3"
           placeholder="Description" ng-model="company.description"></textarea>
       </div>
-
+<pre>{{ company | json }}</pre>
       <div class="form-group">            
         <label for="video">Video (YouTube)</label>
         <div ng-repeat="video in company.videos">
