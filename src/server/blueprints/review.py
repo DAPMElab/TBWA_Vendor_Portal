@@ -47,18 +47,9 @@ def create(uid):
                 .run(g.rdb_conn))
     
     if r_outcome['inserted'] == 1:
-        key = r_outcome['generated_keys'][0]
-
-        c_outcome = (r.table(C_TABLE)
-                .update({
-                    'ReviewIds': r.row['ReviewIds'].set_insert(key)
-                })
-                .run(g.rdb_conn))
-        print c_outcome
-
         return make_response(json.dumps({
             'message'   : 'review created',
-            'uid'       :  key,
+            'uid'       :  r_outcome['generated_keys'][0]
         }), 201)
     else:
         return make_error(err='REVIEW_NOT_CREATED')
@@ -72,10 +63,19 @@ def approve(uid):
                 .get(uid)
                 .update({
                     'Approved': True
-                })
+                }, return_vals = True)
                 .run(g.rdb_conn))
-    
-    if outcome['replaced'] == 1:
+    if not outcome['replaced']:
+        return make_error(err='REVIEW_APPROVAL_FAILURE')
+
+    cid = outcome['old_val']['CompanyID']
+    c_outcome = (r.table(C_TABLE)
+                    .get(cid)
+                    .update({
+                        'ReviewIds': r.row['ReviewIds'].set_insert(cid)
+                    }).run(g.rdb_conn))
+
+    if c_outcome['replaced'] == 1:
         return make_response(json.dumps({
             'message'   : 'review approved'
         }), 200)
