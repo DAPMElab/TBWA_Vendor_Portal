@@ -17,7 +17,7 @@ try:
 
     HOST = '0.0.0.0'
     HOME_PATH = '/vagrant'
-    if env['DEPLOY']:
+    if env['DEPLOY'] == 'TRUE':
         HOST = 'localhost'
         HOME_PATH = '/root/TBWA'
 
