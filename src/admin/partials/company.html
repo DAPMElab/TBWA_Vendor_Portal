@@ -87,6 +87,7 @@
         <br style="clear:both;"/>
       </div>
 
+      <br>
       <h3>Contact Information</h3>
       <div class="form-group">            
         <label for="contact-name">Contact Name</label>
@@ -109,33 +110,43 @@
           ng-model="company.Contact.Phone">
       </div>
 
+      <br>
       <h3>Additional Information</h3>
       <div class="form-group">            
         <label for="contact-name">Long description</label>
         <textarea class="form-control" rows="3"
           placeholder="Description" ng-model="company.description"></textarea>
       </div>
-      <div class="form-group">            
-        <label for="video">Video (YouTube)</label>
-        <div ng-repeat="video in company.videos">
+
+      <!--Youtube Videos-->
+      <label for="video">Video (YouTube)</label>
+      <div ng-repeat="video in company.videos">
+        <div class="input-group">
+          <span class="input-group-btn">
+            <button ng-click="company.videos.splice($index, 1)" class="btn btn-danger" type="button"><span class="glyphicon glyphicon-minus"></span></button>
+          </span>
           <input
             ng-model="video"
             type="url"
             class="form-control"
             id="video"
-            placeholder="Video URL">
-          <button ng-click="company.videos.splice($index, 1)">Remove Video</button>
+            placeholder="http://youtube.com/...">
         </div>
+      </div>
+      <div class="input-group">
+        <span class="input-group-btn">
+            <button ng-click="addVideo()" class="btn btn-success" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+        </span>
         <input
           ng-model="nextVideo"
           type="url"
           class="form-control"
           id="video"
-          placeholder="Video URL">
-        <button ng-click="addVideo()">Add Video</button>
+          placeholder="http://youtube.com/...">
       </div>
 
       <!-- Buttons -->
+      <br><br>
       <div ng-include="pageButtons"></div>
       <br style="clear:both;"/>
 
