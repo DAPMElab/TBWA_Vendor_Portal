@@ -5,7 +5,7 @@
 
 angular.module('app.editCompany', [])
 .controller('EditCompanyController', function ($scope, $http, $routeParams, $location,
-      availableCategories, classifications, states, setUpDict, condenseDictionary) {
+      availableCategories, classifications, states, setUpDict, condenseDictionary, flash) {
 
   // declare scope variables
   $scope.pageTitle = 'Editing Company -';
@@ -29,10 +29,6 @@ angular.module('app.editCompany', [])
         $scope.company = resp.data.Company;
         $scope.categories = setUpDict($scope.company.Categories, availableCategories);
         $scope.classifications = setUpDict($scope.company.Classifications, classifications);
-
-        if (!$scope.company.videos) { // set videos to any array if it DNE
-          $scope.company.videos = [];
-        }
       })
       .error(function (err) {
         console.log(err);
@@ -51,6 +47,7 @@ angular.module('app.editCompany', [])
     $http({method: 'PATCH', url: '/company/edit/'+$scope.companyId, data: $scope.company})
       .success(function (resp) {
         console.log(resp);
+        flash.post('Company Updated', 'alert-info');
       })
       .error(function (err) {
         console.log(err);

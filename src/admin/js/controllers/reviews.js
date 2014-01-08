@@ -3,7 +3,7 @@
  **/
 
 angular.module('app.reviews', [])
-.controller('ReviewController', function ($scope, $http) {
+.controller('ReviewController', function ($scope, $http, flash) {
 
   /*  
    *  Loads all relevevant data for the page on initialization
@@ -22,6 +22,7 @@ angular.module('app.reviews', [])
         };
       }).error( function(err) {
         console.log(err);
+        flash.post(err.message, 'alert-danger');
       });
   };
 
@@ -35,9 +36,11 @@ angular.module('app.reviews', [])
     $http.post('/review/approve/'+review.id)
       .success(function (resp) {
         $scope.reviews.splice(reviewIndex, 1); // remove from list
+        flash.post('Review approved', 'alert-info');
       })
       .error(function (err) {
         console.log(err);
+        flash.post(err.message, 'alert-danger');
       });
   };
   
@@ -52,9 +55,11 @@ angular.module('app.reviews', [])
       .success(function (resp) {
         console.log(resp);
         $scope.reviews.splice(reviewIndex, 1);  // remove from list
+        flash.post('Review deleted', 'alert-info');
       })
       .error(function (err) {
         console.log(err);
+        flash.post(err.message, 'alert-danger');
       });
   };
 

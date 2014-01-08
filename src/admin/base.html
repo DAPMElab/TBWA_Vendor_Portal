@@ -33,7 +33,13 @@
     <div ng-include="'admin_asset/partials/navbar.html'"></div>
 
     <!-- Angular View -->
-    <div class="container" ng-view>
+    <div class="container" >
+      <div ng-controller="flashController" ng-show="displayAlert">
+        <div class="alert {{ flash.get().alertType }}">
+          {{ flash.get().message }}
+        </div>
+      </div>
+      <div ng-view></div>
     </div>
 
     <!-- Javascript -->
@@ -53,6 +59,7 @@
     <script src="admin_asset/js/controllers/newCompany.js"></script>
     <script src="admin_asset/js/controllers/navbar.js"></script>
     <script src="admin_asset/js/controllers/newAdmin.js"></script>
+    <script src="admin_asset/js/controllers/flash.js"></script>
 
     <script src="static/js/appConstants.js"></script>
   </body>

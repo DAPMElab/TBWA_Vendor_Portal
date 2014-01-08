@@ -5,6 +5,7 @@ angular.module('app.controllers', [
   'app.listCompany',
   'app.reviews',
   'app.navbar',
-  'app.admin'
+  'app.admin',
+  'app.flash',
 ]);
 

@@ -37,5 +37,44 @@ angular.module('app.Services', [])
     }
   };
   return chosen;
+})
+
+/*
+ *  Controls boostrap alerts
+ *
+ *  Flashes a message for 5 seconds. Requires a message and an alert type to post.
+ *  type options: [
+ *    alert-success
+ *    alert-info
+ *    alert-warning
+ *    alert-danger
+ *  ]
+ */
+.factory('flash', function ($rootScope, $timeout) {
+  var message = "",
+      alertType = "";
+  $rootScope.displayAlert = false;
+
+  return {
+    // posts a flash alert
+    post : function (msg, type) {
+      message = msg;
+      alertType = type;
+      $rootScope.displayAlert = true;
+
+      $timeout( // clear message after 5 seconds
+        function () {
+          $rootScope.displayAlert = false;
+        }, 1000 * 5 // 5 seconds
+      );
+    },
+    // returns the current flash alert
+    get : function () {
+      return {
+        'message': message,
+        'alertType': alertType
+      };
+    }
+  };
 });
 

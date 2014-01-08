@@ -69,10 +69,11 @@ def approve(uid):
         return make_error(err='REVIEW_APPROVAL_FAILURE')
 
     cid = outcome['old_val']['CompanyID']
+    rid = outcome['old_val']['id']
     c_outcome = (r.table(C_TABLE)
                     .get(cid)
                     .update({
-                        'ReviewIds': r.row['ReviewIds'].set_insert(cid)
+                        'ReviewIds': r.row['ReviewIds'].set_insert(rid)
                     }).run(g.rdb_conn))
 
     if c_outcome['replaced'] == 1:

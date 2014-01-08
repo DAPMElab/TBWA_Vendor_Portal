@@ -5,7 +5,7 @@
 
 angular.module('app.newCompany', [])
 .controller('NewCompanyController', function ($scope, $http, $window,
-      availableCategories, classifications, states, setUpDict, condenseDictionary) {
+      availableCategories, classifications, states, setUpDict, condenseDictionary, flash) {
 
   // declare scope variables
   $scope.pageTitle = 'New Company Information';
@@ -42,9 +42,11 @@ angular.module('app.newCompany', [])
         console.log(resp);
         var cid = resp.uid;
         $window.location.href = '/admin#/companies/edit/'+cid;
+        flash.post('Company created', 'alert-success');
       })
       .error(function (err) {
         console.log(err);
+        flash.post(err.message, 'alert-danger');
       });
   };
 

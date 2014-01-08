@@ -17,6 +17,7 @@ angular.module('app.navbar', [])
       })
       .error(function (err) {
         console.log(err);
+        flash.post(err.message, 'alert-danger');
       });
   };
 

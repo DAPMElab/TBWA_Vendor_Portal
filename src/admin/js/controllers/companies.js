@@ -3,7 +3,7 @@
  **/
 
 angular.module('app.listCompany', [])
-.controller('CompanyController', function ($scope, $http) {
+.controller('CompanyController', function ($scope, $http, flash) {
 
   /*
    *  Loads all the companies to the page
@@ -19,6 +19,7 @@ angular.module('app.listCompany', [])
       })
       .error(function (err) {
         console.log(err);
+        flash.post(err.message, 'alert-danger');
       });
   };
 });

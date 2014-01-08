@@ -1,7 +1,7 @@
 
 
 angular.module('app.admin', [])
-.controller('NewAdminController', function ($scope, $http, $window) {
+.controller('NewAdminController', function ($scope, $http, $window, flash) {
 
   $scope.create = function () {
     var data = { 'data': {
@@ -14,9 +14,11 @@ angular.module('app.admin', [])
       .success( function (resp) {
         console.log(resp);
         $window.location.href = '/admin#/';
+        flash.post("Admin account created for " + data.data.email, 'alert-success');
       })
       .error( function (err) {
         console.log(err);
+        flash.post(err.message, 'alert-danger');
       });
   };
 
