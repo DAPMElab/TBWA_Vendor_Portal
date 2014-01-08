@@ -475,6 +475,7 @@ h6 .small {
   font-size: 75%;
 }
 
+
 h1,
 .h1 {
   font-size: 36px;
@@ -3943,6 +3944,7 @@ input[type="button"].btn-block {
   position: relative;
   display: table;
   border-collapse: separate;
+  padding:5px 0px;
 }
 
 .input-group[class*="col-"] {
