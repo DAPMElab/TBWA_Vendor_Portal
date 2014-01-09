@@ -22,37 +22,40 @@
 
       <div class="form-group">
 
-        <!-- Categories LEFT -->
-        <div id="left">
-          <label>Category(s)</label>
-          <div class="checkbox" ng-repeat="(name, value) in categories" ng-show="$even">
-            <label>
-              <input type="checkbox" ng-model="categories[name]"> {{ name }}
-            </label>
-          </div>
-        </div>
+        <div class="row">
 
-        <!-- Categories RIGHT -->
-        <div id="left">
-          <label>Category(s)</label>
-          <div class="checkbox" ng-repeat="(name, value) in categories" ng-show="!$even">
-            <label>
-              <input type="checkbox" ng-model="categories[name]"> {{ name }}
-            </label>
-          </div>
-        </div>
+
 
         <!-- Classification -->
-        <div id="right">
-          <label>Classification(s)</label>
-          <div class="checkbox" ng-repeat="(name, value) in classifications">
-            <label>
-              <input type="checkbox" ng-model="classifications[name]"> {{ name }}
-            </label>
+          <div class="col-md-4">
+            <label>Classification(s)</label>
+            <div class="checkbox" ng-repeat="(name, value) in classifications" >
+              <label>
+                <input type="checkbox" ng-model="classifications[name]"> {{ name }}
+              </label>
+            </div>
+          </div>
+
+          <!-- Categories LEFT -->
+          <div class="col-md-4">
+            <label>Category(s)</label>
+            <div class="checkbox" ng-repeat="(name, value) in categories" ng-show="$even">
+              <label>
+                <input type="checkbox" ng-model="categories[name]"> {{ name }}
+              </label>
+            </div>
+          </div>
+
+          <!-- Categories RIGHT -->
+          <div class="col-md-4">
+            <div style="margin-bottom:30px;"></div>
+            <div class="checkbox" ng-repeat="(name, value) in categories" ng-show="!$even">
+              <label>
+                <input type="checkbox" ng-model="categories[name]"> {{ name }}
+              </label>
+            </div>
           </div>
         </div>
-
-        <br style="clear:both;"/>
       </div>
 
       <!-- Clients -->
