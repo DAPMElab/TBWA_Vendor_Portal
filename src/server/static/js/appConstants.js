@@ -3,7 +3,6 @@ angular.module('site.constants', [])
 .constant('availableCategories', [
   'Animation',
   'Casting',
-  'Color Correcting/Visual Effects',
   'Directorial',
   'Duplication/Distribution',
   'Editorial',
@@ -15,6 +14,7 @@ angular.module('site.constants', [])
   'Production',
   'Sound/Music',
   'Translations',
+  'Visual Efx/Color Correct',
   'Other',
 ]);
 
