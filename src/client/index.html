@@ -12,7 +12,10 @@
 
   <body>
     <!--<div ng-include="'client/partials/header.html'"></div>  -->
-    <div ng-view style="height: 100%; width: 100%"></div>
+    <!-- Angular View -->
+    <div class="container"  style="height: 100%; width: 100%">
+      <div ng-view></div>
+    </div>
 
     <!-- libaries -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
@@ -28,6 +31,7 @@
     <script src="client/controllers/SearchController.js"></script>
     <script src="client/controllers/HomeController.js"></script>
     <script src="client/controllers/ReviewController.js"></script>
+    <script src="client/controllers/FlashController.js"></script>
 
     <!-- sitewide constants -->
     <script src="static/js/appConstants.js"></script>

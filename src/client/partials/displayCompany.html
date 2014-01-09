@@ -1,5 +1,10 @@
 
 <div class="row col-md-7">
+    <div ng-controller="flashController" ng-show="displayAlert">
+      <div class="alert {{ flash.get().alertType }}">
+        {{ flash.get().message }}
+      </div>
+    </div>
     <div class="row col-md-12" style="margin-left: 10px">
         <div class="col-md-7">
             <div>

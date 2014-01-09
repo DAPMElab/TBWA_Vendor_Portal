@@ -5,7 +5,7 @@
 
 angular.module('myApp.controllers')
 .controller('ReviewController', function ($scope, $http, setUpDict, condenseDictionary,
-  $modal, jobSizeRanges) {
+  $modal, jobSizeRanges, flash) {
 
     $scope.jobSizeRanges = jobSizeRanges;
 
@@ -35,9 +35,11 @@ angular.module('myApp.controllers')
         $http.post('/review/create/' + $scope.selectedCompany.Company.id, data)
             .success(function (response) {
                 console.log("Review was received.");
+                flash.post('Review submitted', 'alert-success');
             })
             .error(function (err) {
                 console.log(err);
+                flash.post(err.message, 'alert-danger');
             });
         $scope.modalInstance.close();
     };
