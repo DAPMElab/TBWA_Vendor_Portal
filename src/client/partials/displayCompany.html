@@ -46,14 +46,12 @@
                 <a id="less" style="cursor: pointer; font-size: 14px" ng-click="open()">Add a review</a>
             </h3>
   
-            <div ng-repeat="review in selectedCompany.Reviews.Messages">
-                Category: {{ review.Category.join(', ') }}
+            <div class="review" ng-repeat="review in selectedCompany.Reviews.Messages">
+                <b>{{ review.Category.join(', ') }}</b> ({{ review.Cost }})
                 <br />
-                Cost: {{ review.Cost }}
+                {{ review.Rating }} / 10 stars
                 <br />
-                Rating: {{ review.Rating }} / 5 stars
-                <br />
-                Description: <p class='content'>{{ review.Description }}</p>
+                <p class='content'>"{{ review.Description }}"</p>
             </div>
         </div>
     </div>
