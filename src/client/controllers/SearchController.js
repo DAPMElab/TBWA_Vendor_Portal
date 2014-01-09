@@ -85,6 +85,7 @@ angular.module('myApp.controllers', [])
         $http.get( '/company/get/' + newSelection['id'])
             .success( function(response) {
                 $scope.selectedCompany = response['data'];
+                $scope.selectedCompany.AverageReview = $scope.selectedCompany.Reviews.Sum / $scope.selectedCompany.Reviews.Messages.length;
             });
     };
 
