@@ -33,10 +33,7 @@
                 <div style="float:right; text-align:right" >
 
                     <!--Rating stars-->
-                    <div>
-                        <img data-ng-repeat="i in getNumberOfFullStars(company.AverageReview) track by $index" ng-src="{{starPhoto}}">
-                        <img ng-repeat="i in getNumberOfEmptyStars(company.AverageReview) track by $index" ng-src="{{emptyPhoto}}">
-                    </div>
+                    <rating value="company.AverageReview" max="10" readonly="true"></rating>
 
                     <p style="font-size: 12px">{{ company.ReviewIds.length }} ratings</p>
                 </div>

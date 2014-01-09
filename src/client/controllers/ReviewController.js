@@ -16,7 +16,7 @@ angular.module('myApp.controllers')
         $scope.newReview = {
             Description: null,
             Cost: null,
-            Category: null
+            Rating: 0,
         };
 
         $scope.reviewCategoryChoices = setUpDict([], $scope.selectedCompany.Company.Categories);
@@ -27,13 +27,10 @@ angular.module('myApp.controllers')
     };
 
     $scope.submitReview = function () {
-        var data = {
-          Company:      $scope.selectedCompany.Company.id,
-          Rating:       5, // TODO
-          Description:  $scope.newReview.Description,
-          Category:     condenseDictionary($scope.reviewCategoryChoices),
-          Cost:         $scope.newReview.Cost,
-        };
+        var data = $scope.newReview;
+        data['Company'] = $scope.selectedCompany.Company.id;
+        data['Category'] = condenseDictionary($scope.reviewCategoryChoices),
+
         console.log(data);
         $http.post('/review/create/' + $scope.selectedCompany.Company.id, data)
             .success(function (response) {
