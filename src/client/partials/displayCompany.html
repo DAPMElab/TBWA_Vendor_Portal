@@ -8,7 +8,9 @@
                 <h6><img src="http://www.newbrandanalytics.com/blog/wp-content/uploads/2013/03/3-5-stars-300x69.png" width="60" height="15"> {{selectedCompany.Reviews.Count}} ratings</h6>
 
                 <p>
-                    <a href="{{selectedCompany.Company.URL}}" target="_blank">{{selectedCompany.Company.URL}}</a>
+                    <a href="{{selectedCompany.Company.URL}}" target="_blank">
+                        {{selectedCompany.Company.URL}}
+                    </a>
                 </p>
 
                 <!-- Displaying the contact information -->
@@ -35,12 +37,11 @@
         </div>
     </div>
 
-
     <div class="row col-md-12">
         <!-- Thinner, grayer line -->
         <div><hr></div>
         <div class="col-md-12" style="margin-left: 25px">
-            <h3>
+            <h3 ng-controller='ReviewController'>
                 REVIEWS
                 <a id="less" style="cursor: pointer; font-size: 14px" ng-click="open()">Add a review</a>
             </h3>
@@ -57,3 +58,4 @@
         </div>
     </div>
 </div>
+

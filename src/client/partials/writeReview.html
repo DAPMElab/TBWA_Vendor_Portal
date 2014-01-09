@@ -1,5 +1,5 @@
 
-<div class="modal-body" ng-init="initializeNewReview()" style="max-height: 800px; padding: 40px">
+<div class="modal-body" style="max-height: 800px; padding: 40px">
 
     <h3 class="text-center" style="margin:0px">WRITE A REVIEW</h3>
 
@@ -14,8 +14,9 @@
 
     <!-- Size of Job Button Group -->
     <h4>Size of Job:</h4>
-    <div class="radio" ng-repeat="range in jobSizeRanges">
-        <input type="radio" name="jobSize" ng-click="setNewReviewRange(range.Range)"> {{range.Range}}
+    <div class="radio" ng-repeat="r in jobSizeRanges">
+        <input type="radio" value="{{ r.Range }}" ng-model="newReview.Cost">
+        {{ r.Range }}
     </div>
 
     <!-- Extra spacing needed here -->

@@ -1,10 +1,11 @@
+
 /*
- Manages the map, categories and search box
+ *  Manages the map, categories and search box
  */
+
 angular.module('myApp.controllers', [])
-.controller('SearchController',function($scope, $http, $modal,
-        $location, setUpDict, condenseDictionary, jobSizeRanges,
-        mapColors, availableCategories, mapUrl, alterSVG){
+.controller('SearchController',function($scope, $http, $location, setUpDict,
+        condenseDictionary, mapColors, availableCategories, mapUrl, alterSVG){
 
     var searchParams = $location.search();
     var regions =  [];
@@ -24,16 +25,11 @@ angular.module('myApp.controllers', [])
 
     //Live companies showing after sort
     $scope.companies = [];
-    $scope.jobSizeRanges = jobSizeRanges;
 
     //Original server data so we can undo any sorts
-    $scope.serverResponse = null;
     $scope.selectedCompany = null;
     $scope.serverResponseSortedByCategories = {};
     $scope.predicate = '';
-    $scope.selectedRegionNumbers = [];
-    $scope.ratings=[];
-    $scope.ratings.length = 5;
 
     //map settings
     $scope.mapUrl = mapUrl;
@@ -119,7 +115,6 @@ angular.module('myApp.controllers', [])
         }
     };
 
-
     /**
      * Emails search results
      */
@@ -128,86 +123,11 @@ angular.module('myApp.controllers', [])
         window.open('mailto:.?subject=Result from search&body='+body);
     };
 
-
     /**
      * Updates what the search results are ordered by
      */
     $scope.updatePredicate = function(filter){
         $scope.predicate = filter;
     };
-
-
-    /**
-     * Function for modal opening
-     */
-    $scope.open = function () {
-        $scope.newReview = {
-            description: null,
-            cost: null,
-            category: null
-        };
-        $scope.reviewCategoryChoices = setUpDict([], $scope.selectedCompany.Company.Categories);
-        $scope.modalInstance = $modal.open({
-            templateUrl: 'client/partials/writeReview.html',
-            scope: $scope
-        });
-        console.log('modal opened');
-        $scope.modalInstance.result.then(function () {
-        }, function () {
-            console.log('Modal dismissed at: ' + new Date());
-        });
-    };
-
-    $scope.submitReview = function () {
-        var data = {
-          Company:      $scope.selectedCompany.Company.id,
-          Rating:       5,
-          Description:  $scope.newReview.Description,
-          Category:     condenseDictionary($scope.reviewCategoryChoices),
-          Cost:         $scope.newReview.Cost,
-        };
-        console.log(data);
-        $http.post('/review/create/' + $scope.selectedCompany.Company.id, data)
-            .success(function (response) {
-                console.log("Review was received.");
-            })
-            .error(function (err) {
-                console.log(err);
-            });
-        $scope.modalInstance.close();
-    };
-
-    $scope.setNewReviewRange = function(cost) {
-        $scope.newReview['cost'] = cost;
-    }
-
-    /*
-     * Rating controller
-     */
-    $scope.rate = 7;
-    $scope.max = 10;
-    $scope.isReadonly = false;
-
-    $scope.hoveringOver = function(value) {
-        $scope.overStar = value;
-        $scope.percent = 100 * (value / $scope.max);
-    };
-
-    $scope.ratingStates = [
-        {stateOn: 'icon-ok-sign', stateOff: 'icon-ok-circle'},
-        {stateOn: 'icon-star', stateOff: 'icon-star-empty'},
-        {stateOn: 'icon-heart', stateOff: 'icon-ban-circle'},
-        {stateOn: 'icon-heart'},
-        {stateOff: 'icon-off'}
-    ];
-
-    $scope.getNumberOfFullStars = function(num){
-        return new Array(num);
-    };
-
-    $scope.getNumberOfEmptyStars = function(num){
-        var emptyCount = 5 - num;
-        return new Array(emptyCount);
-    };
-
 });
+

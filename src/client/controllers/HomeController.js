@@ -2,7 +2,7 @@
  Manages the map, categories and search box
  */
 angular.module('myApp.controllers')
-.controller('HomeController',function($scope, $location, $document, setUpDict,
+.controller('HomeController', function ($scope, $location, $document, setUpDict,
    mapUrl, mapColors, alterSVG, availableCategories, condenseDictionary) {
 
     //map settings
