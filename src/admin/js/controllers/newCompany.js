@@ -14,6 +14,7 @@ angular.module('app.newCompany', [])
   $scope.classifications = {};
   $scope.states = states;
   $scope.company = {
+    URL: 'http://',
     videos: []
   };
 

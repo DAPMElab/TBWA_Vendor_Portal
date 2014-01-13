@@ -1,3 +1,4 @@
+<pre>{{ company | json }}</pre>
 <div class="container" ng-init="initPage()">
   <div class="content-area">
     <form role="form">
@@ -12,9 +13,8 @@
           placeholder="Name">
       </div>
       <div class="form-group">
-        <label for="website">Website</label>
+        <label for="website">Website</label> (requires a full URL)
         <input
-          type="url"
           class="form-control"
           ng-model="company.URL"
           placeholder="URL">
