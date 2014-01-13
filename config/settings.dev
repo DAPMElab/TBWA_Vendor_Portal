@@ -7,6 +7,8 @@ export RDB_DB="TBWA"
 
 # flask settings
 export FLASK_DEBUG="TRUE"
-
 export DEPLOY="FALSE"
+
+# overall settings
+export TESTING="TRUE"
 

@@ -27,6 +27,9 @@ sudo pip install rethinkdb
 sudo pip install passlib
 sudo pip install -r /vagrant/config/requirements.txt
 
+# vim
+apt-get -y install vim
+
 # rethinkdb
 sudo add-apt-repository -y ppa:rethinkdb/ppa
 sudo apt-get -y update
@@ -36,3 +39,19 @@ sudo cp /etc/rethinkdb/default.conf.sample /etc/rethinkdb/instances.d/instance1.
 sudo echo "bind=all" >> /etc/rethinkdb/instances.d/instance1.conf
 sudo echo "http-port=8080" >> /etc/rethinkdb/instances.d/instance1.conf
 
+# submodules
+git submodule init
+git submodule update
+
+# install supervisord
+apt-get -y install supervisor
+cat > /etc/supervisor/conf.d/data.conf << EOF
+[program:data]
+directory=/vagrant/
+command=/vagrant/config/start_server.sh /vagrant/config/settings.dev
+autostart=true
+autorestart=true
+EOF
+service supervisor stop
+sleep 2
+service supervisor start
