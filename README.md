@@ -8,6 +8,8 @@
 ###Starting the server
 
 ```bash
+git submodule init
+git submodule update --init
 # this will spawn a supervisor process that will restart the server automatically.
 vagrant up
 ```
