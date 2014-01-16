@@ -7,6 +7,9 @@ trap : SIGTERM
 source $1
 # supervisord will not do this for us
 
+# start rethinkdb
+sudo service rethinkdb start
+
 # start the python program in the background
 cd /vagrant/src/server
 python app.py --setup &

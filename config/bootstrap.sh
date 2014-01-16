@@ -9,13 +9,6 @@ apt-get -y install git-core git
 # nginx
 apt-get -y install nginx 
 
-# zsh
-apt-get -y install zsh git-core git
-git clone git://github.com/robbyrussell/oh-my-zsh.git /home/vagrant/.oh-my-zsh
-git clone git://github.com/zsh-users/zsh-syntax-highlighting.git /home/vagrant/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-sudo -u vagrant -H cp /home/vagrant/.oh-my-zsh/templates/zshrc.zsh-template /home/vagrant/.zshrc
-chsh -s $(which zsh) vagrant
-
 # python
 apt-get -y install python
 apt-get -y install python-pip
@@ -38,10 +31,6 @@ sudo apt-get -y install rethinkdb
 sudo cp /etc/rethinkdb/default.conf.sample /etc/rethinkdb/instances.d/instance1.conf
 sudo echo "bind=all" >> /etc/rethinkdb/instances.d/instance1.conf
 sudo echo "http-port=8080" >> /etc/rethinkdb/instances.d/instance1.conf
-
-# submodules
-git submodule init
-git submodule update --init
 
 # install supervisord
 apt-get -y install supervisor
