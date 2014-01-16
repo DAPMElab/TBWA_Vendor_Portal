@@ -57,7 +57,7 @@ angular.module('myApp.filters', [])
 
 .filter('regionsFilter', function (stateToRegion) {
     return function (objects, regions) {
-        if (regions == []) {
+        if (!regions || regions.length == 0) {
             return objects;
         }
 
