@@ -4,7 +4,7 @@
  */
 
 angular.module('myApp.controllers', [])
-.controller('SearchController',function($scope, $http, $location, setUpDict,
+.controller('SearchController',function($scope, $http, $location, $sce, setUpDict,
         condenseDictionary, mapColors, availableCategories, mapUrl, alterSVG){
 
     var searchParams = $location.search();
@@ -86,6 +86,9 @@ angular.module('myApp.controllers', [])
             .success( function(response) {
                 $scope.selectedCompany = response['data'];
                 $scope.selectedCompany.AverageReview = $scope.selectedCompany.Reviews.Sum / $scope.selectedCompany.Reviews.Messages.length;
+                for (var vidIndex in $scope.selectedCompany.Company.Videos) {
+                    $scope.selectedCompany.Company.Videos[vidIndex] = $scope.selectedCompany.Company.Videos[vidIndex].replace('watch?v=', 'embed/');
+                }
             });
     };
 
@@ -96,6 +99,10 @@ angular.module('myApp.controllers', [])
                 $scope.selectedCompany = response['data'];
             })
     };
+
+    $scope.trustUrl = function(url) {
+        return $sce.trustAsResourceUrl(url);
+    }
 
     /**
      * Flips the highlighting of a map region

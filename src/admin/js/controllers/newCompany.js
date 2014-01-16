@@ -56,8 +56,8 @@ angular.module('app.newCompany', [])
    */
   $scope.addVideo = function () {
     // if a new video is ready and it's not a repeat video
-    if ($scope.nextVideo && ($scope.company.length == 0 || $scope.company.videos.indexOf($scope.nextVideo) == -1)){
-      $scope.company.videos.push($scope.nextVideo);
+    if ($scope.nextVideo && ($scope.company.length == 0 || $scope.company.Videos.indexOf($scope.nextVideo) == -1)){
+      $scope.company.Videos.push($scope.nextVideo);
       $scope.nextVideo = "";
     }
   };

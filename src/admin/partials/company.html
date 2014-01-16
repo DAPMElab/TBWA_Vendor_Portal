@@ -132,10 +132,10 @@
 
       <!--Youtube Videos-->
       <label for="video">Video (YouTube)</label>
-      <div ng-repeat="video in company.videos">
+      <div ng-repeat="video in company.Videos">
         <div class="input-group">
           <span class="input-group-btn">
-            <button ng-click="company.videos.splice($index, 1)" class="btn btn-danger" type="button"><span class="glyphicon glyphicon-minus"></span></button>
+            <button ng-click="company.Videos.splice($index, 1)" class="btn btn-danger" type="button"><span class="glyphicon glyphicon-minus"></span></button>
           </span>
           <input
             ng-model="video"

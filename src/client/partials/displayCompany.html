@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="row col-md-12" style="margin-left: 10px">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div>
                 <h2>{{selectedCompany.Company.Name}}</h2>
                 <rating value="selectedCompany.AverageReview" max="10" readonly="true"></rating>
@@ -44,9 +44,9 @@
             </div>
         </div>
 
-        <div class="col-md-6" style="padding: 20px; text-align:right">
-            <div class="youtube" ng-repeat="videoUrl in selectedCompany.Videos">
-                <iframe width="560" height="315" src="{{ videoUrl }}" frameborder="0" allowfullscreen></iframe>
+        <div class="col-md-7" style="padding: 20px; text-align:right">
+            <div class="youtube" ng-repeat="videoUrl in selectedCompany.Company.Videos">
+                <iframe width="400" height="225" ng-src="{{ trustUrl(videoUrl) }}" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
     </div>

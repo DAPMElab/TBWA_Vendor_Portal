@@ -29,6 +29,9 @@ angular.module('app.editCompany', [])
         $scope.company = resp.data.Company;
         $scope.categories = setUpDict($scope.company.Categories, availableCategories);
         $scope.classifications = setUpDict($scope.company.Classifications, classifications);
+        if (! $scope.company.Videos) {
+          $scope.company.Videos = [];
+        };
       })
       .error(function (err) {
         console.log(err);
@@ -73,8 +76,8 @@ angular.module('app.editCompany', [])
    */
   $scope.addVideo = function () {
     // if a new video is ready and it's not a repeat video
-    if ($scope.nextVideo && ($scope.company.length == 0 || $scope.company.videos.indexOf($scope.nextVideo) == -1)){
-      $scope.company.videos.push($scope.nextVideo);
+    if ($scope.nextVideo && ($scope.company.length == 0 || $scope.company.Videos.indexOf($scope.nextVideo) == -1)){
+      $scope.company.Videos.push($scope.nextVideo);
       $scope.nextVideo = "";
     }
   };
