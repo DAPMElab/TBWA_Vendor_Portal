@@ -45,8 +45,8 @@ git submodule update
 
 # install supervisord
 apt-get -y install supervisor
-cat > /etc/supervisor/conf.d/data.conf << EOF
-[program:data]
+cat > /etc/supervisor/conf.d/tbwa.conf << EOF
+[program:tbwa]
 directory=/vagrant/
 command=/vagrant/config/start_server.sh /vagrant/config/settings.dev
 autostart=true
