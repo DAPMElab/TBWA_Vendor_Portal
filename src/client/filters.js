@@ -53,5 +53,36 @@ angular.module('myApp.filters', [])
         }
         return filteredObjects;
     };
+})
+
+.filter('regionsFilter', function (stateToRegion) {
+    return function (objects, regions) {
+        if (regions == []) {
+            return objects;
+        }
+
+        var filteredObjects = objects.slice(0);     // copy object array
+
+        for (var objIndex = filteredObjects.length-1; objIndex > -1; objIndex--){
+            removeObj = false;
+
+            // check that state exists
+            if (filteredObjects[objIndex].PhysicalAddress && filteredObjects[objIndex].PhysicalAddress.State != "") {
+                // check that the state is in a region is selected
+                var objRegion = stateToRegion[filteredObjects[objIndex].PhysicalAddress.State] || null;
+                if (regions.indexOf(objRegion) == -1) {
+                    removeObj = true;
+                }
+            } else {
+                removeObj = true;
+            }
+
+            if (removeObj) {
+                filteredObjects.splice(objIndex, 1);
+            }
+        }
+
+        return filteredObjects;
+    };
 });
 

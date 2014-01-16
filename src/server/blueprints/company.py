@@ -25,7 +25,7 @@ return_company_attribute = [
     'id',
     'ReviewIds',
     'Categories',
-    'Address',
+    'PhysicalAddress',
 ]
 
 @company_bp.route('/create', methods=['POST'])

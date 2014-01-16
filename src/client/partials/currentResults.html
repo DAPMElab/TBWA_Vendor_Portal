@@ -23,7 +23,7 @@
         <!--result cell -->
         <div
           class="row"
-          ng-repeat="company in companies | selectListToListAttribute : 'Categories' : categories : true | filter:searchText | orderBy:predicate"
+          ng-repeat="company in companies | selectListToListAttribute:'Categories':categories:true | filter:searchText | regionsFilter:activeRegions | orderBy:predicate"
           style="cursor: pointer"
           ng-click="updateSelectedCompany(company)">
         
