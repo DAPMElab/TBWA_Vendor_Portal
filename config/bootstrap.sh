@@ -41,7 +41,7 @@ sudo echo "http-port=8080" >> /etc/rethinkdb/instances.d/instance1.conf
 
 # submodules
 git submodule init
-git submodule update
+git submodule update --init
 
 # install supervisord
 apt-get -y install supervisor
