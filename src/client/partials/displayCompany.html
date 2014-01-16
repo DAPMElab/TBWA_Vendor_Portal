@@ -49,12 +49,13 @@
                 REVIEWS
                 <a id="less" style="cursor: pointer; font-size: 14px" ng-click="open()">Add a review</a>
             </h3>
-  
+
             <div class="review" ng-repeat="review in selectedCompany.Reviews.Messages">
                 <b>{{ review.Category.join(', ') }}</b> ({{ review.Cost }})
-                <br />
-                {{ review.Rating }} / 10 stars
-                <br />
+                <!--Rating stars-->
+                <div class="rating">
+                    <rating value="review.Rating" max="10" readonly="true"></rating>
+                </div>
                 <p class='content'>"{{ review.Description }}"</p>
             </div>
         </div>

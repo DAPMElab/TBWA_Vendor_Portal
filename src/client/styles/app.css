@@ -34,14 +34,35 @@
     padding-bottom: 200px;
 }
 
+.rating i:hover {
+  cursor: pointer;
+}
+
+.review .rating {
+  float:right;
+}
+
+.review .content {
+  margin-top: 10px;
+}
+
 .modal {
+  width: 600px;
   display: block;
+}
+
+.modal-dialog {
+  padding: 0;
 }
 
 .modal-body:before,
   .modal-body:after {
     display: table;
     content: " ";
+}
+
+.modal-content {
+  width: 100%;
 }
 
 .modal-header:before,
@@ -61,19 +82,19 @@
 }
 
 #bg {
-  position: fixed; 
-  top: -50%; 
-  left: -50%; 
-  width: 200%; 
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
   height: 200%;
 }
 #bg img {
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  bottom: 0; 
-  margin: auto; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   min-width: 50%;
   min-height: 50%;
 }
@@ -90,7 +111,7 @@ html, body {
 }
 
 /* Review Display */
-p.content {
+.content {
     white-space: pre-wrap;
     word-wrap: break-word;
 }
@@ -98,6 +119,6 @@ p.content {
 /* Review */
 
 .review{
-    padding: 10px 0px;
+    padding: 10px 0;
 }
 

@@ -8,7 +8,7 @@
     <div ng-repeat="(name, value) in reviewCategoryChoices">
         <input type="checkbox" ng-model="reviewCategoryChoices[name]"> {{ name }}
     </div>
-    
+
     <!-- Extra spacing needed here -->
     <br />
 
@@ -24,7 +24,7 @@
 
     <!-- Rating Selection -->
     <div>
-        <h4>
+        <h4 class="rating">
             Rating:
             <rating value="newReview.Rating" max="10"></rating>
         </h4>
@@ -41,6 +41,6 @@
     <!-- Extra spacing needed here -->
     <br />
     <button class="btn btn-primary" style="float: right" ng-click="submitReview()">Submit</button>
-    
+
 </div>
 
