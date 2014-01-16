@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="row col-md-12" style="margin-left: 10px">
-        <div class="col-md-7">
+        <div class="col-md-6">
             <div>
                 <h2>{{selectedCompany.Company.Name}}</h2>
                 <rating value="selectedCompany.AverageReview" max="10" readonly="true"></rating>
@@ -18,26 +18,36 @@
                 </p>
 
                 <!-- Displaying the contact information -->
-                <p>
-                    {{ selectedCompany.Company.Contact.Name }}
-                    </br>
-                    {{ selectedCompany.Company.Contact.Email }}
-                    </br>
-                    {{ selectedCompany.Company.Contact.Phone }}
-                </p>
+                <div class="tight">
+                    <p>{{ selectedCompany.Company.Contact.Name }}</p>
+                    <p><a href="mailto:{{ selectedCompany.Company.Contact.Email }}">
+                        {{ selectedCompany.Company.Contact.Email }}
+                    </a></p>
+                    <p>{{ selectedCompany.Company.Contact.Phone }}</p>
+                </div>
+
+                    <!-- Displaying the physical address -->
+                <div class="tight">
+                    <p>{{ selectedCompany.Company.PhysicalAddress.Address }}</p>
+                    <p>
+                        <span ng-show="selectedCompany.Company.PhysicalAddress.City">
+                            {{ selectedCompany.Company.PhysicalAddress.City }}
+                        </span>
+                        <span ng-show="selectedCompany.Company.PhysicalAddress.State">
+                            , {{selectedCompany.Company.PhysicalAddress.State }}
+                        </span>
+                        <span ng-show="selectedCompany.Company.PhysicalAddress.ZipCode">
+                            {{ selectedCompany.Company.PhysicalAddress.ZipCode }}</p>
+                        </span>
+                </div>
 
             </div>
         </div>
 
-        <div class="col-md-5" style="padding: 20px; text-align:right">
-            <!-- Displaying the physical address -->
-            <p>
-                {{ selectedCompany.Company.PhysicalAddress.Address }}
-                </br>
-                {{ selectedCompany.Company.PhysicalAddress.City }}
-                {{selectedCompany.Company.PhysicalAddress.State }}
-                {{ selectedCompany.Company.PhysicalAddress.ZipCode }}
-            </p>
+        <div class="col-md-6" style="padding: 20px; text-align:right">
+            <div class="youtube" ng-repeat="videoUrl in selectedCompany.Videos">
+                <iframe width="560" height="315" src="{{ videoUrl }}" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 

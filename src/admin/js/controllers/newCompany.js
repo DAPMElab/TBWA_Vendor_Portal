@@ -15,7 +15,7 @@ angular.module('app.newCompany', [])
   $scope.states = states;
   $scope.company = {
     URL: 'http://',
-    videos: []
+    Videos: []
   };
 
 

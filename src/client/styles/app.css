@@ -42,6 +42,15 @@
   float:right;
 }
 
+.tight {
+  margin: 0 0 15px;
+}
+
+.tight > p {
+  margin: 0;
+  padding: 0;
+}
+
 .review .content {
   margin-top: 10px;
 }
