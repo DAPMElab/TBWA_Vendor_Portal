@@ -2,8 +2,8 @@
 
 sudo service rethinkdb start
 
-source config/settings.dev
-cd src/server
+source /vagrant/config/settings.dev
+cd /vagrant/src/server
 python app.py --setup
 
 exit 0 

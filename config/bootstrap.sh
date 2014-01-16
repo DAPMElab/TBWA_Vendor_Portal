@@ -37,7 +37,7 @@ apt-get -y install supervisor
 cat > /etc/supervisor/conf.d/tbwa.conf << EOF
 [program:tbwa]
 directory=/vagrant/
-command=/vagrant/config/start_server.sh /vagrant/config/settings.dev
+command=/vagrant/config/run.sh
 autostart=true
 autorestart=true
 EOF
