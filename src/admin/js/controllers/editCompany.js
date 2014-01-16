@@ -73,7 +73,7 @@ angular.module('app.editCompany', [])
    */
   $scope.addVideo = function () {
     // if a new video is ready and it's not a repeat video
-    if ($scope.nextVideo && $scope.company.videos.indexOf($scope.nextVideo) == -1){
+    if ($scope.nextVideo && ($scope.company.length == 0 || $scope.company.videos.indexOf($scope.nextVideo) == -1)){
       $scope.company.videos.push($scope.nextVideo);
       $scope.nextVideo = "";
     }
