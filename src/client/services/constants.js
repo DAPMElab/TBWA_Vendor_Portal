@@ -61,12 +61,8 @@ angular.module('myApp.constants', [
     "WA": 'W',
     "WY": 'W',
     "UT": 'W',
-
-    // SOUTHWEST
-    "AZ": 'SW',
-    "NM": 'SW',
-    "OK": 'SW',
-    "TX": 'SW',
+    "AZ": 'W',
+    "NM": 'W',
 
     // MIDWEST
     "ND": 'MW',
@@ -81,24 +77,23 @@ angular.module('myApp.constants', [
     "MI": 'MW',
     "IN": 'MW',
     "OH": 'MW',
+    "MS": 'MW',
 
-
-    // SOUTHEAST
-    "AR": 'SE',
-    "AL": 'SE',
-    "LA": 'SE',
-    "MS": 'SE',
-    "GA": 'SE',
-    "FL": 'SE',
-    "TN": 'SE',
-    "SC": 'SE',
-    "NC": 'SE',
-    "VA": 'SE',
-    "WV": 'SE',
-    "KY": 'SE',
-
+    // SOUTH
+    "AR": 'S',
+    "AL": 'S',
+    "LA": 'S',
+    "GA": 'S',
+    "FL": 'S',
+    "TN": 'S',
+    "SC": 'S',
+    "NC": 'S',
+    "KY": 'S',
+    "OK": 'S',
+    "TX": 'S',
 
     // NORTHEAST
+    "VA": 'NE',
     "CT": 'NE',
     "DE": 'NE',
     "DC": 'NE',
@@ -112,14 +107,5 @@ angular.module('myApp.constants', [
     "RI": 'NE',
     "VT": 'NE',
     "VI": 'NE',
-
-    // Territories
-    "PR": 'T',
-    "PR": 'T',
-    "FM": 'T',
-    "GU": 'T',
-    "MH": 'T',
-    "MP": 'T',
-    "PW": 'T',
+    "WV": 'NE',
 });
-
