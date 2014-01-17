@@ -29,9 +29,12 @@
   padding: 0;
 }
 
-.map{
-    height: 200px;
-    padding-bottom: 200px;
+.map-home{
+  height: 270px;
+}
+
+.map-search{
+  height:200px;
 }
 
 .rating i:hover {
