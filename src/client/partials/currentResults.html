@@ -23,7 +23,7 @@
         <!--result cell -->
         <div
           class="row"
-          ng-repeat="company in companies | selectListToListAttribute:'Categories':categories:true | filter:searchText | regionsFilter:activeRegions | orderBy:predicate"
+          ng-repeat="company in filteredCompanies = (companies | selectListToListAttribute:'Categories':categories:true | filter:searchText | regionsFilter:activeRegions | orderBy:predicate)"
           style="cursor: pointer"
           ng-click="updateSelectedCompany(company)">
         
@@ -47,10 +47,14 @@
                 {{ company.Categories.join(", ") }}
 
             </div>
-            
+
             <!-- Dividing Line -->
             <div><hr></div>
+            
         </div>
+
+        <p ng-hide="filteredCompanies.length">No matching results!</p>
+
     </div>
 </div>
 
