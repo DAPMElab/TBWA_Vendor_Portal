@@ -48,11 +48,11 @@ from blueprints import admin_bp
 app.register_blueprint(admin_bp, url_prefix='/admin')
 
 """ client asset routes """
-from blueprints import client_bp 
+from blueprints import client_bp
 app.register_blueprint(client_bp, url_prefix='/client')
 
 """ admin asset routes """
-from blueprints import admin_assets_bp 
+from blueprints import admin_assets_bp
 app.register_blueprint(admin_assets_bp, url_prefix='/admin_asset')
 
 

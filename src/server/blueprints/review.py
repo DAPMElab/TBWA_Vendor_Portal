@@ -37,14 +37,16 @@ def create(uid):
     review = request.get_json(cache=True)
     review['CompanyID'] = uid
     review['Approved'] = False
+    # add the writer to the review
+    review['Reviewer'] = request.headers.get('WTG_mail', 'Anonymous')
 
     for field in required_fields:
         if field not in review:
             return make_error(err='DATA_NEEDED_FOR_REQUEST')
 
     r_outcome = (r.table(TABLE)
-                .insert(review)
-                .run(g.rdb_conn))
+                 .insert(review)
+                 .run(g.rdb_conn))
     
     if r_outcome['inserted'] == 1:
         return make_response(json.dumps({
