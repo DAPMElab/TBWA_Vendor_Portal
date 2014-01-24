@@ -9,7 +9,7 @@
         <div class="col-md-5">
             <div>
                 <h2>{{selectedCompany.Company.Name}}</h2>
-                <rating value="selectedCompany.AverageReview" max="10" readonly="true"></rating>
+                <rating value="selectedCompany.AverageReview" readonly="true"></rating>
 
                 <p>
                     <a href="{{selectedCompany.Company.URL}}" target="_blank">
@@ -64,7 +64,7 @@
                 <b>{{ review.Category.join(', ') }}</b> ({{ review.Cost }})
                 <!--Rating stars-->
                 <div class="rating">
-                    <rating value="review.Rating" max="10" readonly="true"></rating>
+                    <rating value="review.Rating" readonly="true"></rating>
                 </div>
                 <p class='content'>"{{ review.Description }}"</p>
             </div>
