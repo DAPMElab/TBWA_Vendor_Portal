@@ -34,7 +34,8 @@
                             {{ selectedCompany.Company.PhysicalAddress.City }}
                         </span>
                         <span ng-show="selectedCompany.Company.PhysicalAddress.State">
-                            , {{selectedCompany.Company.PhysicalAddress.State }}
+                            <span ng-if="selectedCompany.Company.PhysicalAddress.City">, </span>
+                            {{selectedCompany.Company.PhysicalAddress.State }}
                         </span>
                         <span ng-show="selectedCompany.Company.PhysicalAddress.ZipCode">
                             {{ selectedCompany.Company.PhysicalAddress.ZipCode }}</p>
