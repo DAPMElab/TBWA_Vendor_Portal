@@ -11,7 +11,7 @@
     class="content-area"
     ng-repeat="review in reviews | filter:{Approved: false}">
     <div id="left">
-      <h3>1080 Productions</h3>
+      <h3>{{ review.CompanyName }}</h3>
       <span>
         <b>Category:</b> {{ review.Category }}
         <b>Cost Range:</b> {{ review.Cost }}

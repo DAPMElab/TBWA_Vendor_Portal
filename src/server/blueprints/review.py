@@ -18,6 +18,7 @@ C_TABLE     = 'companies'
 
 required_fields = [
     'CompanyID',
+    'CompanyName',
     'Rating',
 ]
 

@@ -29,6 +29,7 @@ angular.module('myApp.controllers')
     $scope.submitReview = function () {
         var data = $scope.newReview;
         data['Company'] = $scope.selectedCompany.Company.id;
+        data['CompanyName'] = $scope.selectedCompany.Company.Name;
         data['Category'] = condenseDictionary($scope.reviewCategoryChoices),
 
         console.log(data);
