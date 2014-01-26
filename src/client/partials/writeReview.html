@@ -24,7 +24,7 @@
 
     <!-- Rating Selection -->
     <div>
-        <h4 class="rating">
+        <h4>
             Rating:
             <rating value="newReview.Rating"></rating>
         </h4>
@@ -34,7 +34,13 @@
     <br />
 
     <div>
-        Share your experiences with this company.
+        <h4> Reviewer Name: </h4>
+        <input class="form-control" rows="6" ng-model="newReview.Reviewer">{{newReview.Reviewer}}
+    </div>
+
+
+    <div>
+        <h4> Share your experiences with this company. </h4>
         <textarea class="form-control" rows="6" ng-model="newReview.Description">{{newReview.Content}}</textarea>
     </div>
 
