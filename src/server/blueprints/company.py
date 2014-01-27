@@ -19,12 +19,13 @@ required_company_attributes = [
     'URL',
 ]
 return_company_attribute = [
+    'id',
     'Name',
     'URL',
     'DBA',
-    'id',
     'ReviewIds',
     'Categories',
+    'Description',
     'PhysicalAddress',
 ]
 
