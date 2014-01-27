@@ -1,10 +1,11 @@
 
-from flask              import Blueprint, request, g, make_response
-from rethinkdb.errors   import RqlRuntimeError
-from config             import make_error
-from decorators         import admin, has_data
+from rethinkdb.errors import RqlRuntimeError
+from decorators import admin, has_data
+from config import make_error
+from flask import Blueprint, request, g, make_response
 import rethinkdb as r
 import json
+import datetime
 
 """
 Handles HTTP requests concerning reviews made by employees that need to be
@@ -12,9 +13,9 @@ approved by an admin.
 """
 
 
-review_bp   = Blueprint('review_blueprint', __name__)
-TABLE       = 'reviews'
-C_TABLE     = 'companies'
+review_bp = Blueprint('review_blueprint', __name__)
+TABLE = 'reviews'
+C_TABLE = 'companies'
 
 required_fields = [
     'CompanyID',
@@ -38,6 +39,7 @@ def create(uid):
     review = request.get_json(cache=True)
     review['CompanyID'] = uid
     review['Approved'] = False
+    review['Date'] = datetime.date.today().isoformat()
     # add the writer to the review
     review['Reviewer'] = request.headers.get('WTG_mail', 'Anonymous')
 
@@ -48,11 +50,11 @@ def create(uid):
     r_outcome = (r.table(TABLE)
                  .insert(review)
                  .run(g.rdb_conn))
-    
+
     if r_outcome['inserted'] == 1:
         return make_response(json.dumps({
-            'message'   : 'review created',
-            'uid'       :  r_outcome['generated_keys'][0]
+            'message': 'review created',
+            'uid':  r_outcome['generated_keys'][0]
         }), 201)
     else:
         return make_error(err='REVIEW_NOT_CREATED')
@@ -66,22 +68,21 @@ def approve(uid):
                 .get(uid)
                 .update({
                     'Approved': True
-                }, return_vals = True)
-                .run(g.rdb_conn))
+                }, return_vals=True).run(g.rdb_conn))
     if not outcome['replaced']:
         return make_error(err='REVIEW_APPROVAL_FAILURE')
 
     cid = outcome['old_val']['CompanyID']
     rid = outcome['old_val']['id']
     c_outcome = (r.table(C_TABLE)
-                    .get(cid)
-                    .update({
-                        'ReviewIds': r.row['ReviewIds'].set_insert(rid)
-                    }).run(g.rdb_conn))
+                 .get(cid)
+                 .update({
+                     'ReviewIds': r.row['ReviewIds'].set_insert(rid)
+                 }).run(g.rdb_conn))
 
     if c_outcome['replaced'] == 1:
         return make_response(json.dumps({
-            'message'   : 'review approved'
+            'message': 'review approved'
         }), 200)
     else:
         return make_error(err='REVIEW_APPROVAL_FAILURE')
@@ -95,8 +96,8 @@ def get(uid):
         review = r.table(TABLE).get(uid).pluck(*return_fields).run(g.rdb_conn)
 
         return make_response(json.dumps({
-            'message'   : 'review found',
-            'data'      : review
+            'message': 'review found',
+            'data': review
         }), 200)
     except RqlRuntimeError:
         return make_error(err='REVIEW_NOT_FOUND')
@@ -113,7 +114,7 @@ def edit(uid):
             return make_error(err='REVIEW_NOT_FOUND')
 
         return make_response(json.dumps({
-            'message'   : 'review updated'
+            'message': 'review updated'
         }), 200)
     except RqlRuntimeError:
         return make_error(err='DATABASE_ERROR')
@@ -129,7 +130,7 @@ def delete(uid):
             return make_error(err='REVIEW_NOT_FOUND')
 
         return make_response(json.dumps({
-            'message'   : 'review deleted'
+            'message': 'review deleted'
         }), 202)
     except RqlRuntimeError:
         return make_error(err='DATABASE_ERROR')
@@ -140,7 +141,7 @@ def delete(uid):
 def list():
     """ Returns all reviews that have not yet been approved """
     try:
-        outcome = r.table(TABLE).filter({'Approved':False}).run(g.rdb_conn)
+        outcome = r.table(TABLE).filter({'Approved': False}).run(g.rdb_conn)
         reviews = [x for x in outcome]
 
         return make_response(json.dumps({
@@ -150,4 +151,3 @@ def list():
 
     except RqlRuntimeError:
         return make_error(err='DATABASE_ERROR')
-
