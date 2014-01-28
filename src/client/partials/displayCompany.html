@@ -67,7 +67,7 @@
             </h3>
 
             <div class="review" ng-repeat="review in selectedCompany.Reviews.Messages">
-                <b>{{ review.Category.join(', ') }}</b> ({{ review.Cost }})
+                <b>{{ review.Category.join(', ') }}</b> ({{ review.Cost }}<span ng-hide='review.Cost'>Cost not provided</span>)
                 <p>{{ review.Reviewer }}</p>
                 <!--Rating stars-->
                 <div class="rating">

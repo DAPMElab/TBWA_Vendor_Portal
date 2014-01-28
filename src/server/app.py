@@ -1,10 +1,10 @@
 
-from flask              import Flask, make_response, g, send_from_directory, \
-        session, render_template
-from rethinkdb.errors   import RqlDriverError
-from data               import setup_db
-from config.errors      import make_error
-from blueprints         import admin
+from flask import Flask, make_response, g, send_from_directory, \
+    session, render_template
+from rethinkdb.errors import RqlDriverError
+from config.errors import make_error
+from blueprints import admin
+from data import setup_db
 import rethinkdb
 import argparse
 
@@ -18,9 +18,9 @@ def before_request():
     """ Add a rethinkdb connection to g before each request """
     try:
         g.rdb_conn = rethinkdb.connect(
-            host    = app.config['RDB_HOST'],
-            port    = app.config['RDB_PORT'],
-            db      = app.config['RDB_DB']
+            host=app.config['RDB_HOST'],
+            port=app.config['RDB_PORT'],
+            db=app.config['RDB_DB']
         )
     except RqlDriverError:
         return make_error('NO_DB_CONN')
@@ -61,13 +61,6 @@ def favicon():
     return send_from_directory('static/', 'favicon.ico')
 
 
-@app.route('/admin_credentials', methods=['GET'])
-def become_admin():
-    """ Testing method that adds a cookie to the browser for admin access """
-    session['role'] = 'admin'
-    return "You're now an admin!", 200
-
-
 @app.route('/admin', methods=['GET'])
 def admin():
     """ Return the html seed file with linked JS """
@@ -89,7 +82,7 @@ def parse_cli_args():
     parser = argparse.ArgumentParser(
         description='take in CLI arguments for the company API')
     parser.add_argument('--setup', dest='run_setup', action='store_const',
-        const=True, default=False)
+                        const=True, default=False)
     return parser.parse_args()
 
 
@@ -98,11 +91,10 @@ if __name__ == '__main__':
 
     if cli_args.run_setup:
         setup_db(   # create tables and insert data
-            rdb_host    = app.config['RDB_HOST'],
-            rdb_port    = app.config['RDB_PORT'],
-            rdb_name    = app.config['RDB_DB']
+            rdb_host=app.config['RDB_HOST'],
+            rdb_port=app.config['RDB_PORT'],
+            rdb_name=app.config['RDB_DB']
         )
 
     # remove the host setting if running locally, not in Vagrant
     app.run(host=app.config['HOST'])
-
