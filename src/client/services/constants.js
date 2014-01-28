@@ -23,7 +23,7 @@ angular.module('myApp.constants', [
     highlighted :{
         opacity :"1.0",
         fillOpacity : "1.0",
-        fill : "#66CCFF"
+        fill : "#F595A0"
     },
     defaultState:{
         opacity :"1.0",
