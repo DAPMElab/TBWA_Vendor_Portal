@@ -24,7 +24,8 @@ required_fields = [
 ]
 
 return_fields = required_fields + [
-    'Approved'
+    'Approved',
+    'Reviewer',
 ]
 
 
@@ -64,12 +65,13 @@ def create(uid):
 @admin
 def approve(uid):
     """ Removes a review from the queue and links it to the company. """
-    outcome = (r.table(TABLE)
-                .get(uid)
-                .update({
-                    'Approved': True
-                }, return_vals=True).run(g.rdb_conn))
-    if not outcome['replaced']:
+    try:
+        outcome = (r.table(TABLE)
+                    .get(uid)
+                    .update({
+                        'Approved': True
+                    }, return_vals=True).run(g.rdb_conn))
+    except RqlRuntimeError:
         return make_error(err='REVIEW_APPROVAL_FAILURE')
 
     cid = outcome['old_val']['CompanyID']
@@ -110,14 +112,11 @@ def edit(uid):
     updated_review = request.get_json(cache=True)
     try:
         outcome = r.table(TABLE).get(uid).update(updated_review).run(g.rdb_conn)
-        if outcome['skipped']:
-            return make_error(err='REVIEW_NOT_FOUND')
-
         return make_response(json.dumps({
             'message': 'review updated'
         }), 200)
     except RqlRuntimeError:
-        return make_error(err='DATABASE_ERROR')
+        return make_error(err='REVIEW_NOT_FOUND')
 
 
 @review_bp.route('/delete/<uid>', methods=['DELETE'])
@@ -126,14 +125,11 @@ def delete(uid):
     """ Removes a review from the queue """
     try:
         outcome = r.table(TABLE).get(uid).delete().run(g.rdb_conn)
-        if outcome['skipped']:
-            return make_error(err='REVIEW_NOT_FOUND')
-
         return make_response(json.dumps({
             'message': 'review deleted'
         }), 202)
     except RqlRuntimeError:
-        return make_error(err='DATABASE_ERROR')
+        return make_error(err='REVIEW_NOT_FOUND')
 
 
 @review_bp.route('/list', methods=['GET'])

@@ -55,7 +55,11 @@ class TestDecorators(template.TestingTemplate):
         }).run(self.rdb)
 
         # makes the call w/ data
-        review = {'CompanyID': '123', 'Rating':10}
+        review = {
+            'CompanyName': 'test_company',
+            'Reviewer': 'Anonymous',
+            'Rating':10
+        }
         resp = self.request_with_role('/review/create/123',
             method='POST', data=json.dumps(review))
         self.assertEqual(201, resp.status_code)
