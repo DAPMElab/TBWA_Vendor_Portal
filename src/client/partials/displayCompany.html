@@ -52,7 +52,9 @@
 
         <div class="col-md-7" style="padding: 20px; text-align:right">
             <div class="youtube" ng-repeat="videoUrl in selectedCompany.Company.Videos">
-                <iframe width="400" height="225" ng-src="{{ trustUrl(videoUrl) }}" frameborder="0" allowfullscreen></iframe>
+                <iframe ng-if="videoUrl.indexOf('youtube')!=-1" width="400" height="225" ng-src="{{ trustUrl(videoUrl) }}" frameborder="0" allowfullscreen></iframe>
+                <iframe ng-if="videoUrl.indexOf('vimeo')!=-1" ng-src="{{ trustUrl(videoUrl) }}" width="400" height="225" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
             </div>
         </div>
     </div>

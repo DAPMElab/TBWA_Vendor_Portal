@@ -1,4 +1,3 @@
-
 /*
  *  Controls the page where a company is edited
  */
@@ -81,6 +80,4 @@ angular.module('app.editCompany', [])
       $scope.nextVideo = "";
     }
   };
-
 });
-

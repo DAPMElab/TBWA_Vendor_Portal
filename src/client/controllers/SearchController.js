@@ -86,8 +86,14 @@ angular.module('myApp.controllers', [])
             .success( function(response) {
                 $scope.selectedCompany = response['data'];
                 $scope.selectedCompany.AverageReview = $scope.selectedCompany.Reviews.Sum / $scope.selectedCompany.Reviews.Messages.length;
+
                 for (var vidIndex in $scope.selectedCompany.Company.Videos) {
-                    $scope.selectedCompany.Company.Videos[vidIndex] = $scope.selectedCompany.Company.Videos[vidIndex].replace('watch?v=', 'embed/');
+                    var vidURL = $scope.selectedCompany.Company.Videos[vidIndex];
+                    if (vidURL.indexOf('youtube') != -1) {
+                        $scope.selectedCompany.Company.Videos[vidIndex] = vidURL.replace('watch?v=', 'embed/');
+                    } else if (vidURL.indexOf('vimeo') != -1) {
+                        $scope.selectedCompany.Company.Videos[vidIndex] = vidURL.replace('//vimeo.com/', '//player.vimeo.com/video/');
+                    }
                 }
             });
     };

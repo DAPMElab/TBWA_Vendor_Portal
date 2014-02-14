@@ -130,8 +130,8 @@
           placeholder="Description" ng-model="company.Description"></textarea>
       </div>
 
-      <!--Youtube Videos-->
-      <label for="video">Video (YouTube)</label>
+      <!-- Videos -->
+      <label for="video">Video (YouTube or Vimeo)</label>
       <div ng-repeat="video in company.Videos">
         <div class="input-group">
           <span class="input-group-btn">
@@ -142,7 +142,7 @@
             type="url"
             class="form-control"
             id="video"
-            placeholder="http://youtube.com/...">
+            placeholder="http://youtube.com/... OR http://vimeo.com/...">
         </div>
       </div>
       <div class="input-group">
@@ -154,7 +154,7 @@
           type="url"
           class="form-control"
           id="video"
-          placeholder="http://youtube.com/...">
+          placeholder="http://youtube.com/... OR http://vimeo.com/...">
       </div>
 
       <!-- Buttons, loads a partial declared in the controller  -->
