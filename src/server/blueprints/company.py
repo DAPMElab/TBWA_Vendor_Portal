@@ -156,33 +156,23 @@ def edit(uid):
     """ Updates all fields passed in on the company object """
     updated_company = request.get_json(cache=True)
 
-    #TODO: think about logging edits in the obj
     try:
         outcome = r.table(TABLE).get(uid).update(updated_company).run(g.rdb_conn)
-        if outcome['skipped']:
-            return make_error(err='COMPANY_NOT_FOUND')
-
         return make_response(json.dumps({
             'message'   : 'company updated'
         }), 200)
     except RqlRuntimeError:
-        return make_error(err='DATABASE_ERROR')
+        return make_error(err='COMPANY_NOT_FOUND')
 
 
 @company_bp.route('/delete/<uid>', methods=['DELETE'])
 @admin
 def delete(uid):
     """ Deletes a company object based on id """
-
     try:
         outcome = r.table(TABLE).get(uid).delete().run(g.rdb_conn)
-        if outcome['skipped']:
-            return make_error(err='COMPANY_NOT_FOUND')
-
         return make_response(json.dumps({
             'message'   : 'company deleted'
         }), 202)
-    except RqlRuntimeError:
-        return make_error(err='DATABASE_ERROR')
-
-
+    except RqlRuntimeError, e:
+        return make_error(err='COMPANY_NOT_FOUND')
