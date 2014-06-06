@@ -1,5 +1,9 @@
 
-#TBWA
+# TBWA Vendor Portal
+
+An app developed in the DAPME class for TBWA that is an interface to easily find, rate and review vendors.
+Companies are searchable by category as well as region.
+An admin interface allows approval of submitted reviews as well as editting of company information.
 
 ###Server API
 
